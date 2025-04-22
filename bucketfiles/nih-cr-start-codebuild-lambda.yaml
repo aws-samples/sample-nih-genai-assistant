@@ -1,0 +1,128 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deploy a Lambda function to execute a CodeBuild project and a custom resource to trigger the Lambda function
+
+Parameters:
+  CodeBuildProjectName:
+    Type: String
+    Default: nih-grants-lambda-codebuild
+    Description: Name of the CodeBuild project to be executed
+  NIHCFBUCKET:
+    Type: String
+    Description: Name of S3 bucket where the zip file containing the Lambda function code is located
+
+Resources:
+ 
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
+       
+
+
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      Role: !GetAtt LambdaRole.Arn
+      FunctionName: CBStarter-Lambdas
+      Description: Lambda CBStarter Lambdas
+      Handler: index.lambda_handler
+      Runtime: python3.12
+      MemorySize: 3008
+      Timeout: 450
+      Code:
+        ZipFile: |
+          import boto3
+          import cfnresponse
+
+          def lambda_handler(event, context):
+              try:
+                  print(f"Received event: json.dumps({event}, indent=2)")
+                  # Determine the event type
+                  event_type = event.get('RequestType')
+                  service_timeout = 300
+                  code_build_project_name = event.get('ResourceProperties', {}).get('CodeBuildProjectName')
+                  if event_type == 'Create':
+                      if code_build_project_name:
+                          codebuild = boto3.client('codebuild')
+                          print(f"Starting CodeBuild project: {code_build_project_name}")
+                          response = codebuild.start_build(
+                              projectName=code_build_project_name
+                          )
+                          print(f"CodeBuild project started: {response['build']['id']}")
+                          cfnresponse.send(event, context, cfnresponse.SUCCESS, {
+                              'CodeBuildProjectName': code_build_project_name,
+                              'Status': response['build']['buildStatus'],
+                              'ServiceTimeout': service_timeout
+                          }, f'CodeBuildProject-{code_build_project_name}')
+                          
+                      else:
+                          # Handle the case where CodeBuildProjectName is not provided
+                          cfnresponse.send(event, context, cfnresponse.FAILED, {}, reason="CodeBuildProjectName is required")
+                          
+
+                  elif event_type == 'Update':
+                      # Handle the 'Update' event
+                      # (similar to the 'Create' event)
+                      pass
+                  elif event_type == 'Delete':
+                      if code_build_project_name:
+                      # Handle the 'Delete' event
+                      # (e.g., perform any necessary cleanup or resource deletion)
+                          print("Handling the 'Delete' event")
+                                    
+                          # Return a successful response to CloudFormation
+                          cfnresponse.send(event, context, cfnresponse.SUCCESS, {}, f'CodeBuildProject-{code_build_project_name}')
+                      else:
+                          # Handle the case where CodeBuildProjectName is not provided
+                          print("CodeBuildProjectName is not provided for the 'Delete' event")
+                          cfnresponse.send(event, context, cfnresponse.FAILED, {
+                              'CodeBuildProjectName': code_build_project_name,
+                              'Status': 'FAILED',
+                              'ServiceTimeout': service_timeout
+                          }, f'CodeBuildProject-{code_build_project_name}')
+
+                  else:
+                      # Handle unexpected event types
+                      raise Exception(f"Unexpected event type: {event_type}")
+                      
+              except Exception as e:
+                          cfnresponse.send(event, context, cfnresponse.FAILED, {
+                              'CodeBuildProjectName': code_build_project_name,
+                              'Status': 'FAILED',
+                              'ServiceTimeout': service_timeout
+                          }, f'CodeBuildProject-{code_build_project_name}')
+                          print(f"Returning failure response: {response}")
+                          raise e
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: Auto 
+          
+  CustomResource:
+    Type: AWS::CloudFormation::CustomResource
+    Properties:
+      ServiceToken: !GetAtt LambdaFunction.Arn
+      ServiceTimeout: 900
+      CodeBuildProjectName: !Ref CodeBuildProjectName
+
+Outputs:
+  LambdaFunctionArn:
+    Description: The ARN of the created Lambda function
+    Value: !GetAtt LambdaFunction.Arn
+  CustomResourceStatus:
+    Description: Status of the custom resource execution
+    Value: !GetAtt CustomResource.Status

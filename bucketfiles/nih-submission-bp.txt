@@ -1,0 +1,342 @@
+
+
+NIH Grant Sections
+
+Project Summary/Abstract. The project summary is intended as a summary of the proposed activity suitable for public presentation or dissemination. It should contain a statement of objectives and methods to be employed, and should be written so as to be informative to other persons working in the same or related fields and, as much as possible, to a scientifically literate lay reader. Do not include any proprietary or confidential information in the project summary, as it will be available for public viewing. This section is meant to serve as a succinct and accurate description of the proposed work, when separated from the application. This section cannot be longer than 30 lines of text.
+
+Project Narrative. The project narrative is the second part of the project summary. It should address the relevance of the proposed research to public health in no more than two or three sentences. Write this section in plain language that can be understood by a lay audience.
+
+Specific Aims. List succinctly the broad, long-term objectives and the goal of the proposed research. For example, to test a stated hypothesis, create a novel design, solve a specific problem, challenge an existing paradigm or clinical practice, address a critical barrier to progress in the field, or develop new technology. This section is limited to one page.
+Research Strategy. Begin each of the following sections with a section header to assist reviewers. Do not use the numbers associated with these sections in the instructions, as your application may not include all the sections. Depending on the type of application you are submitting, you are allowed either 6 or 12 pages for this section.
+
+    Significance. Briefly sketch why this proposed research is significant. Identify gaps in current knowledge or practice which the project intends to fill. Does it address an important problem or critical barrier to progress in the field? If the aims of the project are achieved, how will scientific knowledge, technical capability, and/or clinical practice be improved? How will successful completion of the project’s aims change the concepts, technologies, treatments, services, or preventative interventions that drive this field? State concisely the importance and health relevance of the proposed research by relating the specific aims to the broad, long-term objectives.
+    Innovation. Does this proposed research challenge and seek to shift current research or clinical practice paradigms by using novel theoretical concepts, approaches, methodologies, instrumentation, or interventions? Are the concepts, etc., novel in only one field of research or in a broader sense? Does the work proposed include refinements, improvements, or new applications of theoretical concepts, approaches or methodologies, instrumentation, or interventions?
+    Approach. This is the old “Research Design and Methods” section. Describe the research design (briefly), and the conceptual or clinical framework, procedures, and analyses to be used to accomplish the project’s specific aims. Unless specified elsewhere, indicate how the data will be collected, analyzed, and interpreted, and any data-sharing plans, as appropriate. Describe any new methodology and its advantage(s) over existing techniques and practices. Describe any novel concepts, approaches, tools, or technologies proposed. Discuss the potential difficulties and limitations of the proposed procedures, and alternative approaches to circumvent such limitations where feasible. Provide a tentative sequence or timetable for the project. If any procedures, situations, or materials may be hazardous to personnel, point them out and describe the precautions that will be exercised.
+    Preliminary Studies (new). If this is a new proposal, provide an account of any preliminary studies done by the PD/PI that are relevant.
+    Progress Report (renewal/revision). If this is a renewal or a revision, provide the beginning and ending dates for the period covered since the project was last reviewed competitively. Summarize the previous application’s specific aims and the importance of the findings. Provide a succinct account of published and unpublished results, indicating progress toward their achievement. Discuss any changes in the specific aims as a result of budget reductions. A list of publications, manuscripts accepted for publication, patents, and other printed materials will be included in a separate section; do not include this information in the Research Strategy.
+
+
+Bibliography/References Cited.Provide a bibliography of any and all references cited in the research strategy. Each reference must include the names of all authors (in the same order in which they appear on the publication), the article and journal title, book title, volume number, page numbers (both starting and ending), and year of publication.
+
+If any of your own work was funded directly by an NIH grant or cooperative agreement active in fiscal year 2008 or beyond and was accepted for publication in a peer-reviewed journal on or after April 7, 2008, you must include the PubMed Central reference number (PMCID) at the end of any citation of such works in any subsequent proposals to the NIH. 
+
+Environment. 
+Information in this section is used to assess the adequacy of the organizational resources available to perform the proposed research. Identify the facilities to be used (laboratory, animal, computer, office, clinical, and other). If appropriate, indicate their capacities, pertinent capabilities, relative proximity and extent of availability to the project. Describe only those resources that are pertinent to the proposed research. Provide any information describing other resources available to the project (i.e., machine shops, electronics shops, etc.) and the extent to which they would be available to the project.
+
+Address how the research environment will contribute to the probability of success of the proposed research. Also note any unique features or resources that would contribute to the probable success of the research proposed. For an Early Stage Investigator, describe the institutional investment (start-up funding, course release, graduate assistants, etc.) in the success of the investigator.
+
+Equipment. List major items of equipment available for the project, together with their location and pertinent capabilities, if appropriate.
+
+PI Leadership Plan. The rationale for choosing a multiple PD/PI approach should be described. The governance and organization of the leadership team and the research project should be described, including communication plans, the process for making decisions on scientific direction, and procedures for resolving conflicts. The roles and administrative, technical, and scientific responsibilities for the project or program should be delineated for the PDs/PIs and for other collaborators. 
+
+Biographical Sketch. Use the sample format provided by NIH. Biographical sketches must be included for all senior/key personnel (PIs, co-PIs, and other significant contributors). Biographical sketches may not ordinarily exceed four pages per person, including the table at the top of the first page in the sample. Complete the educational block at the top of the page, and also sections A, B, C, and D:
+
+    Personal Statement. Briefly describe why your experience and qualifications make you particularly well-suited for your role in the project.
+    Positions and Honors. List in chronological order (this is different from NSF proposals) previous positions, concluding with your present position. List any honors. Include present membership on any public advisory committee to the federal government.
+    Publications. Do not include manuscripts submitted or in preparation (manuscripts in press are acceptable). For publicly available citations, URLs or PMCID numbers or submission identification numbers may accompany the full reference. (Note that the PMCID number is required for any publications subject to the public access requirement discussed in the References Cited section above.) NIH now requires that publications cited in biographical sketches be limited to 15: your five most recent, your five best, and the five most relevant to the proposed research. List publications in chronological order.
+    Research Support. List selected research projects (both ongoing and completed during the last three years, whether funded with federal or non-federal support). Begin with projects that are most relevant to the proposed research. Briefly indicate overall goals of the project(s) and responsibilities of the key person identified on the biographical sketch. Do not include number of person-months or direct costs. Don’t confuse this section with the Other Support (current and pending support) section. Current & pending information is not required at proposal stage, but will be requested if NIH anticipates making an award. The Research Support section in the biographical sketch is to highlight your accomplishments as a scientist, together with those of your colleagues.
+
+Budget. Budget section includes a Budget Justification narrative for the following:
+
+    Personnel – salaries/wages, time commitment and fringe benefits of PI, coPIs, senior associates, and graduate and undergrad researchers. See current fringe benefit rates
+    Consultant- consultants usually provide advice, but should not make decisions for the direction of the research. Typically, consultants will charge a fixed rate for their services that includes both their direct and F&A costs.
+    Equipment– an item of property with acquisition cost of $5,000 or more
+    Supplies
+    Travel – all foreign and domestic travel (airfare, transportation, lodging, food)
+    Patient Care Costs – costs of routine and ancillary services provided by hospitals to individuals participating in research programs
+    Other Direct Costs –publication costs,
+    Consortium/Contractual Costs – amount should include the consortium institutions F&A
+    Indirect costs – presently calculated at 49.5% of salary/wages (check current and upcoming F&A rates)
+    Total Directs
+
+
+
+
+
+
+
+Write Your Application
+
+The following guidance may assist you in developing a strong application that allows reviewers to better evaluate the science and merit of your proposal. This page provides tips for demonstrating to reviewers and NIH staff the high quality of the personnel involved in your project and documenting resources and institutional support of the project. We provide information for new investigators and foreign applicants, as well.
+
+Though the advice provided is relevant for all research grants, it is general in nature and geared toward the NIH Research Project (R01). The tips should not replace your organization's internal guidance, specific advice provided by NIH program or grants management staff, or instructions found in the funding opportunity or application guide.
+
+What Peer Reviewers Look For
+
+Careful preparation and an understanding of how your application will be reviewed can help you build a solid application. During NIH’s peer review process, we convene a panel of non-Federal scientists to review your application. Although a number of factors contribute to whether your application will be funded, we place great emphasis on the review of scientific merit. The following sections describe the criteria reviewers employ to evaluate applications. Read them carefully for helpful hints on the information and content you should include in the application to garner a favorable evaluation.
+Overall Impact
+
+Reviewers will provide an overall impact score to reflect their assessment of the likelihood for the project to exert a sustained, powerful influence on the research field(s) involved, in consideration of the following review criteria, and additional review criteria (as applicable for the project proposed). 
+Scored Review Criteria
+
+Reviewers will consider each of the review criteria below in the determination of scientific and technical merit, and give a separate score for each. An application does not need to be strong in all categories to be judged likely to have major scientific impact. For example, a project that by its nature is not innovative may be essential to advance a field. 
+
+Significance. Does the project address an important problem or a critical barrier to progress in the field? Is there a strong scientific premise for the project? If the aims of the project are achieved, how will scientific knowledge, technical capability, and/or clinical practice be improved? How will successful completion of the aims change the concepts, methods, technologies, treatments, services, or preventative interventions that drive this field? 
+
+Investigator(s). Are the PD/PIs, collaborators, and other researchers well suited to the project? If Early Stage Investigators or New Investigators, or in the early stages of independent careers, do they have appropriate experience and training? If established, have they demonstrated an ongoing record of accomplishments that have advanced their field(s)? If the project is collaborative or multi-PD/PI, do the investigators have complementary and integrated expertise; are their leadership approach, governance and organizational structure appropriate for the project?
+
+Innovation. Does the application challenge and seek to shift current research or clinical practice paradigms by utilizing novel theoretical concepts, approaches or methodologies, instrumentation, or interventions? Are the concepts, approaches or methodologies, instrumentation, or interventions novel to one field of research or novel in a broad sense? Is a refinement, improvement, or new application of theoretical concepts, approaches or methodologies, instrumentation, or interventions proposed?
+
+Approach. Are the overall strategy, methodology, and analyses well-reasoned and appropriate to accomplish the specific aims of the project? Have the investigators presented strategies to ensure a robust and unbiased approach, as appropriate for the work proposed? Are potential problems, alternative strategies, and benchmarks for success presented? If the project is in the early stages of development, will the strategy establish feasibility and will particularly risky aspects be managed? Have the investigators presented adequate plans to address relevant biological variables, such as sex, for studies in vertebrate animals or human subjects? If the project involves clinical research, are the plans for 1) protection of human subjects from research risks, and 2) inclusion (or exclusion) of individuals on the basis of sex/gender, race, and ethnicity, as well as the inclusion or exclusion of individuals of all ages (including children and older adults), justified in terms of the scientific goals and research strategy proposed?
+
+Environment. Will the scientific environment in which the work will be done contribute to the probability of success? Are the institutional support, equipment and other physical resources available to the investigators adequate for the project proposed? Will the project benefit from unique features of the scientific environment, subject populations, or collaborative arrangements? 
+
+Note that an application does not need to be strong in all categories to be judged likely to have major scientific impact. For example, a project that by its nature is not innovative may be essential to advance a field.
+
+Learn more about how applications are scored.
+Additional Review Criteria
+
+As applicable for the project proposed, reviewers will evaluate the following additional items while determining scientific and technical merit and in providing an overall impact score, but will not give separate scores for these items. 
+
+    Protections for Human Subjects
+    Inclusion of Women, Minorities, and Individuals Across the Lifespan
+    Vertebrate Animals
+    Biohazards
+    Resubmission
+    Renewal
+    Revision
+
+Be sure to address any of these additional review criteria that apply to your application, as reviewers will consider them when assigning overall impact/priority scores. 
+
+Additional Review Considerations
+
+As applicable for the project proposed, reviewers will consider each of the following items, but will not give scores for these items and should not consider them in providing an overall impact score. 
+
+    Applications from Foreign Organizations
+    Select Agent
+    Resource Sharing Plans
+    Authentication of Key Biological and/or Chemical Resources
+    Budget and Period Support
+
+
+     +
+
+Write Your Application
+
+The following guidance may assist you in developing a strong application that allows reviewers to better evaluate the science and merit of your proposal. This page provides tips for demonstrating to reviewers and NIH staff the high quality of the personnel involved in your project and documenting resources and institutional support of the project. We provide information for new investigators and foreign applicants, as well.
+
+Though the advice provided is relevant for all research grants, it is general in nature and geared toward the NIH Research Project (R01). The tips should not replace your organization's internal guidance, specific advice provided by NIH program or grants management staff, or instructions found in the funding opportunity or application guide.
+Before You Start Writing: 	
+
+ 
+
+    Find a Funding Opportunity and Related Application Forms        
+    Plan Your Application
+     
+
+
+On This Page:
+
+    Where to Find Instructions for Writing Your Application
+    What Peer Reviewers Look For
+    Research Resources, Institutional Support and Available Expertise  
+    Cover Letter & Assignment Request Form
+    Are You a New or Early Stage Investigator
+    Foreign Involvement: Institution and/or Investigator
+    Develop Your Budget
+    Your Research Plan
+    Additional Elements Required in a Grant Application
+    Important Writing Tips
+
+What to Know Before You Start Writing
+Where to Find Application Instructions
+
+    Application forms are posted with each funding opportunity. General application form instructions are found on the How to Apply - Application Guide page.
+        In addition to form-by-form, field-by-field instructions you'll find guidance on formatting attachments (fonts, margins, etc., developing a budget, and more.
+    Section IV. Application and Submission Information of each funding opportunity includes opportunity-specific instructions.
+    Notices posted in the NIH Guide for Grants & Contracts may contain corrections, clarifications, or announcement of new policies.
+
+If instructions in the application guide and funding opportunity conflict, the opportunity wins. If instructions in either the application guide or funding opportunity conflict with an NIH Guide notice (including a Notice of Special Interest), the notice wins. 
+
+ 
+What Peer Reviewers Look For
+Alert: For due dates on or after Jan. 25, 2025 - changes are coming to how most research grant applications will be reviewed.  Learn about the new simplified review framework.
+
+Careful preparation and an understanding of how your application will be reviewed can help you build a solid application. During NIH’s peer review process, we convene a panel of non-Federal scientists to review your application. Although a number of factors contribute to whether your application will be funded, we place great emphasis on the review of scientific merit. The following sections describe the criteria reviewers employ to evaluate applications. Read them carefully for helpful hints on the information and content you should include in the application to garner a favorable evaluation.
+Overall Impact
+
+Reviewers will provide an overall impact score to reflect their assessment of the likelihood for the project to exert a sustained, powerful influence on the research field(s) involved, in consideration of the following review criteria, and additional review criteria (as applicable for the project proposed). 
+Scored Review Criteria
+
+Reviewers will consider each of the review criteria below in the determination of scientific and technical merit, and give a separate score for each. An application does not need to be strong in all categories to be judged likely to have major scientific impact. For example, a project that by its nature is not innovative may be essential to advance a field. 
+
+Significance. Does the project address an important problem or a critical barrier to progress in the field? Is there a strong scientific premise for the project? If the aims of the project are achieved, how will scientific knowledge, technical capability, and/or clinical practice be improved? How will successful completion of the aims change the concepts, methods, technologies, treatments, services, or preventative interventions that drive this field? 
+
+Investigator(s). Are the PD/PIs, collaborators, and other researchers well suited to the project? If Early Stage Investigators or New Investigators, or in the early stages of independent careers, do they have appropriate experience and training? If established, have they demonstrated an ongoing record of accomplishments that have advanced their field(s)? If the project is collaborative or multi-PD/PI, do the investigators have complementary and integrated expertise; are their leadership approach, governance and organizational structure appropriate for the project?
+
+Innovation. Does the application challenge and seek to shift current research or clinical practice paradigms by utilizing novel theoretical concepts, approaches or methodologies, instrumentation, or interventions? Are the concepts, approaches or methodologies, instrumentation, or interventions novel to one field of research or novel in a broad sense? Is a refinement, improvement, or new application of theoretical concepts, approaches or methodologies, instrumentation, or interventions proposed?
+
+Approach. Are the overall strategy, methodology, and analyses well-reasoned and appropriate to accomplish the specific aims of the project? Have the investigators presented strategies to ensure a robust and unbiased approach, as appropriate for the work proposed? Are potential problems, alternative strategies, and benchmarks for success presented? If the project is in the early stages of development, will the strategy establish feasibility and will particularly risky aspects be managed? Have the investigators presented adequate plans to address relevant biological variables, such as sex, for studies in vertebrate animals or human subjects? If the project involves clinical research, are the plans for 1) protection of human subjects from research risks, and 2) inclusion (or exclusion) of individuals on the basis of sex/gender, race, and ethnicity, as well as the inclusion or exclusion of individuals of all ages (including children and older adults), justified in terms of the scientific goals and research strategy proposed?
+
+Environment. Will the scientific environment in which the work will be done contribute to the probability of success? Are the institutional support, equipment and other physical resources available to the investigators adequate for the project proposed? Will the project benefit from unique features of the scientific environment, subject populations, or collaborative arrangements? 
+
+Note that an application does not need to be strong in all categories to be judged likely to have major scientific impact. For example, a project that by its nature is not innovative may be essential to advance a field.
+
+Learn more about how applications are scored.
+Additional Review Criteria
+
+As applicable for the project proposed, reviewers will evaluate the following additional items while determining scientific and technical merit and in providing an overall impact score, but will not give separate scores for these items. 
+
+    Protections for Human Subjects
+    Inclusion of Women, Minorities, and Individuals Across the Lifespan
+    Vertebrate Animals
+    Biohazards
+    Resubmission
+    Renewal
+    Revision
+
+Be sure to address any of these additional review criteria that apply to your application, as reviewers will consider them when assigning overall impact/priority scores. 
+Note: These are general review criteria for evaluating unsolicited research project grant applications. NRSA fellowship award, career development award, and specific funding opportunities may have different or additional special review criteria. Applicants should look in the funding opportunity to which they are applying and familiarize themselves with the review criteria by which their application will be evaluated.
+Additional Review Considerations
+
+As applicable for the project proposed, reviewers will consider each of the following items, but will not give scores for these items and should not consider them in providing an overall impact score. 
+
+    Applications from Foreign Organizations
+    Select Agent
+    Resource Sharing Plans
+    Authentication of Key Biological and/or Chemical Resources
+    Budget and Period Support
+
+Note: Certain funding opportunities that are published in the NIH Guide for Grants and Contracts may list additional elements under each of the above criteria related to the specific requirement of the funding opportunity.
+
+Learn more about how applications are reviewed and scored on our peer review process page.
+
+ 
+Research Resources, Institutional Support and Available Expertise
+
+Sufficient information must be included to demonstrate to reviewers and NIH staff the high quality of the PD/PI, the co-investigators, available research resources, and the applicant institution and its support of the project.
+Resources
+
+Applicants should clearly state that they have the appropriate resources to conduct the research, such as adequate equipment and laboratory space. When possible, include letters of commitment for these resources.
+
+    Understand the level of resources needed to compete.
+    Conduct an organizational assessment.
+    Determine what resources and support your organization has and what additional support you'll need.
+    Consider whether the available equipment and facilities are adequate and whether the environment is conducive to the research.
+
+Independence and Institutional Support
+
+This is important for all investigators, but particularly for new and early stage investigators or those who are early in their independent careers:
+
+    Provide reviewers evidence that you have the appropriate experience and training to lead and manage the research project.
+    Letters of reference and institutional commitment are important.
+    Mention any start-up funds, support for a technician, etc. This is a positive indicator of institutional commitment to the peer reviewers.
+
+Collaborators and Consultants
+
+Determine the expertise needed for your research study team (individuals, collaborating organizations, resources, etc.). Most scientific work requires collaboration among researchers, and NIH is dedicated to fostering such relationships.
+
+    Include letters of commitment in your application that clearly spell out the roles of the collaborators. The grant application should contain a signed letter from each collaborator to the applicant that lists the contribution he or she intends to make and his or her commitment to the work. These letters are often the primary assurance the reviewers have that this work will in fact be done.
+    For consultants, letters should include rate/charge for consulting services.
+    If you are planning to apply with multiple-principal investigators, then take the following into consideration:
+        The format, peer review and administration of applications submitted with multiple PIs do have some significant differences from the traditional single-PI application. Therefore, it is essential to consider all aspects of the funding mechanism before applying, regardless of the type of research proposal to be submitted.
+        All applicants proposing team science efforts are strongly encouraged to contact their NIH program officials at the earliest possible date to discuss the appropriateness submitting with multiple-PIs for the support of their research.
+
+Develop Your Budget
+
+This step will be one of your most time-consuming in the writing process. 
+
+    Know what type of budget will be required to submit with your application (found in your funding opportunity).
+    Understand the various components of the budget, working with your institution’s central grants office and department administrator.
+    Contact NIH program officials regarding allowability and other budgetary questions.
+    For more information, see Develop Your Budget.
+
+Your Research Plan
+
+The research plan describes the proposed research, stating its significance and how it will be conducted. Remember, your application has two audiences: the majority of reviewers who will probably not be familiar with your techniques or field and a smaller number who will be familiar.
+
+    All reviewers are important to you because each reviewer gets one vote.
+        To succeed in peer review, you must win over the assigned reviewers . They act as your advocates in guiding the review panel's discussion of your application.
+        Write and organize your application so the primary reviewer can readily grasp and explain what you are proposing and advocate for your application.
+        Appeal to the reviewers and the funding ICs by using language that stresses the significance of your proposed work.
+
+Additional Elements Required in a Grant Application
+
+The following elements need to be included in the grant application as appropriate. Unless stated, these elements do not influence the rating (priority score) of the application. However, the reviewers are asked to comment on the adequacy of the information provided for each element. Any concerns the reviewers identify may negatively affect and postpone the granting of an award.  
+
+    Bibliography & References Cited 
+    Provide a bibliography of any references cited in the Research Plan. Each reference must include the names of all authors (in the same sequence in which they appear in the publication; you can use “et al.” convention in place of listing all authors in a citation), the article and journal title, book title, volume number, page numbers, and year of publication. Make sure that only bibliographic citations are included. Be especially careful to follow scholarly practices in providing citations for source materials relied upon when preparing any section of the application.
+     
+    Care and Use of Vertebrate Animals in Research 
+    If you are planning to use live vertebrate animals in the project, you must adhere to the requirements in the Public Health Service (PHS) Policy on Humane Care and Use of Laboratory Animals (Policy): HTML Version and PDF Version. For an overview of what is required in your application and detailed instructions, see the Vertebrate Animals Section webpage. Additional information can be found at:
+        Office of Laboratory Animal Welfare
+        PHS Policy Tutorial
+        What Investigators Need to Know About the Use of Animals (PDF)
+        Interactive training module: Vertebrate Animals Section (VAS) in Grant Applications
+        NIAID's tutorial: Requirement for Grantees Using Research Animals
+         
+    Consortium/Contractual Arrangements
+    Explain the programmatic, fiscal, and administrative arrangements to be made between the applicant organization and the consortium organization(s).
+     
+    Consultants and Collaborators
+    Attach appropriate letters from all consultants and collaborators confirming their roles in the project. For consultants, letters should include rate/charge for consulting services.
+     
+    Facilities & Other Resources 
+    This information is used to assess the capability of the organizational resources available to perform the effort proposed. Identify the facilities to be used (Laboratory, Animal, Computer, Office, Clinical and Other). If appropriate, indicate their capacities, pertinent capabilities, relative proximity and extent of availability to the project. Describe only those resources that are directly applicable to the proposed work.
+     
+    Inclusion of Women, Minorities, and Individuals Across the Lifespan in Research
+    Peer reviewers will also assess the adequacy of plans to include subjects from both genders, all racial and ethnic groups (and subgroups), and individuals across the lifespan, as appropriate, for the scientific goals of the research will be assessed. Plans for the recruitment and retention of subjects will also be evaluated. Check out the Inclusion Policies for Research Involving Human Subjects, which includes resources for Inclusion of Women and Minorities and Inclusion Across the Lifespan.
+     
+    Multiple PD/PI 
+    For applications designating multiple PDs/PIs, you must include a leadership plan.
+     
+    Other Plans(s)
+    Applicants proposing to conduct research that will generate scientific data are subject to the NIH Data Management and Sharing (DMS) Policy and must attach a DMS Plan in this section. Note that applicants whose project also falls under NIH’s Genomic Data Sharing (GDS) Policy are expected to provide a single plan that covers the sharing of both scientific data and genomic data. See NIH’s DMS and GDS policies on the NIH Sharing website.
+     
+    Page Limits
+    Follow the page limits specified for the attachments in your grant application, unless otherwise specified in the funding opportunity.
+     
+    Plan for Enhancing Diverse Perspectives
+    When applicable, the Plan for Enhancing Diverse Perspectives (PEDP) in NIH grant applications is a summary of actionable strategies to advance the scientific merit of the proposed project through diverse perspectives. Learn more about example strategies and how the plans will be reviewed on the PEDP page. 
+     
+    Protection of Human Subjects from Research Risk 
+    Applicants must assure NIH that all human subjects are protected. Reviewers will assess the potential risk to human subjects in proposed research and evaluate what protections are in place to guard against any research-related risk. Awards cannot be made until assurances are on file with the Office for Human Research Protections (OHRP). Decision charts are presented that are helpful in thinking through relevant human subject protections issues (see http://www.hhs.gov/ohrp/policy/checklists/decisioncharts.html).
+     
+    Resource Sharing Plan(s) 
+    This section includes the Model Organisms Sharing plan when applicable. See NIH’s Model Organisms Sharing Policy.
+     
+    Select Agents 
+    Identify any select agents to be used in the proposed research. Select agents are hazardous biological agents and toxins that HHS or USDA have identified as having the potential to pose a severe threat to public health and safety, to animal and plant health, or to animal and plant products. CDC maintains a list of HHS and USDA Select Agents and Toxins.
+     
+    Use of Internet Sites 
+    NIH instituted a policy that prohibits the use of World Wide Web addresses (URLs) in grant applications in the place of text describing the same material. This is because of the potential for providing a large amount of extra material from a Web site beyond what would fit in the page limit, and thereby giving an unfair advantage to some applicants and a large additional burden for reviewers.
+
+Important Writing Tips
+
+You’ve planned, you’ve researched, you understand the application…now it’s time to write.  A well-written, well formatted application is an important key to success.  Remember the details when formatting attachments! 
+
+Before you start writing the application, think about the budget and how it is related to your research plan. Remember that everything in the budget must be justified by the work you've proposed to do.
+Be realistic. Don't propose more work than can be reasonably done during the proposed project period. Make sure that the personnel have appropriate scientific expertise and training. Make sure that the budget is reasonable and well-justified.
+
+Start with an outline, following the suggested organization of the application. The thought process of the application should be easy to follow. 
+
+Note:  Upon submission, NIH Systems will automatically add: headers, footers (time stamping, tracking number, funding opportunity number, and page numbers). Therefore, do not include headers or footers.
+
+    Write clear headings.
+    Use sub-headings, short paragraphs, and other techniques to make the application as easy to navigate as possible. Be specific and informative, and avoid redundancies.
+    Bookmark major sections.
+    Use diagrams, figures and tables, and include appropriate legends, to assist the reviewers to understand complex information. These should complement the text and be appropriately inserted. Make sure the figures and labels are readable in the size they will appear in the application.
+    Use bullets and numbered lists for effective organization. Indents and bold print add readability. Bolding highlights key concepts and allows reviewers to scan the pages and retrieve information quickly.
+    Utilize white space effectively.
+
+    Write a clear topic sentence for each paragraph with one main point or idea.  This is key for readability.
+    Make your points as direct as possible. Avoid jargon or excessive language.
+    Write simple and clear sentences, keeping to about 20 words or less in each.
+    Be consistent with terms, references and writing style.
+    Use the active, rather than passive, voice. For example, write "We will develop an experiment, "not "An experiment will be developed."
+    Spell out all acronyms on first reference.
+    If writing is not your forte, seek help!
+
+    Include enough background information to enable an intelligent reader to understand your proposed work.
+    Support your idea with collaborators who have expertise that benefits the project.
+
+    Have zero tolerance for typographical errors, misspellings, grammatical mistakes or sloppy formatting. A sloppy or disorganized application may lead the reviewers to conclude that your research may be conducted in the same manner.
+    Remember the Details!   There are format requirements, such as font size, margins, and spacing.  Make sure you are familiar with them before submitting your application and label sections as directed.  You don’t want your application delayed because any of these details are not incorporated.
+    If more than one investigator is contributing to the writing, it would be helpful to have one editor not only review for punctuation errors, but ensure that the application has a consistent writing style.
+
+    Request your colleagues or mentors review a first draft of your specific aims early in the process. This step can save lots of valuable time.
+    Allow time for an internal review by collaborators, colleagues, mentors and make revisions/edits from that review. If possible, have both experts in your field and those who are less familiar with your science provide feedback.
+    Ask those who are providing a review to use a critical eye and evaluate the application using the peer review criteria
+    Allow sufficient time to put the completed application aside, and then read it from a fresh vantage point yourself. Also, try proofreading by reading the application aloud.
+    Conduct your own review based on the NIH's five peer review criteria.  How would you rate your own application?
+    Prior to submission, look over the entire grant application one final time. Remember, you want a convincing proposal that is also formatted according to the application guidelines, punctuation error-free, clear to read, and is to the point!

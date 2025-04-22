@@ -1,0 +1,166 @@
+Develop Your Budget
+As you begin to develop a budget for your research grant application and put all of the relevant costs down on paper, many questions may arise. Your best resources for answering these questions are the grants or sponsored programs office within your own institution, your departmental administrative officials, and your peers. They can answer questions such as:
+
+    What should be considered a direct cost or indirect cost?
+    What is the fringe benefit rate?
+    What is the graduate student stipend rate?
+    What Facilities and Administrative (F&A) costs rate should I use?
+
+Below are some additional tips and reminders we have found to be helpful for preparing a research grant application, mainly geared towards the SF424 (R&R) application. (Note: these tips do not supersede the budget instructions found in the relevant application instruction guide found on the How to Apply - Application Guide page.
+
+ 
+Cost Considerations
+
+An applicant's budget request is reviewed for compliance with the governing cost principles and other requirements and policies applicable to the type of recipient and the type of award. Any resulting award will include a budget that is consistent with these requirements.
+Information on the applicable cost principles and on allowable and unallowable costs under NIH grants is provided in the NIH Grants Policy Statement, Section 7.2 The Cost Principles Statement under Cost Considerations /grants/policy/nihgps/HTML5/section_7/7_cost_consideration.htm. In general, NIH grant awards provide for reimbursement of actual, allowable costs incurred and are subject to Federal cost principles /grants/policy/nihgps/HTML5/section_7/7.2_the_cost_principles.htm.
+
+The cost principles address four tests that NIH follows in determining the allowability of costs. Costs charged to awards must be allowable, allocable, reasonable, necessary, and consistently applied regardless of the source of funds. NIH may disallow the costs if it determines, through audit or otherwise, that the costs do not meet the tests of allowability, allocability, reasonableness, necessity, and consistency.
+
+ 
+Budgets: Getting Started
+
+    Know your limits! Carefully read the funding opportunity for budget criteria. You should look for limits on the types of expenses (e.g. no construction allowed), spending caps on certain expenses (e.g. travel limited to $10,000), and overall funding limits (e.g. total costs cannot exceed $300,000 per year). Relevant funding opportunity sections include:
+        II.1 (Mechanism of Support),
+        II.2 (Funds Available),
+        III.2 (Cost Sharing or Matching), and
+        IV.5 (Funding Restrictions).
+    Identify all the costs that are necessary and reasonable to complete the work described in your proposal.
+    Throughout the budgeting process, round to whole dollars and use only U.S. dollars.
+    The best strategy is to request a reasonable of amount money to do the work, not more and not less because:
+        Reviewers look for reasonable costs and will judge whether your request is justified by your aims and methods.
+        Reviewers will consider the person months you've listed for each of the senior/key personnel and will judge whether the figures are in sync with reviewer expectations, based on the research proposed.
+        Significant over- or under-estimating suggests you may not understand the scope of the work. Despite popular myth, proposing a cost-sharing (matching) arrangement where you only request that NIH support some of the funding while your organization funds the remainder does not normally impact the evaluation of your proposal. Only a few select programs require cost-sharing, and these programs will address cost-sharing in the funding opportunity.
+
+ 
+What is the difference between allowable direct costs and allowable facilities & administrative (F&A) costs?
+
+Direct Costs: Costs that can be identified specifically with a particular sponsored project, an instructional activity, or any other institutional activity, or that can be directly assigned to such activities relatively easily with a high degree of accuracy.
+
+F&A Costs: Necessary costs incurred by a recipient for a common or joint purpose benefitting more than one cost objective, and not readily assignable to the cost objectives specifically benefitted, without effort disproportionate to the results achieved. To facilitate equitable distribution of indirect expenses to the cost objectives served, it may be necessary to establish a number of pools of F&A (indirect) costs. F&A (indirect) cost pools must be distributed to benefitted cost objectives on bases that will produce an equitable result in consideration of relative benefits derived.
+
+    The total costs requested in your budget will include allowable direct costs (related to the performance of the grant) plus allowable F&A costs. If awarded, each budget period of the Notice of Award will reflect direct costs, applicable F&A, and in the case of SBIR or STTR awards, a "profit" or fee.
+    F&A costs are determined by applying your organization's negotiated F&A rate to your direct cost base. Most educational, hospital, or non-profit organizations have negotiated their rates with other Federal (cognizant) agencies such as the Department of Health and Human Services or the Office of Naval Research. If you are a for-profit organization, the F&A costs are negotiated by the Division of Cost Allocation (DCA) Link to External Site, Division of Financial Advisory Services (DFAS) Link to External Site in the Office of Acquisition Management and Policy Link to External Site, NIH.
+    What is your direct cost base?
+        For most institutions the negotiated F&A rate will use a modified total direct cost base, which excludes items such as: equipment, student tuition, research patient care costs, rent, and sub-recipient charges (after the first $25,000). Check with your sponsored programs office to find out your negotiated direct cost base.
+        When calculating whether your direct cost per year is $500,000 or greater, do not include any sub-recipient F&A in the base but do include all other direct costs as well as any equipment costs.   NOTE:  Direct cost requests equal to or greater than $500,000 require prior approval from the NIH Institute/Center before application submission.  For more information, see NIH Guide Notice NOT-OD-02-004.
+        For many SBIR/STTR recipients, 40% of modified total direct costs is a common F&A rate, although rates at organizations may vary.
+
+ 
+Modular versus Detailed Budgets
+
+The NIH uses 2 different formats for budget submission depending on the total direct costs requested and the activity code used. 
+
+The application forms package associated with most NIH funding opportunities includes two optional budget forms—(1) R&R Budget Form; and, (2) PHS 398 Modular Budget Form. NIH applications will include either the R&R Budget Form or the PHS 398 Modular Budget Form, but not both. To determine whether to use a detailed versus modular budget for your NIH application, see the flowchart below.
+
+Detailed Modular Flowchart
+
+ 
+Modular Budgets
+
+NIH uses a modular budget format to request up to a total of $250,000 of direct costs per year (in modules of $25,000, excluding consortium F&A costs) for some applications, rather than requiring a full detailed budget.
+
+The modular budget format is NOT accepted for​​
+
+    ​SBIR and STTR grant applications,
+    applications from foreign (non-U.S.) institutions (must use detailed budget even when modular option is available), or
+    applications that propose the use of human fetal tissue (HFT) obtained from elective abortions (as defined in NOT-OD-19-128 for HFT) whether or not costs are incurred.
+
+Creating a modular budget
+
+    Select the PHS398 Modular Budget form for your submission package, and use the appropriate set of instructions from the electronic application user's guide. You do not need to submit the SF424 (R&R) Budget form if you submit the PHS398 Modular Budget form.
+    Consider creating a detailed budget for your own institution's use including salaries, equipment, supplies, graduate student tuition, etc. for every year of funds requested. While the NIH will not ask for these details, they are important for you to have on hand when calculating your F&A costs base and writing your justification, and for audit purposes.
+    In order to determine how many modules you should request, subtract any consortium F&A from the total direct costs, and then round to the nearest $25,000 increment.
+
+A modular budget justification should include:
+
+    Personnel Justification: The Personnel Justification should include the name, role, and number of person-months devoted to this project for every person on the project. Do not include salary and fringe benefit rate in the justification, but keep in mind the legislatively mandated salary cap when calculating your budget. [When preparing a modular budget, you are instructed to use the current cap when determining the appropriate number of modules.] 
+    Consortium Justification: If you have a consortium/subcontract, include the total costs (direct costs plus F&A costs), rounded to the nearest $1,000, for each consortium/subcontract. Additionally, any personnel should include their roles and person months; if the consortium is foreign, that should be stated as well.
+    Additional Narrative Justification: Additional justification should include explanations for any variations in the number of modules requested annually. Also, this section should describe any direct costs that were excluded from the total direct costs (such as equipment, tuition remission) and any work being conducted off-site, especially if it involves a foreign study site or an off-site F&A rate.
+
+​See the NIH Modular Research Grant Applications page and the NIH Grants Policy Statement for more information. 
+
+ 
+Detailed Budget: Personnel (Sections A & B)
+
+Personnel make up sections A and B of the SF424 (R&R) Budget form. All personnel from the applicant organization dedicating effort to the project should be listed on the personnel budget with their base salary and effort, even if they are not requesting salary support.
+
+    Effort: Effort must be reported in person months. For help converting percent effort to person months, see Usage of Person Months FAQs.
+     
+    Salary Caps: NIH will not pay requested salary above the annual salary cap, which can be found at Salary Cap Summary. If salary is requested above the salary cap, NIH will reduce that line item to the salary cap, resulting in a reduced total award amount. In future years, if the salary cap increases, recipients may rebudget to pay investigator salaries up to the new salary cap, but NIH will not increase the total award amount. If you are preparing a detailed budget, you are instructed to base your request on actual institutional base salaries (not the cap) so that NIH staff has the most current information in hand at the time of award and can apply the appropriate salary cap at that time.
+    Fringe Benefits: The fringe benefits rate is based on your institution's policy; the NIH does not have a pre-set limit on fringe benefits. More information on what is included as fringe benefits can be found in the Grants Policy Statement at /grants/policy/nihgps/HTML5/section_12/12.8.1_salaries_and_fringe_benefits.htm. If you have questions about what rate to use, consult your institution's sponsored programs office.
+     
+    Senior/Key Personnel: The Senior/Key Personnel section should include any senior or key personnel from the applicant organization who are dedicating effort to this project. "Other Significant Contributors" who dedicate negligible effort should not be included. Some common significant contributors include: 1) CEOs of companies who provide overall leadership, but no direct contribution to the research; and 2) mentors for K awardees, who provide advice and guidance to the candidate but do not work on the project. Likewise, any consultants or collaborators who are not employed by the applicant organization should not be included in section A, but rather should be included in section F.3 of the budget (for consultants) or in section A of the consortium/subaward budget page (for collaborators).
+     
+    Postdoctoral Associates: Postdocs can be listed in either section A or B depending on their level of involvement in project design and execution. If listed in section B, include the individuals' names and level of effort in the budget justification section.
+     
+    Graduate Students: Graduate students can be listed in either section A or B, but if listed in section B, include the individuals' names and level of effort in the budget justification section. Tuition remission is included in section F.8 (not section A), but is included in the graduate student compensation limits. For more about the graduate student compensation limit, see: /grants/guide/notice-files/NOT-OD-02-017.html. For current NRSA stipend levels, see the NRSA help page at: https://researchtraining.nih.gov Link to External Site.
+     
+    Other Personnel: Other personnel can be listed by project role. If multiple people share the same role such as "lab technician", indicate the number of personnel to the left of the role description, add their person months together, and add their requested salaries together. The salaries of secretarial/clerical staff should normally be treated as F&A costs. Direct charging of these costs may be appropriate where a major project or activity explicitly budgets for administrative or clerical services and individuals involved can be specifically identified with the project or activity [see Exhibit C of OMB Circular A-21 (relocated to 2 CFR, Part 220)]. Be specific in your budget justifications when describing other personnel's roles and responsibilities.
+
+ 
+Detailed Budget: Equipment, Travel, and Trainee Costs (Sections C, D, and E)
+
+    Equipment: Equipment is defined as an item of property that has an acquisition cost of $5,000 or more (unless the organization has established lower levels) and an expected service life of more than one year. Tips:
+        Generally equipment is excluded from the F&A base, so if you have something with a short service life (< 1 year), even if it costs more than $5,000, you are better off including it under "supplies".
+        If you request equipment that is already available (listed in the Facilities & Other Resources section, for example), the narrative justification must explain why the current equipment is insufficient to accomplish the proposed research and how the new equipment's use will be allocated specifically to the proposed research. Otherwise, NIH may disallow this cost.
+        General purpose equipment, such as desktop computers and laptops, that will be used on multiple projects or for personal use should not be listed as a direct cost but should come out of the F&A costs, unless primarily or exclusively used in the actual conduct of the proposed scientific research.
+        While the application does not require you to have a price quote for new equipment, including price quotes in your budget justification can aid in the evaluation of the equipment cost to support the project.
+    Travel: In the budget justification, include the destination, number of people traveling and dates or duration of your stay for all anticipated travel. As with the equipment justification, it is important that you clearly state how the travel is directly related to your proposed research (e.g. you can go to a conference to present your research, but not just for the purpose of "staying current in your field"). You should refer to your institution's travel policy for guidance on how you should arrange the travel, but if your institution lacks a policy, it is expected that you will follow the U.S. federal government policy found here: http://www.gsa.gov/federaltravelregulation Link to External Site.
+     
+    Trainee Costs: Leave this section blank unless otherwise stated in the funding opportunity. Graduate student tuition remission can be entered in section F.8.
+
+ 
+Detailed Budget: Other Direct Costs (Section F)
+
+    Materials and Supplies: In the budget justification, indicate general categories such as glassware, chemicals, animal costs, including an amount for each category. Categories that include costs less than $1,000 do not have to be itemized.
+     
+    Animal Costs: While included under "materials and supplies", it is often helpful to include more specific details about how you developed your estimate for animal costs. Include the number of animals you expect to use, the purchase price for the animals (if you need to purchase any), and your animal facility's per diem care rate, if available.  Details are especially helpful if your animal care costs are unusually large or small. For example, if you plan to follow your animals for an abnormally long time period and do not include per diem rates, the reviewers may think you have budgeted too much for animal costs and may recommend a budget cut.
+     
+    Publication Costs: You may include the costs associated with helping you disseminate your research findings from the proposed research. If this is a new application, you may want to delay publication costs until the later budget periods, once you have actually obtained data to share.
+     
+    Consultant Services: Consultants differ from Consortiums in that they may provide advice, but should not be making decisions for the direction of the research. Typically, consultants will charge a fixed rate for their services that includes both their direct and F&A costs. You do not need to report separate direct and F&A costs for consultants; however, you should report how much of the total estimated costs will be spent on travel. Consultants are not subject to the salary cap restriction; however, any consultant charges should meet your institution's definition of "reasonableness".
+     
+    ADP/Computer Services: The services you include here should be research specific computer services- such as reserving computing time on supercomputers or getting specialized software to help run your statistics. This section should not include your standard desktop office computer, laptop, or the standard tech support provided by your institution. Those types of charges should come out of the F&A costs.
+     
+    Alterations and Renovations (A&R): A&R does not include general maintenance projects (normally handled under F&A) or projects exceeding $500,000 (considered "construction" projects). A&R can be used for projects such as altering a room to make space for a new grant-related piece of equipment. If applicable:
+        Justify basis for costs, itemize by category.
+        Enter the total funds requested for alterations and renovations. Where applicable, provide the square footage and costs.
+        If A&R costs are in excess of $300,000 further limitations apply and additional documentation will be required.
+    Research Patient Care Costs: Few budgets contain patient care expenses, however if inpatient and/or outpatient costs are requested, the following information should be provided:
+        The names of any hospitals and/or clinics and the amounts requested for each.
+        If both inpatient and outpatient costs are requested, provide information for each separately.
+        Provide cost breakdown, number of days, number of patients, costs of tests/treatments.
+        Justify the costs associated with standard care or research care. (Note: If these costs are associated with patient accrual, restrictions may be justified in the Notice of Award.)
+        (See NIH Grants Policy Statement NIH Grants Policy Statement, Research Patient Care Costs)
+    Tuition: In your budget justification, for any graduate students on your project, include what your school's tuition rates are. You may have to report both an in-state and out-of-state tuition rate. Depending on your school stipend and tuition levels, you may have to budget less than your school's full tuition rate in order to meet the graduate student compensation limit (equivalent to the NRSA zero-level postdoctorate stipend level).
+     
+    Human Fetal Tissue (HFT) from elective abortions: If your application proposes the use of human fetal tissue obtained from elective abortions (as defined in NOT-OD-19-128), you must include a line item titled “Human Fetal Tissue Costs” on the budget form and an explanation of those costs in the budget justification.
+     
+    Other: Some types of costs, such as entertainment costs, are not allowed under federal grants. NIH has included a list of the most common questionable items in the NIH Grants Policy Statement (/grants/policy/nihgps/HTML5/section_7/7_cost_consideration.htm). If NIH discovers an unallowable cost in your budget, generally we will discount that cost from your total award amount, so it is in your best interest to avoid requesting unallowable costs. If you have any question over whether a cost is allowable, contact your sponsored programs office or the grants management specialist listed on the funding opportunity.
+
+ 
+Consortiums/Subawards
+
+If you are using the detailed budget format, each consortium you include must have an independent budget form filled out.
+
+    Direct costs:
+        In the rare case of third tier subawards, section F.5 "subawards/consortium/contractual" costs should include the total cost of the subaward, and the entire third tier award is considered part of the direct costs of the consortium for the purposes of calculating the primary applicant's direct costs.
+        Cost Principles. Regardless of what cost principles apply to the parent recipient, the consortium is held to the standards of their respective set of cost principles.
+    F&A:
+        Consortium F&A costs are NOT included as part of the direct cost base when determining whether the application can use the modular format (direct costs < $250,000 per year), or determining whether prior approval is needed to submit an application (direct costs $500,000 or more for any year).
+
+        NOTE: The $500K prior approval policy does not apply to applications submitted in response to RFAs or in response to other funding opportunities including specific budgetary limits above $500K.
+         
+        F&A costs for the first $25,000 of each consortium may be included in the modified total direct cost base, when calculating the overall F&A rate, as long as your institution's negotiated F&A rate agreement does not express prohibit it.
+        If the consortium is a foreign institution or international organization, F&A for the consortium is limited to 8%.
+        If the consortium is with a for-profit entity, such as a small business, the organization must have a negotiated F&A rate before they can charge F&A costs. The default small business rate of 40% is only applicable to SBIR (R43 &R44) and STTR (R41 & R42) applications. See the Division of Financial and Accounting Services (DFAS) at NIH to set up a rate: http://oamp.od.nih.gov/dfas/indirect-cost-branch/indirect-cost-submission Link to External Site
+    Justification:
+        Consortiums should each provide a budget justification following their detailed budget. The justification should be separate from the primary recipient's justification and address just those items that pertain to the consortium.
+
+ 
+Understanding the Out Years
+
+    We do not expect your budget to predict perfectly how you will spend your money five years down the road. However, we do expect a reasonable approximation of what you intend to spend. Be thorough enough to convince the reviewers that you have a good sense of the overall costs.
+    In general, NIH does not have policy on salary escalation submitted in an application. We advise applicants to request in the application the actual costs needed for the budget period and to request cost escalations only if the escalation is consistent with institutional policy. See Salary Cap Summary and https://grants.nih.gov/faqs#/fy2012_salary_cap_faqs.htm.
+    Any large year-to-year variation should be described in your budget justification. For example, if you have money set aside for consultants only in the final year of your budget, be sure to explain why in your justification (e.g. the consultants are intended to help you with the statistical interpretation of the data and therefore are not needed before the final year).
+    In general, NIH recipients are allowed a certain degree of latitude to rebudget within and between budget categories to meet unanticipated needs and to make other types of post-award changes. Some changes may be made at the recipient's discretion as long as they are within the limits established by NIH. In other cases, NIH prior written approval may be required before a recipient makes certain budget modifications or undertakes particular activities (such as change in scope). See NIH Grants Policy Statement - Changes in Project and Budget.

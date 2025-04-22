@@ -1,0 +1,897 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  queueName:
+    Type: String
+    Default: NIHGrantsQueue
+  COGUPARN:
+    Type: String
+    Default: xxxxxxx
+  
+Resources :
+  
+  ApiGatewayAccountConfig:
+    Type: 'AWS::ApiGateway::Account'
+    Properties:
+      CloudWatchRoleArn: !GetAtt ApiGatewayCloudWatchLogsRole.Arn
+
+  RestApi :
+        Type : AWS::ApiGateway::RestApi
+        Properties :
+            Body :
+                swagger : 2.0
+                info :
+                    version : 0.0.1
+                    title : NIH Grants API
+                basePath : /
+                schemes :
+                    - https
+                definitions:
+                    Empty :
+                        type : object
+            Name : nihGrantsApi
+            Parameters:
+                endpointConfigurationTypes: REGIONAL
+           
+  CognitoAuthorizer:
+    DependsOn:  DestQueue
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      AuthorizerResultTtlInSeconds: 300
+      IdentitySource: method.request.header.Authorization
+      Name: CognitoUserPoolAuthorizer
+      RestApiId: !Ref RestApi
+      Type: COGNITO_USER_POOLS
+      ProviderARNs:
+         - !Ref COGUPARN
+
+  APIGatewayRole:
+      DependsOn:  DestQueue
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Action:
+                - sts:AssumeRole
+              Effect: Allow
+              Principal:
+                Service:
+                  - apigateway.amazonaws.com
+          Version: '2012-10-17'
+        Path: /
+        Policies:
+          - PolicyDocument:
+              Statement:
+                - Action: sqs:SendMessage
+                  Effect: Allow
+                  Resource: !GetAtt 'DestQueue.Arn'
+                - Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Effect: Allow
+                  Resource: !Sub
+                    - >-
+                      arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${group}
+                    - region: !Ref "AWS::Region"
+                      account: !Ref "AWS::AccountId"
+                      group: !Ref ApiGatewayAccessLogGroup
+                - Effect: Allow
+                  Action: 
+                    - kms:Decrypt
+                    - kms:GenerateDataKey
+                  Resource: !Sub
+                    - >-
+                      arn:aws:kms:${region}:${account}:key/${key}
+                    - region: !Ref "AWS::Region"
+                      account: !Ref "AWS::AccountId"
+                      key: !Ref ApiGatewayLogsKMSKey
+              Version: '2012-10-17'
+            PolicyName: apig-sqs-send-msg-policy
+      Type: AWS::IAM::Role
+
+
+  DestQueue:
+      DependsOn: 
+        - DeadLetterQueue
+        - ApiGatewayLogsKMSKey
+      Type: AWS::SQS::Queue
+      DeletionPolicy: Delete
+      UpdateReplacePolicy: Delete
+      Properties:
+        DelaySeconds: 0
+        VisibilityTimeout: 900
+        MaximumMessageSize: 262144
+        QueueName: !Ref 'queueName'
+        ReceiveMessageWaitTimeSeconds: 0
+        MessageRetentionPeriod: 60
+        RedrivePolicy:
+          deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
+          maxReceiveCount: 5
+        KmsMasterKeyId: !GetAtt ApiGatewayLogsKMSKey.Arn
+
+  DeadLetterQueue:
+    Type: AWS::SQS::Queue
+    DependsOn: ApiGatewayLogsKMSKey
+    Properties:
+      QueueName: !Sub '${queueName}-dlq'
+      MessageRetentionPeriod: 1209600  # 14 days
+      KmsMasterKeyId: !GetAtt ApiGatewayLogsKMSKey.Arn
+
+  PolicySQS:
+      Type: AWS::SQS::QueuePolicy
+      Properties:
+        Queues:
+          - !Ref 'DestQueue'
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Action:
+              - 'SQS:SendMessage'
+              - 'SQS:ReceiveMessage'
+              - 'SQS:DeleteMessage'
+              - 'SQS:GetQueueAttributes'
+              - 'SQS:ChangeMessageVisibility'
+              - 'SQS:GetQueueUrl'
+              Effect: Allow
+              Principal: 
+                Service: 
+                  - apigateway.amazonaws.com
+              Condition:
+                StringEquals:
+                  "aws:SourceAccount": !Ref 'AWS::AccountId'
+                  "aws:SourceRegion": !Ref 'AWS::Region'
+                Bool:
+                  aws:SecureTransport: true
+              Resource: !GetAtt 'DestQueue.Arn'
+            - Action: 
+              - 'SQS:SendMessage'
+              - 'SQS:ReceiveMessage'
+              - 'SQS:DeleteMessage'
+              - 'SQS:GetQueueAttributes'
+              - 'SQS:ChangeMessageVisibility'
+              - 'SQS:GetQueueUrl'
+              Sid: AllowSSLRequestsOnly
+              Effect: Deny
+              Principal: 
+                AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+              Resource: !GetAtt DestQueue.Arn
+              Condition:
+                Bool:
+                  aws:SecureTransport: false
+        
+      
+  
+  DeadLetterQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues: 
+        - !Ref DeadLetterQueue
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: RestrictToAccountAndRegion
+            Effect: Allow
+            Principal: 
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 
+              - 'SQS:SendMessage'
+              - 'SQS:ReceiveMessage'
+              - 'SQS:DeleteMessage'
+              - 'SQS:GetQueueAttributes'
+              - 'SQS:ChangeMessageVisibility'
+              - 'SQS:GetQueueUrl'
+            Resource: !GetAtt DeadLetterQueue.Arn
+            Condition:
+              StringEquals:
+                "aws:SourceAccount": !Ref 'AWS::AccountId'
+                "aws:SourceArn": !Sub 'arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:${queueName}-dlq'
+              Bool:
+                  aws:SecureTransport: true
+          - Sid: AllowSSLRequestsOnly
+            Effect: Deny
+            Principal: 
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 
+              - 'SQS:SendMessage'
+              - 'SQS:ReceiveMessage'
+              - 'SQS:DeleteMessage'
+              - 'SQS:GetQueueAttributes'
+              - 'SQS:ChangeMessageVisibility'
+              - 'SQS:GetQueueUrl'
+            Resource: !GetAtt DeadLetterQueue.Arn
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+  ResourceSearch:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: search
+   
+  ProxyResourceANYSearch:
+      DependsOn: [ResourceSearch]
+      Type: 'AWS::ApiGateway::Method'
+      Properties:
+        RestApiId: !Ref RestApi
+        ResourceId: !Ref ResourceSearch
+        HttpMethod: POST
+        AuthorizationType: COGNITO_USER_POOLS
+        AuthorizerId: !Ref CognitoAuthorizer
+        RequestParameters:
+          method.request.querystring.searchtext: true
+        Integration:
+          Type: AWS_PROXY
+          IntegrationHttpMethod: POST
+          Uri: !Sub >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHQueryGrants/invocations
+          IntegrationResponses:
+          - StatusCode: '200'
+            ResponseTemplates:
+              application/json: ''
+            ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+        MethodResponses:
+          - StatusCode: '200'
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Credentials: true
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true 
+              method.response.header.Access-Control-Allow-Origin: true 
+
+  ProxyResourceOptionsSearch:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceSearch
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+               
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+
+  ResourceScrapeContext:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: scrapeURLContext
+   
+  ProxyResourceANYScrape:
+        DependsOn: [ResourceScrapeContext]
+        Type: 'AWS::ApiGateway::Method'
+        Properties:
+          RestApiId: !Ref RestApi
+          ResourceId: !Ref ResourceScrapeContext
+          HttpMethod: POST
+          AuthorizationType: COGNITO_USER_POOLS
+          AuthorizerId: !Ref CognitoAuthorizer
+          RequestParameters:
+            method.request.querystring.baseurl: true
+            method.request.querystring.contextFile: true
+            method.request.querystring.runUUID: true
+            method.request.querystring.htmlObject: true
+            method.request.querystring.htmlObjectAttribute: true
+            method.request.querystring.htmlObjectAttributeValue: true
+            method.request.querystring.s3Bucket: true
+            method.request.querystring.s3Folder: true
+          Integration:
+            Type: AWS_PROXY
+            IntegrationHttpMethod: POST
+            Uri: !Sub >-
+              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:ContextHTMLScraper/invocations
+            IntegrationResponses:
+              - StatusCode: '200'
+                ResponseTemplates:
+                  application/json: ''
+                ResponseParameters:
+                    method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                    method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                    method.response.header.Access-Control-Allow-Origin: "'*'"
+          MethodResponses:
+            - StatusCode: '200'
+              ResponseParameters:
+                method.response.header.Access-Control-Allow-Credentials: true
+                method.response.header.Access-Control-Allow-Headers: true
+                method.response.header.Access-Control-Allow-Methods: true
+                method.response.header.Access-Control-Allow-Origin: true
+
+  ProxyResourceOptionsScrape:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceScrapeContext
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+               
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+
+  ResourceModelPrompts:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: modelPrompts
+   
+  ProxyResourceANYModelPrompts:
+        DependsOn: [ResourceModelPrompts]
+        Type: 'AWS::ApiGateway::Method'
+        Properties:
+          RestApiId: !Ref RestApi
+          ResourceId: !Ref ResourceModelPrompts
+          HttpMethod: POST
+          AuthorizationType: COGNITO_USER_POOLS
+          AuthorizerId: !Ref CognitoAuthorizer
+          RequestParameters:
+            method.request.querystring.modelid: true
+          Integration:
+            Type: AWS_PROXY
+            IntegrationHttpMethod: POST
+            Uri: !Sub >-
+              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHModelPrompts/invocations
+            IntegrationResponses:
+              - StatusCode: '200'
+                ResponseTemplates:
+                  application/json: ''
+                ResponseParameters:
+                    method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                    method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                    method.response.header.Access-Control-Allow-Origin: "'*'"
+          MethodResponses:
+            - StatusCode: '200'
+              ResponseParameters:
+                method.response.header.Access-Control-Allow-Credentials: true
+                method.response.header.Access-Control-Allow-Headers: true
+                method.response.header.Access-Control-Allow-Methods: true
+                method.response.header.Access-Control-Allow-Origin: true
+
+  ProxyResourceOptionsModelPrompt:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceModelPrompts
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+                
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+
+  ResourceCheckTemplateStatus:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: checkTemplateStatus
+   
+  ProxyResourceANYCheckTemplateStatus:
+        DependsOn: [ResourceCheckTemplateStatus]
+        Type: 'AWS::ApiGateway::Method'
+        Properties:
+          RestApiId: !Ref RestApi
+          ResourceId: !Ref ResourceCheckTemplateStatus
+          HttpMethod: POST
+          AuthorizationType: COGNITO_USER_POOLS
+          AuthorizerId: !Ref CognitoAuthorizer
+          RequestParameters:
+            method.request.querystring.runUUID: true
+          Integration:
+            Type: AWS_PROXY
+            IntegrationHttpMethod: POST
+            Uri: !Sub >-
+              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHGrantCheckTemplateStatus/invocations
+            IntegrationResponses:
+              - StatusCode: '200'
+                ResponseTemplates:
+                  application/json: ''
+                ResponseParameters:
+                    method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                    method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                    method.response.header.Access-Control-Allow-Origin: "'*'"
+          MethodResponses:
+            - StatusCode: '200'
+              ResponseParameters:
+                method.response.header.Access-Control-Allow-Credentials: true
+                method.response.header.Access-Control-Allow-Headers: true
+                method.response.header.Access-Control-Allow-Methods: true
+                method.response.header.Access-Control-Allow-Origin: true
+
+  ProxyResourceCheckTemplateStatus:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceCheckTemplateStatus
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+               
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+
+  ResourceListS3Artifacts:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: listS3Artifacts
+   
+  ProxyResourceANYListS3Artifacts:
+        DependsOn: [ResourceListS3Artifacts]
+        Type: 'AWS::ApiGateway::Method'
+        Properties:
+          RestApiId: !Ref RestApi
+          ResourceId: !Ref ResourceListS3Artifacts
+          HttpMethod: POST
+          AuthorizationType: COGNITO_USER_POOLS
+          AuthorizerId: !Ref CognitoAuthorizer
+          RequestParameters:
+            method.request.querystring.runUUID: true
+          Integration:
+            Type: AWS_PROXY
+            IntegrationHttpMethod: POST
+            Uri: !Sub >-
+              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHGrantListS3Artifacts/invocations
+            IntegrationResponses:
+              - StatusCode: '200'
+                ResponseTemplates:
+                  application/json: ''
+                ResponseParameters:
+                    method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                    method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                    method.response.header.Access-Control-Allow-Origin: "'*'"
+          MethodResponses:
+            - StatusCode: '200'
+              ResponseParameters:
+                method.response.header.Access-Control-Allow-Credentials: true
+                method.response.header.Access-Control-Allow-Headers: true
+                method.response.header.Access-Control-Allow-Methods: true
+                method.response.header.Access-Control-Allow-Origin: true
+
+  ProxyResourceListS3Artifacts:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceListS3Artifacts
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+
+  ResourceTemplateGen:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: templateGen
+   
+  ProxyResourceANYTemplateGen:
+        DependsOn: [ResourceTemplateGen]
+        Type: 'AWS::ApiGateway::Method'
+        Properties:
+          RestApiId: !Ref RestApi
+          ResourceId: !Ref ResourceTemplateGen
+          AuthorizationType: COGNITO_USER_POOLS
+          AuthorizerId: !Ref CognitoAuthorizer
+          RequestParameters:
+            method.request.querystring.runUUID: true
+            method.request.querystring.templateType: true
+            method.request.querystring.contextOnly: true
+            method.request.querystring.initialPrompt:  true
+            method.request.querystring.promptVersion:  true
+            method.request.querystring.promptValue:  true
+          HttpMethod: POST
+          Integration:
+            Credentials: !GetAtt 'APIGatewayRole.Arn'
+            IntegrationHttpMethod: POST
+            PassthroughBehavior: NEVER
+            RequestParameters:
+              integration.request.header.Content-Type: '''application/x-www-form-urlencoded'''
+            RequestTemplates:
+              application/json: Action=SendMessage&MessageBody=$input.body
+            Type: AWS
+            Uri: !Join
+              - ''
+              - - 'arn:aws:apigateway:'
+                - !Ref 'AWS::Region'
+                - :sqs:path/
+                - !Ref 'AWS::AccountId'
+                - /
+                - !Ref 'queueName'
+            IntegrationResponses:
+              - StatusCode: '200'
+                ResponseParameters:
+                  method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                  method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS,GET'"
+                  method.response.header.Access-Control-Allow-Origin: "'*'"
+                  method.response.header.Access-Control-Allow-Credentials: "'true'"
+          MethodResponses:
+            - ResponseModels:
+                application/json: Empty
+              StatusCode: '200'
+              ResponseParameters:
+                method.response.header.Access-Control-Allow-Credentials: true
+                method.response.header.Access-Control-Allow-Headers: true
+                method.response.header.Access-Control-Allow-Methods: true
+                method.response.header.Access-Control-Allow-Origin: true
+            
+  ProxyResourceTemplateGen:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceTemplateGen
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+             
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+
+  ResourceNIHRSearch:
+        DependsOn: [RestApi]
+        Type: 'AWS::ApiGateway::Resource'
+        Properties:
+          RestApiId: !Ref RestApi
+          ParentId: !GetAtt 
+            - RestApi
+            - RootResourceId
+          PathPart: nihrSearch
+   
+  ProxyResourceANYNIHRSearch:
+      DependsOn: [ResourceNIHRSearch]
+      Type: 'AWS::ApiGateway::Method'
+      Properties:
+        RestApiId: !Ref RestApi
+        ResourceId: !Ref ResourceNIHRSearch
+        HttpMethod: POST
+        AuthorizationType: COGNITO_USER_POOLS
+        AuthorizerId: !Ref CognitoAuthorizer
+        RequestParameters:
+          method.request.header.Content-Type: true
+        Integration:
+          Type: HTTP
+          IntegrationHttpMethod: POST
+          Uri: https://api.reporter.nih.gov/v2/projects/Search
+          PassthroughBehavior: WHEN_NO_MATCH
+          IntegrationResponses:
+          - StatusCode: '200'
+            ResponseTemplates:
+              application/json: ''
+            ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+        MethodResponses:
+          - StatusCode: '200'
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Credentials: true
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true 
+              method.response.header.Access-Control-Allow-Origin: true 
+  ProxyResourceOptionsNIHRSearch:
+      Type: "AWS::ApiGateway::Method"
+      Properties:
+        ResourceId: !Ref ResourceNIHRSearch
+        RestApiId: !Ref RestApi
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST,GET'"
+                method.response.header.Access-Control-Allow-Origin: "'*'"
+               
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Credentials: true
+            StatusCode: '200'
+  ApiGatewayLogsKMSKey:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      Description: 'KMS key for encrypting API Gateway CloudWatch Logs'
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: 'Enable IAM User Permissions'
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action:
+              - 'kms:Create*'
+              - 'kms:Describe*'
+              - 'kms:Enable*'
+              - 'kms:List*'
+              - 'kms:Put*'
+              - 'kms:Update*'
+              - 'kms:Revoke*'
+              - 'kms:Disable*'
+              - 'kms:GenerateDataKey'
+              - 'kms:Get*'
+              - 'kms:Delete*'
+              - 'kms:Decrypt'
+              - 'kms:ScheduleKeyDeletion'
+              - 'kms:CancelKeyDeletion'
+            Resource: 
+              - !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/*'
+          - Sid: 'Allow CloudWatch Logs'
+            Effect: Allow
+            Principal:
+              Service: !Sub 'logs.${AWS::Region}.amazonaws.com'
+            Action:
+              - 'kms:Encrypt*'
+              - 'kms:Decrypt*'
+              - 'kms:ReEncrypt*'
+              - 'kms:GenerateDataKey*'
+              - 'kms:Describe*'
+            Resource: '*'
+            Condition:
+              ArnLike:
+                'kms:EncryptionContext:aws:logs:arn': !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*'
+          - Sid: 'Allow SQS Service for Specific Queues'
+            Effect: Allow
+            Principal:
+              Service: 'sqs.amazonaws.com'
+            Action:
+              - 'kms:Encrypt*'
+              - 'kms:Decrypt*'
+              - 'kms:ReEncrypt*'
+              - 'kms:GenerateDataKey*'
+              - 'kms:Describe*'
+            Resource: '*'
+            Condition:
+              StringEquals:
+                'kms:ViaService': !Sub 'sqs.${AWS::Region}.amazonaws.com'
+              ArnLike:
+                'kms:EncryptionContext:aws:sqs:arn':
+                  - !Sub 'arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:${queueName}'
+                  - !Sub 'arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:${queueName}-dlq'
+
+  ApiGatewayLogsKMSKeyAlias:
+    Type: 'AWS::KMS::Alias'
+    Properties:
+      AliasName: alias/nih-grants-apigateway-logs-key
+      TargetKeyId: !Ref ApiGatewayLogsKMSKey
+
+  ApiGatewayAccessLogGroup:
+    Type: 'AWS::Logs::LogGroup'
+    Properties:
+      LogGroupName: !Join
+        - '-'
+        - ['/aws/apigateway', !Ref RestApi, 'access-logs']
+      RetentionInDays: 7  
+      KmsKeyId: !GetAtt ApiGatewayLogsKMSKey.Arn
+
+  ApiGatewayCloudWatchLogsRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs'
+    
+  Deployment:
+      DependsOn: [ProxyResourceANYModelPrompts, ProxyResourceANYSearch, ProxyResourceANYScrape, ProxyResourceANYListS3Artifacts, ProxyResourceANYCheckTemplateStatus, ProxyResourceANYTemplateGen, ApiGatewayAccountConfig ]
+      Type: 'AWS::ApiGateway::Deployment'
+      Properties:
+        RestApiId: !Ref RestApi
+        Description: NIH Grants API deployment
+        StageName: Dev
+        StageDescription:
+          AccessLogSetting:
+            DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+            Format: '$context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.responseLength $context.requestId'
+      
+  ApiKey:
+    Type: 'AWS::ApiGateway::ApiKey'
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    DependsOn: Deployment
+    Properties:
+      Name: 'NIHGrantsApiKey'
+      Description: 'API Key for NIH Grants API'
+      Enabled: true
+      StageKeys:
+        - RestApiId: !Ref RestApi
+          StageName: 'Dev'
+
+  UsagePlan:
+    Type: 'AWS::ApiGateway::UsagePlan'
+    DependsOn: Deployment
+    Properties:
+      UsagePlanName: 'NIHGrantsUsagePlan'
+      Description: 'Usage plan for NIH Grants API'
+      ApiStages: 
+        - ApiId: !Ref RestApi
+          Stage: 'Dev'
+      Quota:
+        Limit: 5000
+        Period: MONTH
+      Throttle:
+        RateLimit: 10  
+        BurstLimit: 20 
+
+  UsagePlanKey:
+    Type: 'AWS::ApiGateway::UsagePlanKey'
+    Properties:
+      KeyId: !Ref ApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref UsagePlan
+  
+Outputs:
+  RestApiId: 
+    Value:
+      !Join [
+        "",
+        [
+          "https://",
+          !Ref RestApi,
+          ".execute-api.",
+          !Ref "AWS::Region",
+          ".amazonaws.com/",
+          "Dev",
+        ],
+      ]
+  APIKey:
+    Description: "AK for NIH Grants API"
+    Value: !Ref ApiKey
+    Export:
+      Name: !Sub "${AWS::StackName}-APIKey"

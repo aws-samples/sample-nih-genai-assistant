@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'Amazon OpenSearch Serverless template to create an IAM user, encryption policy, data access policy and collection'
+Resources:
+ 
+  DataAccessPolicy:
+    # TODO: Prinicipals hard coded, change this
+    Type: 'AWS::OpenSearchServerless::AccessPolicy'
+    Properties:
+      Name: quickstart-access-policy
+      Type: data
+      Description: Access policy for quickstart collection
+      Policy: !Sub >-
+        [{"Description":"Access for cfn user","Rules":[{"ResourceType":"index","Resource":["index/*/*"],"Permission":["aoss:*"]},
+        {"ResourceType":"collection","Resource":["collection/nih-grants"],"Permission":["aoss:*"]}],
+        "Principal":["arn:aws:iam::${AWS::AccountId}:user/aossadmin-${AWS::Region}","arn:aws:iam::${AWS::AccountId}:role/lambda-role-query-grants-${AWS::Region}-${AWS::AccountId}","arn:aws:iam::${AWS::AccountId}:role/nih-grants-lambda-loader-role"]}]
+  NetworkPolicy:
+    Type: 'AWS::OpenSearchServerless::SecurityPolicy'
+    Properties:
+      Name: quickstart-network-policy
+      Type: network
+      Description: Network policy for nih-grants collection
+      Policy: >-
+        [{"Rules":[{"ResourceType":"collection","Resource":["collection/nih-grants"]}, {"ResourceType":"dashboard","Resource":["collection/nih-grants"]}],"AllowFromPublic":true}]
+  EncryptionPolicy:
+    Type: 'AWS::OpenSearchServerless::SecurityPolicy'
+    Properties:
+      Name: quickstart-security-policy
+      Type: encryption
+      Description: Encryption policy for quickstart collection
+      Policy: >-
+        {"Rules":[{"ResourceType":"collection","Resource":["collection/nih-grants"]}],"AWSOwnedKey":true}
+  Collection:
+    Type: 'AWS::OpenSearchServerless::Collection'
+    Properties:
+      Name: nih-grants
+      Type: SEARCH
+      Description: Collection to holds serach data
+    DependsOn: EncryptionPolicy
+Outputs:
+ 
+  DashboardURL:
+    Value: !GetAtt Collection.DashboardEndpoint
+  CollectionARN:
+    Value: !GetAtt Collection.Arn
+  CollectionURL:
+    Value: !GetAtt Collection.CollectionEndpoint

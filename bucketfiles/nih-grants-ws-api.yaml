@@ -1,0 +1,421 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  TableName:
+    Type: String
+    Default: "XXXXXX"
+    Description: (Required) The name of the new DynamoDB to store connection identifiers for each connected clients. Minimum 3 characters
+    MinLength: 3
+    MaxLength: 50
+  NIHCFBUCKET:
+    Type: String
+    Default: "scott-the-researcher-cloudformation-bucket-us-west-2"
+  COGUPID:
+    Type: String
+    Default: "XXXXXXX"
+Resources:
+ 
+  WSLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: nih-grants-lambda-ws-execution-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Path: /
+
+  lambdanihgrantsdynamodbpolicy:
+    DependsOn:
+      - WSLambdaExecutionRole
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-dynamodb-policy
+      Roles:
+        - !Ref WSLambdaExecutionRole
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "dynamodb:BatchGetItem"
+              - "dynamodb:BatchWriteItem"
+              - "dynamodb:PutItem"
+              - "dynamodb:GetItem"
+              - "dynamodb:Scan"
+              - "dynamodb:DeleteItem"
+              - "dynamodb:Query"
+              - "dynamodb:UpdateItem"
+              - "dynamodb:GetRecords"
+            Resource: !Sub
+              - >-
+                arn:aws:dynamodb:${region}:${account}:table/nih-ws-table
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+          - Effect: Allow
+            Action: kms:Decrypt
+            Resource: !Sub
+              - >-
+                arn:aws:kms:${region}:${account}:key/*
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+  LambdaKMSKey:
+    Type: "AWS::KMS::Key"
+    DependsOn: WSLambdaExecutionRole
+    Properties:
+      Description: "KMS key for Lambda environment variables"
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Enable IAM User Permissions"
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action: "kms:*"
+            Resource: "*"
+          - Sid: "Allow Lambda service to use the key"
+            Effect: Allow
+            Principal:
+              Service: 
+                - lambda.amazonaws.com
+            Action:
+              - "kms:Decrypt"
+              - "kms:GenerateDataKey"
+              - "kms:CreateGrant"
+              - "kms:DescribeKey"
+            Resource: "*"
+            Condition:
+              ArnLike:
+                aws:SourceArn:
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHGrantListS3Artifacts"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHGrantCheckTemplateStatus"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:ContextHTMLScraper"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:TextTractPDF2TextAsync"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHGrantLoader"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHWSFunction"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHQueryGrants"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHModelPrompts"
+      
+  LambdaKMSPolicy:
+    Type: AWS::IAM::Policy
+    DependsOn: LambdaKMSKey
+    Properties:
+      PolicyName: lambda-kms-policy
+      Roles:
+        - !Ref WSLambdaExecutionRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - kms:Decrypt
+              - kms:GenerateDataKey
+            Resource: !GetAtt LambdaKMSKey.Arn
+
+  NIHWSFunction:
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    DependsOn: [WSLambdaExecutionRole, lambdanihgrantsdynamodbpolicy, LambdaKMSKey, LambdaKMSPolicy]
+    Properties:
+      FunctionName: NIHWSFunction
+      Description: Lambda NIHWSFunction
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt WSLambdaExecutionRole.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: NIHWSFunction.zip
+      Environment:
+        Variables:
+          table_name: "nih-ws-table"
+      KmsKeyArn: !GetAtt LambdaKMSKey.Arn
+
+  nihGrantsApiWS:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: nihGrantsApiWS
+      ProtocolType: WEBSOCKET
+      RouteSelectionExpression: "$request.body.action"
+
+
+  ConnectRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      RouteKey: $connect
+      AuthorizationType: AWS_IAM
+      OperationName: ConnectRoute
+      Target: !Join
+        - "/"
+        - - "integrations"
+          - !Ref ConnectInteg
+  DefaultRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      RouteKey: $default 
+      AuthorizationType: NONE
+      OperationName: ConnectRoute
+      Target: !Join
+        - "/"
+        - - "integrations"
+          - !Ref ConnectInteg
+  ConnectInteg:
+    Type: AWS::ApiGatewayV2::Integration
+    DependsOn: NIHWSFunction
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      Description: Connect Integration
+      IntegrationType: AWS_PROXY
+      IntegrationUri:
+        Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${NIHWSFunction.Arn}/invocations
+  DisconnectRoute:
+    Type: AWS::ApiGatewayV2::Route
+    DependsOn: NIHWSFunction
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      RouteKey: $disconnect
+      AuthorizationType: NONE
+      OperationName: DisconnectRoute
+      Target: !Join
+        - "/"
+        - - "integrations"
+          - !Ref DisconnectInteg
+  DisconnectInteg:
+    Type: AWS::ApiGatewayV2::Integration
+    DependsOn: NIHWSFunction
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      Description: Disconnect Integration
+      IntegrationType: AWS_PROXY
+      IntegrationUri:
+        Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${NIHWSFunction.Arn}/invocations
+  OnMessageRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      RouteKey: onMessage
+      AuthorizationType: NONE
+      OperationName: SendRoute
+      Target: !Join
+        - "/"
+        - - "integrations"
+          - !Ref SendInteg
+  SendInteg:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+      Description: Send Integration
+      IntegrationType: AWS_PROXY
+      IntegrationUri:
+        Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${NIHWSFunction.Arn}/invocations
+  
+  WebSocketLambdaPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn: NIHWSFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref NIHWSFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${nihGrantsApiWS}/*"
+  
+  ApiGatewayLogsKMSKey:
+    Type: "AWS::KMS::Key"
+    Properties:
+      Description: "KMS key for encrypting API Gateway CloudWatch Logs"
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "Enable IAM User Permissions"
+            Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - "kms:Create*"
+              - "kms:Describe*"
+              - "kms:Enable*"
+              - "kms:List*"
+              - "kms:Put*"
+              - "kms:Update*"
+              - "kms:Revoke*"
+              - "kms:Disable*"
+              - "kms:Get*"
+              - "kms:Delete*"
+              - "kms:Decrypt"
+              - "kms:ScheduleKeyDeletion"
+              - "kms:CancelKeyDeletion"
+            Resource: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/*"
+          - Sid: "Allow CloudWatch Logs"
+            Effect: Allow
+            Principal:
+              Service: !Sub "logs.${AWS::Region}.amazonaws.com"
+            Action:
+              - "kms:Encrypt*"
+              - "kms:Decrypt*"
+              - "kms:ReEncrypt*"
+              - "kms:GenerateDataKey*"
+              - "kms:Describe*"
+            Resource: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/*"
+            Condition:
+              ArnLike:
+                "kms:EncryptionContext:aws:logs:arn": !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*"
+
+  ApiGatewayLogsKMSKeyAlias:
+    Type: "AWS::KMS::Alias"
+    Properties:
+      AliasName: alias/nih-grants-apigateway-ws-logs-key
+      TargetKeyId: !Ref ApiGatewayLogsKMSKey
+
+  ApiGatewayAccessLogGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      LogGroupName: !Join
+        - "-"
+        - ["/aws/apigateway", !Ref nihGrantsApiWS, "access-logs"]
+      RetentionInDays: 7
+      KmsKeyId: !GetAtt ApiGatewayLogsKMSKey.Arn
+
+  ApiGatewayCloudWatchLogsRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+      Path: "/"
+
+  ApiGatewayAccount:
+    Type: 'AWS::ApiGateway::Account'
+    Properties:
+      CloudWatchRoleArn: !GetAtt ApiGatewayCloudWatchLogsRole.Arn
+
+  Deployment:
+    Type: AWS::ApiGatewayV2::Deployment
+    DependsOn:
+      - ConnectRoute
+      - OnMessageRoute
+      - DisconnectRoute
+      - DefaultRoute
+    Properties:
+      ApiId: !Ref nihGrantsApiWS
+
+  Stage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      StageName: Dev
+      Description: Dev Stage
+      DeploymentId: !Ref Deployment
+      ApiId: !Ref nihGrantsApiWS
+      AccessLogSettings:
+        DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+        Format: '{ "requestId":"$context.requestId", "ip": "$context.identity.sourceIp", "requestTime":"$context.requestTime", "httpMethod":"$context.httpMethod", "routeKey":"$context.routeKey", "status":"$context.status","protocol":"$context.protocol", "responseLength":"$context.responseLength", "integrationError":"$context.integrationErrorMessage" }'
+
+  OnConnectPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+      - nihGrantsApiWS
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref NIHWSFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${nihGrantsApiWS}/*"
+
+  OnDisconnectPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+      - nihGrantsApiWS
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref NIHWSFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${nihGrantsApiWS}/*"
+
+  SendMessagePermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+      - nihGrantsApiWS
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref NIHWSFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${nihGrantsApiWS}/*"
+
+Outputs:
+  ConnectionsTableArn:
+    Description: "Connections table ARN"
+    Value: !GetAtt NIHWSFunction.Arn
+
+  OnConnectFunctionArn:
+    Description: "OnConnect function ARN"
+    Value: !GetAtt NIHWSFunction.Arn
+
+  OnDisconnectFunctionArn:
+    Description: "OnDisconnect function ARN"
+    Value: !GetAtt NIHWSFunction.Arn
+
+  SendMessageFunctionArn:
+    Description: "SendMessage function ARN"
+    Value: !GetAtt NIHWSFunction.Arn
+
+  StageURL:
+    Description: "The URL to connect to the stage"
+    Value:
+      !Join [
+        "",
+        [
+          "https://",
+          !Ref nihGrantsApiWS,
+          ".execute-api.",
+          !Ref "AWS::Region",
+          ".amazonaws.com/",
+          !Ref "Stage",
+        ],
+      ]
+
+  WebSocketURI:
+    Description: "The WSS Protocol URI to connect to"
+    Value:
+      !Join [
+        "",
+        [
+          "wss://",
+          !Ref nihGrantsApiWS,
+          ".execute-api.",
+          !Ref "AWS::Region",
+          ".amazonaws.com/",
+          !Ref "Stage",
+          "/",
+        ],
+      ]
+
+  WebSocketApiArn:
+    Description: "ARN of the WebSocket API"
+    Value: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${nihGrantsApiWS}"
+

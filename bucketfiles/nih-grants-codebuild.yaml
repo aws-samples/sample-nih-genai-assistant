@@ -1,0 +1,335 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  NIHCFBUCKET:
+    Type: String
+    Default: "scott-the-researcher-cloudformation-bucket-us-east-1"
+  ResourceNamePrefix:
+    Description: Please specify the prefix for all the resources
+    Type: String
+    Default: "nih-grants"
+  WSENDPOINT:
+    Type: String
+    Default: "https://xxxxx2uld.execute-api.us-east-1.amazonaws.com/dev/"
+  APIENDPOINT:
+    Type: String
+    Default: "https://xxxxx2uld.execute-api.us-east-1.amazonaws.com/dev/"
+  LAMBDAROLEARN:
+    Type: String
+    Default: "XXXXXXXX"
+  COGIDPID:
+    Type: String
+    Default: "XXXXXXXX"
+  COGUPID:
+    Type: String
+    Default: "XXXXXXXX"
+  COGWID:
+    Type: String
+    Default: "XXXXXXXX"
+  DDBKMSKEY:
+    Type: String
+    Default: "XXXXXXXX"
+  KMSKEYARN:
+    Type: String
+    Description: The Arn of the KMS Key
+  AK:
+    Type: String
+    Description: The API Key
+  S3KMSKEY:
+    Type: String
+    Description: Name of KMS key used to encrypt the S3 bucket
+    
+
+
+Resources:
+
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W11
+            reason: "ecr:GetAuthorizationToken requires a wildcard resource * because it's used for authentication and authorization across all ECR repositories within your AWS account"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: "PushImageToEcr"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage
+                  - ecr:BatchDeleteImage
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:PutImage
+                  - ecr:InitiateLayerUpload
+                  - ecr:UploadLayerPart
+                  - ecr:CompleteLayerUpload
+                  - ecr:ListImages
+                  - ecr:DescribeImages
+                  - ecr:DescribeRepositories
+                  - ecr:SetRepositoryPolicy
+                  - ecr:GetRepositoryPolicy
+                Resource: 
+                  - !Sub "arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/nih-grants-repository-${AWS::Region}-${AWS::AccountId}"
+              - Effect: Allow
+                Action:
+                  - kms:Decrypt
+                Resource:
+                  - !Ref KMSKEYARN
+
+        - PolicyName: "PushImageToEcrAuth"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecr:GetAuthorizationToken
+                Resource:
+                  - '*'
+
+        - PolicyName: "CodeBuildLambda"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:CreateFunction
+                  - lambda:GetFunction
+                  - lambda:DeleteFunction
+                Resource:
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:NIHTemplateGen"
+              - Effect: Allow
+                Action:
+                  - iam:PassRole
+                Resource:
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/lambda-role-invoke-${AWS::Region}-${AWS::AccountId}"
+
+        - PolicyName: "CodeBuildLambdaES"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:CreateEventSourceMapping
+                Resource: 
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:event-source-mapping:*"
+
+        - PolicyName: "CodeBuildLogsRole"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/nih-grants-codebuild:*"
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/nih-grants-codebuild:*"
+
+        - PolicyName: "GetPutExecuteArtifacts"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource: 
+                  - !Sub "arn:aws:s3:::${NIHCFBUCKET}/*"
+                  - !Sub "arn:aws:s3:::nih-grants-context-${AWS::Region}-${AWS::AccountId}/*"
+              - Effect: Allow
+                Action:
+                  - kms:Decrypt
+                  - kms:GenerateDataKey
+                Resource:
+                  - !Ref S3KMSKEY
+              - Effect: "Allow"
+                Action: 
+                  - dynamodb:BatchWriteItem
+                  - dynamodb:PutItem
+                Resource: 
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/nih-grants-table"
+              - Effect: Allow
+                Action:
+                  - kms:Decrypt
+                Resource:
+                  - !Ref DDBKMSKEY
+
+                  
+
+  EcrRepository:
+    Type: AWS::ECR::Repository
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      RepositoryName: !Sub "nih-grants-repository-${AWS::Region}-${AWS::AccountId}"
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      EncryptionConfiguration:
+        EncryptionType: KMS
+        KmsKey: !Ref KMSKEYARN
+      ImageTagMutability: IMMUTABLE
+
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: nih-grants-codebuild
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Artifacts:
+        Type: S3
+        Location: !Ref NIHCFBUCKET
+        Path: '/'
+        Name: cb
+        Packaging: ZIP
+      Description: "ecr deployment"
+      EncryptionKey: !Ref KMSKEYARN
+      LogsConfig:
+        CloudWatchLogs:
+          Status: ENABLED
+      Environment:
+        ComputeType: BUILD_GENERAL1_LARGE
+        Image: "aws/codebuild/standard:7.0"
+        PrivilegedMode: true
+        Type: "LINUX_CONTAINER"
+        EnvironmentVariables:
+          - Name: AK
+            Value: !Ref AK
+          - Name: COGIDPID
+            Value: !Ref COGIDPID
+          - Name: COGUPID
+            Value: !Ref COGUPID
+          - Name: COGWID
+            Value: !Ref COGWID
+          - Name: NIHCFBUCKET
+            Value: !Ref NIHCFBUCKET
+          - Name: NIHCONTEXTBUCKET
+            Value: !Sub "nih-grants-context-${AWS::Region}-${AWS::AccountId}"
+          - Name: AWS_REGION
+            Value: !Sub "${AWS::Region}"
+          - Name: WSENDPOINT
+            Value: !Ref WSENDPOINT
+          - Name: APIENDPOINT
+            Value: !Ref APIENDPOINT
+          - Name: LAMBDAROLEARN
+            Value: !Ref LAMBDAROLEARN
+          - Name: AWS_DEFAULT_REGION
+            Value: !Sub "${AWS::Region}"
+          - Name: AWS_ACCOUNT_ID
+            Value: !Sub "${AWS::AccountId}"
+          - Name: AWS_ECR_REPOSITORY_URI
+            Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${EcrRepository}
+          - Name: IMAGE_REPO_NAME
+            Value: !Sub "nih-grants-repository-${AWS::Region}-${AWS::AccountId}"
+          - Name: IMAGE_TAG
+            Value: "latest"
+        
+      
+      Source:
+        Type: NO_SOURCE
+        BuildSpec: |
+          version: 0.2
+          phases:
+            pre_build:
+              commands:
+                - sudo apt update -y
+                - sudo apt install nodejs -y
+                - node -v
+                - npm -v
+                - aws s3 cp s3://$NIHCFBUCKET/prompts.json ./
+                - aws dynamodb batch-write-item  --request-items file://prompts.json
+                - mkdir ./cb
+                - echo $NIHCONTEXTBUCKET
+                - echo $WSENDPOINT
+                - echo $LAMBDAROLEARN
+                - echo $AWS_ECR_REPOSITORY_URI
+                - echo $AWS_REGION
+                - aws s3api put-object --bucket $NIHCONTEXTBUCKET --key artifacts/available-grants/AllGuideResultsReport/
+                - aws s3 cp s3://$NIHCFBUCKET/AllGuideResultsReport.csv ./
+                - aws s3 cp ./AllGuideResultsReport.csv s3://$NIHCONTEXTBUCKET/artifacts/available-grants/AllGuideResultsReport/
+                - echo "AllGuideResultsReport.csv sync to S3"
+                - aws s3api put-object --bucket $NIHCONTEXTBUCKET --key artifacts/nih-grant-submission-bp/
+                - aws s3 cp s3://$NIHCFBUCKET/nih-submission-bp.txt ./
+                - aws s3 cp ./nih-submission-bp.txt s3://$NIHCONTEXTBUCKET/artifacts/nih-grant-submission-bp/
+                - echo "best practices for grants in S3"
+                - aws s3api put-object --bucket $NIHCONTEXTBUCKET --key artifacts/nih-aims-bp/
+                - aws s3 cp s3://$NIHCFBUCKET/nih-aims-bp.txt ./
+                - aws s3 cp ./nih-aims-bp.txt s3://$NIHCONTEXTBUCKET/artifacts/nih-aims-bp/
+                - echo "best practices for AIMs in S3"
+                - echo $NIHCFBUCKET
+                - aws s3 cp s3://$NIHCFBUCKET/cb.zip ./cb
+                - cd ./cb
+                - unzip ./cb.zip
+                - ls -al
+                - echo $AWS_ECR_REPOSITORY_URI
+                - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY_URI
+                - aws ecr batch-delete-image --repository-name $IMAGE_REPO_NAME --image-ids imageTag=latest
+            build:
+              commands:
+                - echo "Building Docker image..."
+                - docker build -t $AWS_ECR_REPOSITORY_URI:latest .
+                - docker tag $AWS_ECR_REPOSITORY_URI:latest $AWS_ECR_REPOSITORY_URI:$IMAGE_TAG
+            post_build:
+              commands:
+                - echo "Pushing Docker image to ECR..."
+                - docker push $AWS_ECR_REPOSITORY_URI:latest
+                - echo "creating TemplateGen Lambda function"
+                - echo "Delete TemplateGen Lambda function"
+                - DELETE_FUNCTION=$(aws lambda delete-function --function-name NIHTemplateGen 2>&1 >/dev/null) || true
+                - echo $DELETE_FUNCTION
+                - echo "Create  TemplateGen Lambda function"
+                - aws lambda create-function --function-name NIHTemplateGen --code ImageUri=$AWS_ECR_REPOSITORY_URI:$IMAGE_TAG --package-type Image --role $LAMBDAROLEARN --timeout 900 --memory-size 3008 --environment Variables="{DDB_TABLE=nih-grants-table, MODEL_ID=arn:aws:bedrock:$AWS_REGION:$AWS_ACCOUNT_ID:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0, REGION=$AWS_REGION, S3_OUTPUT_BUCKET=$NIHCONTEXTBUCKET, MODEL_OUTOUT_TOKENS=16000, MODEL_REGION=$AWS_REGION, WS_DDB_TABLE=nih-ws-table, WS_ENDPOINT=$WSENDPOINT, AK=$AK}"
+                - ADD_TRIGGER=$(aws lambda create-event-source-mapping --event-source-arn arn:aws:sqs:$AWS_REGION:$AWS_ACCOUNT_ID:NIHGrantsQueue --function-name NIHTemplateGen --enabled 2>&1 >/dev/null) || true
+                - echo $ADD_TRIGGER
+                - cd
+                - pwd
+                - mkdir ui
+                - cd ui
+                - aws s3 cp s3://$NIHCFBUCKET/nih-bot-raw.zip ./
+                - unzip nih-bot-raw.zip
+                - export WSSE=wss://mmmm.execute-api.us-west-2
+                - echo $WSSE
+                - find . -name nihdata.js
+                - cat ./src/nihdata.js
+                - sed -i -e "s|PLACEHOLDER - WSS|$WSENDPOINT|g" ./src/nihdata.js
+                - sed -i -e "s|PLACEHOLDER - AK|$AK|g" ./src/nihdata.js
+                - sed -i -e "s|PLACEHOLDER - REGION|$AWS_REGION|g" ./src/aws-exports.js
+                - sed -i -e "s|PLACEHOLDER - IPID|$COGIDPID|g" ./src/aws-exports.js
+                - sed -i -e "s|PLACEHOLDER - UPID|$COGUPID|g" ./src/aws-exports.js
+                - sed -i -e "s|PLACEHOLDER - UPWCID|$COGWID|g" ./src/aws-exports.js
+                - sed -i -e "s|PLACEHOLDER - S3CB|$NIHCONTEXTBUCKET|g" ./src/aws-exports.js
+                - sed -i -e "s|PLACEHOLDER - API URL|$APIENDPOINT|g" ./src/aws-exports.js
+                - cat ./src/nihdata.js
+                - cat ./src/aws-exports.js
+                - npm install
+                - npm run build
+                - cd dist
+                - zip -r ../nih-bot-amplify-build.zip .
+                - cd ../
+                - aws s3 cp ./nih-bot-amplify-build.zip s3://$NIHCFBUCKET
+                - echo "DONE"
+  
+
+Outputs:
+  IMAGEURI:
+    Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${EcrRepository}:latest
+  CodeBuildProject:
+    Value: !Ref CodeBuildProject

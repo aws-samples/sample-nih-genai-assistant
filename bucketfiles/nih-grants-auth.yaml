@@ -1,0 +1,232 @@
+Description: >-
+  {"createdOn":"Mac","createdBy":"Amplify","createdWith":"11.0.3","stackType":"auth-Cognito","metadata":{}}
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  NIHCONTEXTBUCKET:
+    Type: String
+    Default: "xxxxxxxxxxxx"
+  allowUnauthenticatedIdentities:
+    Type: String
+    Default: "false"
+  mfaConfiguration:
+    Type: String
+    Default: "On"
+  emailVerificationSubject:
+    Type: String
+    Default: "Your verification code"
+  emailVerificationMessage:
+    Type: String
+    Default: "Your verification code is {####}"
+  passwordPolicyMinLength:
+    Type: String
+    Default: "11"
+  userpoolClientGenerateSecret:
+    Type: String
+    Default: "false"
+  userpoolClientRefreshTokenValidity:
+    Type: String
+    Default: "30"
+ 
+Resources:
+  
+  IDPUnauthRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Description: "This role is assumed by cognito "
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals: 
+                "cognito-identity.amazonaws.com:aud": !GetAtt
+                  - IdentityPool
+                  - Name
+              "ForAnyValue:StringLike":
+                "cognito-identity.amazonaws.com:amr": unauthenticated
+  IDPAuthRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Description: "This role is assumed by cognito "
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals: 
+                "cognito-identity.amazonaws.com:aud": !Ref IdentityPool
+              "ForAnyValue:StringLike":
+                "cognito-identity.amazonaws.com:amr": authenticated
+      
+  IDPAuthRoleS3Policy:
+    # 
+    DependsOn: IDPAuthRole
+    Type: 'AWS::IAM::Policy'
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W12
+            reason: "Wildcard resource is restricted by condition to only a specific kms key"
+    Properties:
+      PolicyName: nih-grants-cognito-auth-role
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - 's3:PutObject'
+              - 's3:PutObjectTagging'
+              - 's3:PutObjectAcl'
+              - 's3:GetObject'
+              - 's3:DeleteObject'
+            Resource: !Sub 'arn:aws:s3:::nih-grants-context-${AWS::Region}-${AWS::AccountId}/*'
+          - Effect: Allow
+            Action:
+              - 'kms:GenerateDataKey'
+              - 'kms:Decrypt'
+            Resource: '*'
+            Condition:
+              StringLike:
+                'kms:RequestAlias': 'alias/nih-grants-s3-key'
+          - Effect: Allow
+            Action:
+              - 'execute-api:Invoke'
+            Resource: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/$connect'
+      Roles:
+        - !Ref IDPAuthRole
+
+  UserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      AutoVerifiedAttributes: []
+      AccountRecoverySetting:
+        RecoveryMechanisms: 
+          - Name: verified_email
+            Priority: 1   
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+      EmailVerificationMessage: !Ref emailVerificationMessage
+      EmailVerificationSubject: !Ref emailVerificationSubject
+      Policies:
+        PasswordPolicy:
+          MinimumLength: !Ref passwordPolicyMinLength
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+          RequireUppercase: true
+          TemporaryPasswordValidityDays: 7    
+      UserPoolAddOns:
+        AdvancedSecurityMode: ENFORCED
+      Schema:
+        - Mutable: true
+          Name: email
+          Required: true
+      UsernameConfiguration:
+        CaseSensitive: false
+      UserPoolName: !Sub
+            - "nih-grants-cognito-pool-${region}-${accountid}"
+            - region: !Ref "AWS::Region"
+              accountid: !Ref "AWS::AccountId"
+
+
+  UserPoolClientWeb:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: !Sub
+            - "nih-grants-app-client-web-${region}-${accountid}"
+            - region: !Ref "AWS::Region"
+              accountid: !Ref "AWS::AccountId"
+      RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
+      TokenValidityUnits:
+        RefreshToken: days
+    DependsOn:
+      - UserPool
+
+  UserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: !Sub
+            - "nih-grants-app-client-${region}-${accountid}"
+            - region: !Ref "AWS::Region"
+              accountid: !Ref "AWS::AccountId"
+      GenerateSecret: !Ref userpoolClientGenerateSecret
+      RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
+      TokenValidityUnits:
+        RefreshToken: days
+    DependsOn:
+      - UserPool
+
+  IdentityPool:
+    Type: "AWS::Cognito::IdentityPool"
+    Properties:
+      AllowUnauthenticatedIdentities: !Ref allowUnauthenticatedIdentities
+      CognitoIdentityProviders:
+        - ClientId: !Ref UserPoolClient
+          ProviderName: !Sub
+            - "cognito-idp.${region}.amazonaws.com/${client}"
+            - region: !Ref "AWS::Region"
+              client: !Ref UserPool
+        - ClientId: !Ref UserPoolClientWeb
+          ProviderName: !Sub
+            - "cognito-idp.${region}.amazonaws.com/${client}"
+            - region: !Ref "AWS::Region"
+              client: !Ref UserPool
+      IdentityPoolName: !Sub
+            - "nih-grants-identity-pool-${region}-${accountid}"
+            - region: !Ref "AWS::Region"
+              accountid: !Ref "AWS::AccountId"
+  IdentityPoolRoleMap:
+    DependsOn: [IDPAuthRole,IdentityPool]
+    Type: "AWS::Cognito::IdentityPoolRoleAttachment"
+    Properties:
+      IdentityPoolId: !Ref IdentityPool
+      Roles:
+        unauthenticated: !GetAtt
+        - IDPUnauthRole
+        - Arn
+        authenticated: !GetAtt
+        - IDPAuthRole
+        - Arn
+        
+Outputs:
+  IdentityPoolId:
+    Description: Id for the identity pool
+    Value: !Ref IdentityPool
+  IdentityPoolName:
+    Description: Name for the identity pool
+    Value: !GetAtt
+      - IdentityPool
+      - Name
+  UserPoolId:
+    Description: Id for the user pool
+    Value: !Ref UserPool
+  UserPoolArn:
+    Description: Arn for the user pool
+    Value: !GetAtt
+      - UserPool
+      - Arn
+  UserPoolName:
+    Value: !Sub "nih-grants-cognito-pool-${AWS::Region}-${AWS::AccountId}"
+  AppClientIDWeb:
+    Description: The user pool app client id for web
+    Value: !Ref UserPoolClientWeb
+  AppClientID:
+    Description: The user pool app client id
+    Value: !Ref UserPoolClient
+  IDPAuthRole:
+    Description: "Authenticated role ARN for Cognito Identity Pool"
+    Value: !GetAtt IDPAuthRole.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-IDPAuthRole'

@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: KMS Key Alias for CodeBuild Projects
+
+Parameters:
+  KMSKeyId:
+    Type: String
+    Description: The ID of the KMS Key
+
+Resources:
+  CodeBuildKMSKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/codebuild-key
+      TargetKeyId: !Ref KMSKeyId
+
+Outputs:
+  CodeBuildKMSKeyAlias:
+    Description: The alias of the KMS Key for CodeBuild
+    Value: !Ref CodeBuildKMSKeyAlias
+    Export:
+      Name: !Sub ${AWS::StackName}-CodeBuildKMSKeyAlias

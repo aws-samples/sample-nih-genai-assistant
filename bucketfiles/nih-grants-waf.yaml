@@ -1,0 +1,114 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'WAF with IP Restriction for Cognito User Pool'
+
+Parameters:
+  COGUPID:
+    Type: String
+    Description: The Cognito User Pool ID to protect
+  
+  AllowedIPv4s:
+    Type: String
+    Description: Comma-separated list of allowed IPv4 addresses in CIDR notation
+    Default: "255.255.255.255/32"
+
+  AllowedIPv6s:
+    Type: String
+    Description: Comma-separated list of allowed IPv6 addresses in CIDR notation
+    Default: "2600:1700:ac11:b800::/64"
+
+Resources:
+  AllowedIPv4Set:
+    Type: AWS::WAFv2::IPSet
+    Properties:
+      Addresses: 
+        - !Select [0, !Split [",", !Ref AllowedIPv4s]]
+      IPAddressVersion: IPV4
+      Scope: REGIONAL
+      Description: Allowed IPv4 addresses
+
+  AllowedIPv6Set:
+    Type: AWS::WAFv2::IPSet
+    Properties:
+      Addresses: 
+        - !Select [0, !Split [",", !Ref AllowedIPv6s]]
+      IPAddressVersion: IPV6
+      Scope: REGIONAL
+      Description: Allowed IPv6 addresses
+
+  IPRestrictionWebACL:
+    Type: AWS::WAFv2::WebACL
+    DependsOn:
+      - AllowedIPv4Set
+      - AllowedIPv6Set
+    Properties:
+      Name: IP-Restricted-WebACL
+      Scope: REGIONAL
+      Description: Block all IPs except those in the allowed list
+      
+      DefaultAction:
+        Block: {}
+      
+      Rules:
+        - Name: RateLimitRule
+          Priority: 1
+          Action:
+            Block: {}
+          Statement:
+            RateBasedStatement:
+              Limit: 10
+              AggregateKeyType: IP
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: RateLimitRuleMetric
+
+        - Name: AllowSpecificIPv4s
+          Priority: 2
+          Action:
+            Allow: {}
+          Statement:
+            IPSetReferenceStatement:
+              Arn: !GetAtt AllowedIPv4Set.Arn
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: AllowSpecificIPv4sMetric
+
+        - Name: AllowSpecificIPv6s
+          Priority: 3
+          Action:
+            Allow: {}
+          Statement:
+            IPSetReferenceStatement:
+              Arn: !GetAtt AllowedIPv6Set.Arn
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: AllowSpecificIPv6sMetric
+      
+      VisibilityConfig:
+        SampledRequestsEnabled: true
+        CloudWatchMetricsEnabled: true
+        MetricName: IPRestrictionWebACLMetric
+      
+      Capacity: 100
+
+
+
+  # Associate the Web ACL with the Cognito User Pool
+  CognitoUserPoolWebACLAssociation:
+    Type: AWS::WAFv2::WebACLAssociation
+    DependsOn: IPRestrictionWebACL  
+    Properties:
+      ResourceArn: !Sub 
+        - arn:aws:cognito-idp:${Region}:${AccountId}:userpool/${UserPoolId}
+        - Region: !Ref 'AWS::Region'
+          AccountId: !Ref 'AWS::AccountId'
+          UserPoolId: !Ref COGUPID
+      WebACLArn: !GetAtt IPRestrictionWebACL.Arn
+
+
+Outputs:
+  WebACLArn:
+    Description: ARN of the created Web ACL
+    Value: !GetAtt IPRestrictionWebACL.Arn

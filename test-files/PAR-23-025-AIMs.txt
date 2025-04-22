@@ -1,0 +1,71 @@
+SPECIFIC AIMS
+
+There are 3.5 million sport-related injuries to minors annually1 with over 50% (potentially over 1.75 million)
+due
+to falls and collisions. 2-5 In soccer, player collisions are the most common injury mechanism (i.e., 57% of all
+injuries). 4 Soccer participation is highest of all sports, with 265 million global athletes: its recent growth driven by
+increased female participation. 6,7 Female soccer athletes are twice as likely as males to suffer serious
+musculoskeletal injury due to player collisions, 8 significantly increasing their risk of developing severe long-term
+negative outcomes (e.g., osteoarthritis). 9 Our preliminary data indicate 59% of collisions in girls' soccer are
+unanticipated (i.e., a collision the athlete does not see coming10 Despite significant negative effects of these
+collision injuries in sports such as girls' soccer4,5. little is known about mechanisms underlying their prevention.
+Thus, an urgent need exists to fill this knowledge gap to reduce the incidence of and impact forces associated
+with unanticipated collisions, resultant musculoskeletal injuries, and their negative sequelae in female athletes.
+
+Unanticipated collisions are associated with deficiencies in mechanisms (e.g., neuromechanics, perceptual-
+motor) underlying an athlete's ability to effectively modify behavior to meet sport challenges.
+11-13
+Phenotypic
+plasticity
+(PP)
+is a basic concept in biology 14 that captures an organism's fitness, or "readiness", to respond to
+environmental
+changes. 15 Thus, an athlete's PP quantifies her general adaptability to on-field conditions,
+including her responsiveness to high risk collision scenarios. Quantification of PP, in this context, is based on a
+time series of fitness scores indexed via neuromechanical variables, perceptual-motor variables, or both. Low
+PP reflects faulty neuromechanical and/or perceptual-motor mechanisms hypothesized to increase
+unanticipated collision risk and associated exposure to high impact forces. Our pilot data support this hypothesis
+(see Preliminary Data) and indicate reduced perceptual-motor and neuromechanical fitness are related to more
+unanticipated collisions and greater impact forces, with higher forces related to greater muscle injury severity.
+16
+Our published training data also indicate that neuromuscular training (NMT) positively affects neuromechanical
+mechanisms that enhance athlete fitness, protecting athletes from musculoskeletal injuries. 17,18 Our augmented
+NMT (aNMT; pronounced "animate") intervention-the focus of the parent grant, U01 AR067997-01A1, to this
+application-was designed to enhance the protective effects of NMT against non-contact injuries via effective
+neuromechanical responses and stimulate perceptual attention away from the body toward external,
+environmental context. 11 Thus, aNMT is expected to be effective in promoting collision anticipation and the
+reduction of impact force, through refinement of multimodal mechanisms that underlie PP.
+
+Our long-term goal is to reduce collision-based musculoskeletal injuries. The overall objectives of this
+ancillary proposal are to determine (a) what measures of PP best predict behaviors that result in on-field collision
+(e.g., unanticipated collision frequency and impact magnitude) and (b) how aNMT affects such measures. We
+will leverage the most applicable cohort (i.e., female soccer) from the NIH-funded clinical trial U01 AR067997-
+01A1 examining pre-season aNMT and post-season testing for prevention of non-contact ACL injury, "Real-time
+Sensorimotor Feedback for Injury Prevention Assessed in Virtual Reality". We will test the central hypothesis
+that greater PP will lead to fewer unanticipated collisions and lower impact forces in female soccer athletes, and
+that PP can be modified by aNMT. The rationale is that, after completion of this research, we will be able to
+identify specific mechanisms of unanticipated collision risk, and a training protocol to address them-the first
+step in reducing collision-based musculoskeletal injury. We will achieve this objective via two specific aims:
+
+Specific Aim 1: Evaluate if prospective PP measures predict frequency and magnitude of unanticipated
+collisions on the field of play. PP measures will be derived from mechanism-specific neuromechanical (center
+of pressure dynamics and cutting/jumping power) and perceptual-motor (oculomotor eye gaze tracking) models,
+and individual association with outcomes will be examined then optimized via integrated, multivariate models.
+Specific Aim 2: Determine the effect of a pre-season aNMT intervention on the measures of PP and
+underlying fitness scores. PP will be measured using time-series of fitness scores obtained during aNMT
+training. Fitness scores obtained at post-training and post-season will also be compared to identify changes in,
+and sustainability of, perceptual-motor and neuromechanical adaptations following aNMT.
+
+The proposed research will provide insight into mechanisms supporting adaptive sport behavior, and
+enhances the value of the parent project via the following expected outcomes: (1) identification of a highly
+sensitive fitness-based, risk profile for injuries related to unanticipated collisions, (2) identification of modifiable
+aspects of collision risk, and (3) expansion of the aNMT application to the prevention of contact injuries with
+identified mechanistic targets for eventual protocol enhancement. These outcomes are the critical first steps for
+improving detection of, and responses to, unanticipated collisions and the development of complete training
+protocols to optimize injury prevention efforts for contact sport athletes. Our cross-disciplinary approach
+capitalizing on the biological underpinnings of PP is highly innovative and efficiently leverages our currently
+funded NIH U01 AR067997-01A1 clinical trial to, for the first time, optimize strategies to both quantify the
+remaining risk not associated with non-contact injuries and, ultimately, reduce contact-based musculoskeletal
+injury in female soccer athletes.
+
+

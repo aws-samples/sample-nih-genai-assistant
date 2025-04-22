@@ -1,0 +1,283 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Mappings:
+  TheRegionYouAreDeployingIn:
+    us-east-1:
+      IsNotSupportedPleaseUseADifferentRegion: True
+    us-west-2:
+      IsNotSupportedPleaseUseADifferentRegion: True
+   
+Conditions:
+  RunningInAllowedRegion: !Equals [ !FindInMap [ TheRegionYouAreDeployingIn, !Ref 'AWS::Region', IsNotSupportedPleaseUseADifferentRegion ] , True ]
+
+Parameters:
+  NIHCFBUCKET:
+    Type: String
+    Default: ChangeThis
+    Description: 'This is the bucket created for Cloud Formation artifacts'
+
+Resources:
+  CBKMSKeyStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-codebuild-kms.yaml'
+      Parameters:
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+  CBKMSKeyAliasStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn:
+      - CBKMSKeyStack
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-codebuild-kms-alias.yaml'
+      Parameters:
+        KMSKeyId:
+            Fn::GetAtt:  
+            - CBKMSKeyStack
+            - Outputs.CodeBuildKMSKeyId
+  CBLambdaStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      Parameters:
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+        KMSKeyArn:
+          Fn::GetAtt:  
+          - CBKMSKeyStack
+          - Outputs.CodeBuildKMSKeyArn
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-lambda-codebuild.yaml' 
+
+  CBStartLambdaStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn:
+      - CBLambdaStack
+    Properties:
+      Parameters:
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+        CodeBuildProjectName:
+          Fn::GetAtt:  
+          - CBLambdaStack
+          - Outputs.CodeBuildProject
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-cr-start-codebuild-lambda.yaml'
+
+  DDBStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-ddb.yaml' 
+
+  OpenSearchStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-os-serverless.yaml'
+
+  # Remove circular dependencies by removing DependsOn and adjusting the order
+  AuthStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-auth.yaml'
+
+
+  WSAPIStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn: 
+      - AuthStack
+      - CBStartLambdaStack
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-ws-api.yaml'
+      Parameters:
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+        COGUPID: 
+          Fn::GetAtt:  
+          - AuthStack
+          - Outputs.UserPoolId
+
+  APIStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn: 
+      - AuthStack
+    Properties:
+      Parameters:
+        COGUPARN: 
+          Fn::GetAtt:  
+          - AuthStack
+          - Outputs.UserPoolArn
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-api.yaml'
+
+  WAFStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn: 
+      - AuthStack
+    Properties:
+      Parameters:
+        COGUPID: 
+          Fn::GetAtt:
+          - AuthStack
+          - Outputs.UserPoolId
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-waf.yaml'
+
+  S3Stack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn:
+      - OpenSearchStack
+      - WSAPIStack
+    Properties:
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-s3.yaml'
+      Parameters:
+        COLLECTIONARN:
+          Fn::GetAtt:  
+          - OpenSearchStack
+          - Outputs.CollectionARN
+        COLLECTIONENDPOINT:
+          Fn::GetAtt:  
+          - OpenSearchStack
+          - Outputs.CollectionURL
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+        WSENDPOINT: 
+          Fn::GetAtt:  
+          - WSAPIStack
+          - Outputs.StageURL
+        WebSocketApiArn:
+          Fn::GetAtt:  
+          - WSAPIStack
+          - Outputs.WebSocketApiArn
+        CognitoAuthRoleArn:
+          Fn::GetAtt:  
+          - AuthStack
+          - Outputs.IDPAuthRole
+        DDBKMSKEY:
+          Fn::GetAtt:  
+          - DDBStack
+          - Outputs.NIHGrantsDDBKMSKeyArn
+
+
+
+  LambdaStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn:
+      - S3Stack
+      - OpenSearchStack
+    Properties:
+      Parameters:
+        NIHCONTEXTBUCKET:
+          Fn::GetAtt:  
+          - S3Stack
+          - Outputs.ContextBucketName
+        COLLECTIONENDPOINT:
+          Fn::GetAtt:  
+          - OpenSearchStack
+          - Outputs.CollectionURL
+        COLLECTIONARN:
+          Fn::GetAtt:  
+          - OpenSearchStack
+          - Outputs.CollectionARN
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-lambdas.yaml'
+
+  ECRStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn:
+      - WSAPIStack
+      - APIStack
+      - LambdaStack
+      - AuthStack
+    Properties:
+      Parameters:
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+        WSENDPOINT:
+          Fn::GetAtt:  
+          - WSAPIStack
+          - Outputs.StageURL
+        AK:
+          Fn::GetAtt:  
+          - APIStack
+          - Outputs.APIKey
+        APIENDPOINT:
+          Fn::GetAtt:  
+          - APIStack
+          - Outputs.RestApiId
+        LAMBDAROLEARN:
+          Fn::GetAtt:  
+          - LambdaStack
+          - Outputs.LambdaExecutionRole
+        COGIDPID: 
+          Fn::GetAtt:  
+          - AuthStack
+          - Outputs.IdentityPoolId
+        COGUPID: 
+          Fn::GetAtt:  
+          - AuthStack
+          - Outputs.UserPoolId
+        COGWID: 
+          Fn::GetAtt:  
+          - AuthStack
+          - Outputs.AppClientIDWeb
+        S3KMSKEY:
+          Fn::GetAtt:  
+          - S3Stack
+          - Outputs.S3KMSKeyArn
+        KMSKEYARN:
+          Fn::GetAtt:  
+          - CBKMSKeyStack
+          - Outputs.CodeBuildKMSKeyArn
+        DDBKMSKEY:
+          Fn::GetAtt:  
+          - DDBStack
+          - Outputs.NIHGrantsDDBKMSKeyArn
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-grants-codebuild.yaml'
+
+  CBStartStack:
+    Type: 'AWS::CloudFormation::Stack'
+    DependsOn:
+      - ECRStack
+      - CBStartLambdaStack
+    Properties:
+      Parameters:
+        NIHCFBUCKET: !Ref NIHCFBUCKET
+        CodeBuildProjectName:
+          Fn::GetAtt:  
+          - ECRStack
+          - Outputs.CodeBuildProject
+      TemplateURL: !Sub 'https://s3.amazonaws.com/${NIHCFBUCKET}/nih-cr-start-codebuild.yaml'
+
+#
+  
+  
+Outputs:
+  S3ContextBucket: 
+    Value: 
+      Fn::GetAtt:  
+      - S3Stack
+      - Outputs.ContextBucketName
+  OpenSearchServerlessCollection: 
+    Value: 
+      Fn::GetAtt:  
+      - OpenSearchStack
+      - Outputs.CollectionURL
+  RestAPIId: 
+    Value: 
+      Fn::GetAtt:  
+      - APIStack
+      - Outputs.RestApiId
+  CognitoIdentityPoolId: 
+    Value: 
+      Fn::GetAtt:  
+      - AuthStack
+      - Outputs.IdentityPoolId
+  CognitoUserPoolId: 
+    Value: 
+      Fn::GetAtt:  
+      - AuthStack
+      - Outputs.UserPoolId
+  CognitoWebClientId: 
+    Value: 
+      Fn::GetAtt:  
+      - AuthStack
+      - Outputs.AppClientIDWeb
+  WSURI: 
+    Value: 
+      Fn::GetAtt:  
+      - WSAPIStack
+      - Outputs.WebSocketURI
+  WSURL: 
+    Value: 
+      Fn::GetAtt:  
+      - WSAPIStack
+      - Outputs.StageURL
+      

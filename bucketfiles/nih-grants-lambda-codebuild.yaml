@@ -1,0 +1,224 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  NIHCFBUCKET:
+    Type: String
+    Default: "scott-the-researcher-cloudformation-bucket-us-east-1"
+  ResourceNamePrefix:
+    Description: Please specify the prefix for all the resources
+    Type: String
+    Default: "nih-grants"
+  KMSKeyArn:
+    Type: String
+    Description: The Arn of the KMS Key
+
+Resources:
+
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codebuild.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref 'AWS::AccountId'
+      Policies:
+        - PolicyName: "lambda-codebuild-kms"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - kms:Decrypt
+                  - kms:GenerateDataKey
+                Resource: 
+                  - !Ref KMSKeyArn
+                Condition:
+                  StringEquals:
+                    aws:SourceAccount: !Ref 'AWS::AccountId'
+                  ArnLike:
+                    aws:SourceArn: !Sub 'arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${ResourceNamePrefix}-lambda-codebuild'
+        - PolicyName: "lambda-codebuild-log-role"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ResourceNamePrefix}-lambda-codebuild:*"
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ResourceNamePrefix}-lambda-codebuild:*"
+
+        - PolicyName: "lambda-codebuild-artifacts"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource: 
+                  - !Sub "arn:aws:s3:::${NIHCFBUCKET}/*"
+                  - !Sub "arn:aws:s3:::nih-grants-context-${AWS::Region}-${AWS::AccountId}/*"
+
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub '${ResourceNamePrefix}-lambda-codebuild'
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      LogsConfig:
+        CloudWatchLogs:
+          Status: ENABLED
+      Artifacts:
+        Type: S3
+        Location: !Ref NIHCFBUCKET
+        Path: '/'
+        Name: cb
+        Packaging: ZIP
+      Description: "lambda build"
+      Environment:
+        ComputeType: BUILD_GENERAL1_LARGE
+        EnvironmentVariables:
+          - Name: NIHCFBUCKET
+            Value: !Ref NIHCFBUCKET
+          - Name: NIHCONTEXTBUCKET
+            Value: !Sub "nih-grants-context-${AWS::Region}-${AWS::AccountId}"
+          - Name: AWS_REGION
+            Value: !Sub "${AWS::Region}"
+          - Name: AWS_DEFAULT_REGION
+            Value: !Sub "${AWS::Region}"
+          - Name: AWS_ACCOUNT_ID
+            Value: !Sub "${AWS::AccountId}"
+        Image: "aws/codebuild/standard:7.0"
+        PrivilegedMode: true
+        Type: "LINUX_CONTAINER"
+      EncryptionKey: !Ref KMSKeyArn
+      Source:
+        Type: NO_SOURCE
+        BuildSpec: |
+          version: 0.2
+          phases:
+            pre_build:
+              commands:
+                - sudo apt update -y
+                - mkdir lambda-NIHGrantCheckTemplateStatus
+                - mkdir lambda-NIHGrantListS3Artifacts
+                - mkdir lambda-NIHModelPrompts
+                - mkdir lambda-NIHWSFunction
+                - mkdir lambda-TextTractPDF2TextAsync
+                - mkdir lambda-NIHGrantLoader
+                - mkdir lambda-NIHQueryGrants 
+                - mkdir lambda-ContextHTMLScraper            
+                
+            build:
+              commands:
+                - echo "NIHWSFunction"
+                - cd lambda-NIHWSFunction
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/NIHWSFunction.zip .
+                - unzip NIHWSFunction.zip
+                - rm NIHWSFunction.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../NIHWSFunction.zip .
+                - cd ../
+                - aws s3 cp NIHWSFunction.zip s3://$NIHCFBUCKET
+                - echo "Building Lambdas ..."
+                - echo "ContextHTMLScraper"
+                - cd lambda-ContextHTMLScraper
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/ContextHTMLScraper.zip .
+                - unzip ContextHTMLScraper.zip
+                - rm ContextHTMLScraper.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../ContextHTMLScraper.zip .
+                - cd ../
+                - aws s3 cp ContextHTMLScraper.zip s3://$NIHCFBUCKET
+                - echo "NIHGrantCheckTemplateStatus"
+                - cd lambda-NIHGrantCheckTemplateStatus
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/NIHGrantCheckTemplateStatus.zip .
+                - unzip NIHGrantCheckTemplateStatus.zip
+                - rm NIHGrantCheckTemplateStatus.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../NIHGrantCheckTemplateStatus.zip .
+                - cd ../
+                - aws s3 cp NIHGrantCheckTemplateStatus.zip s3://$NIHCFBUCKET
+                - echo "NIHGrantListS3Artifacts"
+                - cd lambda-NIHGrantListS3Artifacts
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/NIHGrantListS3Artifacts.zip .
+                - unzip NIHGrantListS3Artifacts.zip
+                - rm NIHGrantListS3Artifacts.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../NIHGrantListS3Artifacts.zip .
+                - cd ../
+                - aws s3 cp NIHGrantListS3Artifacts.zip s3://$NIHCFBUCKET
+                - echo "NIHModelPrompts"
+                - cd lambda-NIHModelPrompts
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/NIHModelPrompts.zip .
+                - unzip NIHModelPrompts.zip
+                - rm NIHModelPrompts.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../NIHModelPrompts.zip .
+                - cd ../
+                - aws s3 cp NIHModelPrompts.zip s3://$NIHCFBUCKET
+                - echo "TextTractPDF2TextAsync"
+                - cd lambda-TextTractPDF2TextAsync
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/TextTractPDF2TextAsync.zip .
+                - unzip TextTractPDF2TextAsync.zip
+                - rm TextTractPDF2TextAsync.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../TextTractPDF2TextAsync.zip .
+                - cd ../
+                - aws s3 cp TextTractPDF2TextAsync.zip s3://$NIHCFBUCKET
+                - echo "NIHGrantLoader"
+                - cd lambda-NIHGrantLoader
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/NIHGrantLoader.zip .
+                - unzip NIHGrantLoader.zip
+                - rm NIHGrantLoader.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../NIHGrantLoader.zip .
+                - cd ../
+                - aws s3 cp NIHGrantLoader.zip s3://$NIHCFBUCKET
+                - echo "NIHQueryGrants"
+                - cd lambda-NIHQueryGrants
+                - pwd
+                - aws s3 cp s3://$NIHCFBUCKET/NIHQueryGrants.zip .
+                - unzip NIHQueryGrants.zip
+                - rm NIHQueryGrants.zip
+                - ls
+                - pip install -r requirements.txt -t .
+                - zip -r ../NIHQueryGrants.zip .
+                - cd ../
+                - aws s3 cp NIHQueryGrants.zip s3://$NIHCFBUCKET
+            post_build:
+              commands:
+                - echo "List built lambda zips"
+                - echo "DONE"
+
+Outputs:
+  CodeBuildProject:
+    Value: !Ref CodeBuildProject

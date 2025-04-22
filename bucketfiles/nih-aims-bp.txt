@@ -1,0 +1,140 @@
+Draft Specific Aims
+
+After you have decided the area of research to pursue, start thinking about your planned experiments by first drafting objectives, known in NIH lingo as Specific Aims.
+
+Be sure you can complete your Aims within the typical timeframe for your chosen Notice of Funding Opportunity (NOFO). For an R01, that’s typically four to five years.
+
+Your project should tackle important research within your niche: it must be able to move your field forward. Beware of concepts that can’t be strongly supported with your own preliminary data or published data from other laboratories.
+
+Thinking high level, ask yourself what objectives you could reasonably achieve within the timeframe of a grant. Start broadly with an emphasis on significance, and then focus on generating experiments with clear endpoints reviewers can readily assess.
+
+While you could design a project around two to four Specific Aims, many people create three.
+
+Limiting your application to a few Specific Aims keeps you clear of the very common mistake of being overly ambitious. It's much better to think small and propose less than to do the opposite.
+There Are Good Aims and There Are Poor Aims
+
+A common type of Specific Aim might ask a question like “Does A cause B?” However, your project could come to an end if A doesn’t turn out to cause B.
+
+It’s better to design an aim where the result doesn’t depend on only one outcome, but where one or more different outcomes would also be of interest. Then the question becomes “Does A cause B or non-B,” so make sure the “non-B” outcomes make sense based on both your central hypothesis and preliminary data.
+
+Another common type of Specific Aim is descriptive. For example, “We will measure levels of X in 1,000 samples of Y to characterize the pattern of expression of X."
+
+Though this may be very doable, it is rarely a highly significant finding in itself and often should be avoided unless you have no other choice. Such descriptive findings should usually be part of your preliminary data, not part of your proposal.
+
+Like your topic, your Specific Aims should build on your previous experience.
+Sample Applications and More
+
+Find examples of Specific Aims used by others.
+Form a Gestalt between Aims and Experiments
+
+Although it may seem an early stage to think about specific experiments, cost of those experiments, needed expertise, and resources, these variables go hand-in-hand with picking a project that is both impactful and feasible.
+
+If the project is not feasible, you will need to rethink your experiments or even your Specific Aims.
+
+Because you have several items to juggle, we recommend using the following iterative process:
+
+    Staying in your niche, propose a project that
+        Addresses a highly significant problem.
+        Is innovative—can create new knowledge.
+        Is unique. For details, see What Does NIH Look For?, and search NIH’s Research Portfolio Online Reporting Tools—commonly known as RePORT—to check whether your project is unique.
+    Outline draft Specific Aims and one or more hypotheses.
+    Identify a potential funding institute and a study section that would likely embrace your research.
+    Outline experiments.
+    Assess feasibility.
+        See whether you have access to all needed resources and expertise.
+        Make sure the project is not growing too big for your targeted time and budget.
+    If you hit a roadblock, go back to the failure point and revise your plans.
+
+Draft Specific Aims and One or More Hypotheses
+
+Thinking high level, ask yourself what objectives you could achieve within the timeframe of the grant. Your goal is to create aims that are achievable in four to five years and have clear endpoints your reviewers can readily assess.
+
+Some people write their Specific Aims first and then develop a hypothesis; others do the reverse—use the approach that works best for you.
+
+You can create one hypothesis for the entire application or one for each Specific Aim.
+Hypothetically Speaking . . .
+
+Why do you need a central hypothesis (or multiple hypotheses)? Because that's what reviewers expect and what anchors your different Specific Aims to a common theme, not just a common field of research. Following a central hypothesis also keeps you focused with both writing the proposal and actually doing the research if the grant is funded.
+
+A strong hypothesis should be well-focused and testable by the Specific Aims and experiments.
+
+After you create your hypothesis, go back and take stock again of your prospective reviewers and their level of interest in light of your draft aims and hypothesis.
+Assess Your Specific Aims
+
+Here we show you how to put to the test your draft objectives—Specific Aims—you have planned for your project.
+
+This step provides a check of your aims in light of the study section you identified and advice on presenting your aims if you propose highly innovative research.
+
+Start assessing your Specific Aims by taking a hard look at the significance and innovation of your planned research.
+
+Ask yourself
+
+    Would my reviewers see my proposed project as tackling an important problem in a significant field?
+    Would they view my Specific Aims as capable of opening up new discoveries in my field?
+    Would my reviewers regard the work as new and unique?
+    Would they view my Specific Aims as likely to exert a significant influence on the research field(s) involved?
+    Are my Specific Aims written clearly and are they easy to understand?
+
+You'll want to get outside opinions for a fresh perspective. Don't assume others, including your reviewers, will consider a research area to have the same priority that you do.
+
+Also discuss your draft aims with colleagues who aren’t in your field. If they can understand your project and get excited about it, you have a better chance your reviewers will as well.
+
+It is particularly useful to have your application reviewed by a colleague who has been successful in getting NIH funding, or better yet, has served on an NIH study section.
+
+At this point, you may want to go back and reconsider your Specific Aims so you can be as certain as possible that the committee will appreciate your research plans.
+Oh Innovation, Where Art Thou?
+
+It’s important to propose hypothesis-driven research with well-defined and feasible Specific Aims. But where does this leave innovative ideas that are less likely to fit inside "the box"?
+
+Here are a few points to keep in mind:
+
+Hypothesis-driven research does not necessarily constrain paradigm-shifting or "outside-the-box" research, nor does it necessarily mean sticking with the paradigm du jour. Paradigm-shifting and outside-the-box concepts can still lend themselves to focused hypotheses that can help guide the crafting of solid Specific Aims. Such focused hypotheses need not be tied to a broader theory or paradigm; they may simply provide a rationale that can be used to test the strength of the proposed aim or experiment.
+
+Current criteria for scoring applications provide a transparent and fair guide to evaluate large numbers of diverse applications based on the aggregate merit of scientific significance, innovation, and feasibility.
+
+For projects predominantly focused on innovation and outside-the-box research, investigators always have the option to use grant mechanisms, other than R01s, that may better suit their needs [e.g., exploratory/developmental research (R21) grants, NIH Director's Pioneer Award Program (DP1), and NIH Director's New Innovator Award Program (DP2)].
+
+Serendipity is likely to happen just as frequently regardless of the grant mechanism supporting the research. As Louis Pasteur said, "Chance favors the prepared mind." NIH strongly encourages investigators to follow up on chance discoveries made in the course of executing R01-supported research programs.
+How to Handle Innovation in Your Application
+
+Although innovation is one of the five peer review criteria, many experienced investigators report that it's difficult to succeed in review with so called "high-risk" research.
+
+Heed these words from an investigator who was the PI of an NIH New Innovator Award:
+
+"It's always more difficult to convince people against commonly held beliefs (even though they may not be based on experimental data). Moreover, due to the higher risk of our work, we may also have a higher failure rate," says Sanjay K. Jain, M.D., of Johns Hopkins University School of Medicine and Bloomberg School of Public Health.
+
+As you scrutinize your Specific Aims, make sure your reviewers will view them to be reasonably close to the scientific mainstream.
+
+If your proposal challenges commonly held beliefs, be sure that you include sufficient evidence in your preliminary data to convince the reviewers that these beliefs may not be scientifically valid. If your research is high risk, it is likely to be highly innovative. Your job is to make the reviewers feel confident that the risk is worth taking.
+
+So the research you propose should be new and unique and able to push forward the frontier of knowledge just ahead starting from what's known.
+
+When you write your application, you'll put the information about your project's importance and innovation in the Significance and Innovation sections.
+
+Never forget that reviewers also look at the feasibility of the proposed research. Novelty alone will not help you if the proposed studies are not feasible given the available time, funds, and resources to do the work.
+Sample Applications and More
+
+Get an idea of how investigators who wrote outstanding applications balanced these complexities.
+
+Checklist Section
+
+Iterative Approach to Application Planning Checklist
+
+Staying in your niche, propose a project that
+
+    Addresses a highly significant problem.
+    Is innovative—can create new knowledge.
+    Is unique.
+
+Outline three Specific Aims and one or more testable hypotheses.
+
+    Create (usually) three Specific Aims you can achieve in four or five years.
+    Make sure they have clear endpoints reviewers can readily assess.
+    Create a hypothesis (or hypotheses) that is well focused and testable by the aims and experiments.
+    Identify a potential funding institute and a study section that would likely embrace your research.
+    Outline experiments.
+    Assess feasibility.
+    See whether you have access to all needed resources and expertise.
+    Make sure the project is not growing too big for your targeted time and budget.
+    If you hit a roadblock, go back to the failure point and revise your plans.
+

@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: KMS Key for CodeBuild Projects and CloudWatch Logs Encryption
+
+Parameters:
+  ResourceNamePrefix:
+    Type: String
+    Description: Prefix for resource names
+    Default: 'nih-grants'
+  NIHCFBUCKET:
+    Type: String
+    Description: The NIH CFBucket name
+
+Resources:
+  CodeBuildKMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: KMS key for CodeBuild projects and CloudWatch Logs encryption
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: Enable Root Account Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+            Action: kms:*
+            Resource: "*"
+          
+          - Sid: Allow CloudWatch Logs for Specific CodeBuild Projects
+            Effect: Allow
+            Principal:
+              Service: !Sub logs.${AWS::Region}.amazonaws.com
+            Action:
+              - kms:Encrypt*
+              - kms:Decrypt*
+              - kms:ReEncrypt*
+              - kms:GenerateDataKey*
+              - kms:Describe*
+              - kms:CreateGrant
+            Resource: "*"
+            Condition:
+              ArnLike:
+                'kms:EncryptionContext:aws:logs:arn':
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ResourceNamePrefix}-lambda-codebuild:*
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ResourceNamePrefix}-codebuild:*
+
+          
+          - Sid: Allow CodeBuild Service
+            Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action:
+              - kms:Decrypt
+              - kms:Encrypt
+              - kms:ReEncrypt*
+              - kms:GenerateDataKey*
+            Resource: 
+              - !Sub "arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/nih-grants-repository-${AWS::Region}-${AWS::AccountId}"
+              - !Sub "arn:aws:s3:::${NIHCFBUCKET}"
+              - !Sub "arn:aws:s3:::${NIHCFBUCKET}/*"
+
+Outputs:
+  CodeBuildKMSKeyId:
+    Description: The ID of the KMS Key for CodeBuild
+    Value: !Ref CodeBuildKMSKey
+    Export:
+      Name: !Sub ${AWS::StackName}-CodeBuildKMSKeyId
+
+  CodeBuildKMSKeyArn:
+    Description: The ARN of the KMS Key for CodeBuild
+    Value: !GetAtt CodeBuildKMSKey.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-CodeBuildKMSKeyArn

@@ -1,0 +1,109 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  NIHGrantsKMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Customer managed key for NIH Grants DynamoDB tables
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: '2012-10-17'
+        Id: key-policy-1
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 
+              - 'kms:Create*'
+              - 'kms:Describe*'
+              - 'kms:Enable*'
+              - 'kms:List*'
+              - 'kms:Put*'
+              - 'kms:Update*'
+              - 'kms:Revoke*'
+              - 'kms:Disable*'
+              - 'kms:Get*'
+              - 'kms:Delete*'
+              - 'kms:Decrypt'
+              - 'kms:ScheduleKeyDeletion'
+              - 'kms:CancelKeyDeletion'
+            Resource: 
+              - !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/*'
+          - Sid: Allow DynamoDB to use the key
+            Effect: Allow
+            Principal:
+              Service: dynamodb.amazonaws.com
+            Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              - kms:ReEncrypt*
+              - kms:GenerateDataKey*
+              - kms:DescribeKey
+            Resource: 
+              - 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/nih-grants-table'
+              - 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/nih-ws-table'
+
+  NIHGrantsKMSKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/nih-grants-ddb-key
+      TargetKeyId: !Ref NIHGrantsKMSKey
+
+  GrantDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      TableName: nih-grants-table
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      PointInTimeRecoverySpecification: 
+        PointInTimeRecoveryEnabled: true 
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+        SSEType: KMS
+        KMSMasterKeyId: !Ref NIHGrantsKMSKey
+      
+  WSDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      TableName: nih-ws-table
+      KeySchema:
+        - AttributeName: connection_id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: connection_id
+          AttributeType: S
+      PointInTimeRecoverySpecification: 
+        PointInTimeRecoveryEnabled: true 
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+        SSEType: KMS
+        KMSMasterKeyId: !Ref NIHGrantsKMSKey
+      
+Outputs:
+  DynamoDBTableName:
+    Value: !Ref GrantDynamoDBTable
+  WSDynamoDBTable:
+    Value: !Ref WSDynamoDBTable
+  NIHGrantsKMSKeyId:
+    Description: The ID of the customer managed KMS key for NIH Grants DynamoDB tables
+    Value: !Ref NIHGrantsKMSKey
+  NIHGrantsDDBKMSKeyArn:
+    Description: The ARN of the customer managed KMS key for NIH Grants DynamoDB tables
+    Value: !GetAtt NIHGrantsKMSKey.Arn

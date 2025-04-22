@@ -1,0 +1,480 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+  License: Apache-2.0
+Description: ""
+Parameters:
+  COLLECTIONENDPOINT:
+    Type: String
+  COLLECTIONARN:
+    Type: String
+  NIHCFBUCKET:
+    Type: String
+  WSENDPOINT:
+    Type: String
+  WebSocketApiArn:
+    Type: String
+  CognitoAuthRoleArn:
+    Type: String
+  DDBKMSKEY:
+    Type: String
+
+
+
+Resources:
+  S3KMSKey:
+    Type: AWS::KMS::Key
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: F76
+            reason: "Wildcard needed when the principal is the root user, as the root user has implicit access to all resources in an account."
+    Properties:
+      Description: KMS key for S3 bucket encryption
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: 'kms:*'
+            Resource: '*'
+          - Sid: Allow S3 Service
+            Effect: Allow
+            Principal:
+              Service: s3.amazonaws.com
+            Action:
+              - kms:GenerateDataKey
+              - kms:Decrypt
+            Resource: '*'
+            Condition:
+              StringEquals:
+                'kms:CallerAccount': !Ref 'AWS::AccountId'
+          - Sid: AllowLambdaRoles
+            Effect: Allow
+            Principal:
+              AWS: '*'
+            Action:
+              - kms:GenerateDataKey
+              - kms:Decrypt
+            Resource: '*'
+            Condition:
+              StringLike:
+                'aws:PrincipalArn': 
+                  - !Sub 'arn:aws:iam::${AWS::AccountId}:role/nih-grants-lambda-*'
+                  - !Ref CognitoAuthRoleArn
+  
+  S3KMSKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: 'alias/nih-grants-s3-key'
+      TargetKeyId: !GetAtt S3KMSKey.Arn
+
+
+  S3AccessLogsBucket:
+    Type: AWS::S3::Bucket
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W35
+            reason: "This is the destination bucket for access logs. Enabling logging on this bucket would be recursive"
+          - id: W41
+            reason: "This bucket only stores access logs and does not require encryption."
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      BucketName: 
+        Fn::Join:
+          [
+            "-",
+            [
+              "nih-grants-access-logs",
+              { "Fn::Sub": "${AWS::Region}" },
+              { "Fn::Sub": "${AWS::AccountId}" },
+            ],
+          ]
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  S3ContextBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    DependsOn: 
+      - S3AccessLogsBucket
+      - S3AccessLogsBucketPolicy 
+      - S3KMSKey
+    Properties:
+      BucketName:
+        Fn::Join:
+          [
+            "-",
+            [
+              "nih-grants-context",
+              { "Fn::Sub": "${AWS::Region}" },
+              { "Fn::Sub": "${AWS::AccountId}" },
+            ],
+          ]
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+              KMSMasterKeyID: !GetAtt S3KMSKey.Arn
+            BucketKeyEnabled: true
+      CorsConfiguration:
+        CorsRules: 
+          - AllowedHeaders: ["*"]
+            AllowedMethods: ["GET", "PUT", "POST", "DELETE", "HEAD"]
+            AllowedOrigins: ["*"]
+            MaxAge: 3000
+      NotificationConfiguration:
+        LambdaConfigurations:
+          - Event: 's3:ObjectCreated:*'
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: 'artifacts/available-grants/AllGuideResultsReport/'
+                  - Name: suffix
+                    Value: '.csv'
+            Function: !GetAtt lambdaNIHGrantLoader.Arn
+          - Event: 's3:ObjectCreated:*'
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: 'artifacts/aims-doc/'
+                  - Name: suffix
+                    Value: '.pdf'
+            Function: !GetAtt lambdaTextTractPDF2TextAsync.Arn
+          - Event: 's3:ObjectCreated:*'
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: 'artifacts/customer-uploads/'
+                  - Name: suffix
+                    Value: '.pdf'
+            Function: !GetAtt lambdaTextTractPDF2TextAsync.Arn
+      LoggingConfiguration:
+        DestinationBucketName: !Ref S3AccessLogsBucket
+        LogFilePrefix: s3-access-logs/
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  S3AccessLogsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    DependsOn: S3AccessLogsBucket
+    Properties:
+      Bucket: !Ref S3AccessLogsBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowLogDeliveryWrite
+            Effect: Allow
+            Principal:
+              Service: logging.s3.amazonaws.com
+            Action:
+              - s3:PutObject
+            Resource: !Sub '${S3AccessLogsBucket.Arn}/*'
+
+          - Sid: DenyNonSSLRequests
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource:
+              - !Sub 'arn:aws:s3:::${S3AccessLogsBucket}'
+              - !Sub 'arn:aws:s3:::${S3AccessLogsBucket}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+  S3ContextBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3ContextBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: RequireSSLRequestsOnly
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: 
+              - !Sub 'arn:aws:s3:::${S3ContextBucket}'
+              - !Sub 'arn:aws:s3:::${S3ContextBucket}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+  lambdaNIHGrantLoader:
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: NIHGrantLoader
+      Description: Lambda NIHGrantLoader
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Timeout: 900
+      MemorySize: 3008
+      Role: !GetAtt LambdaLoaderRole.Arn
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: NIHGrantLoader.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          INDEX: "grant-opportunities-index"
+          OS_HOST: !Join ["", !Split ["https://", !Ref COLLECTIONENDPOINT]]
+
+  lambdaTextTractPDF2TextAsync:
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: TextTractPDF2TextAsync
+      Description: Lambda TextTractPDF2TextAsync
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaTextractRole.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: TextTractPDF2TextAsync.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          S3_OUTPUT_BUCKET: 
+            Fn::Join:
+              [
+                "-",
+                [
+                  "nih-grants-context",
+                  { "Fn::Sub": "${AWS::Region}" },
+                  { "Fn::Sub": "${AWS::AccountId}" },
+                ],
+              ]
+          WS_DDB_TABLE: 'nih-ws-table'
+          WS_ENDPOINT: !Ref WSENDPOINT
+
+  LambdaLoaderRole:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName: nih-grants-lambda-loader-role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+  
+  LambdaTextractRole:
+      Type: AWS::IAM::Role
+      Metadata:
+        cfn_nag:
+          rules_to_suppress:
+            - id: W28
+              reason: "Used for consistent referencing in the stack."
+      Properties:
+        RoleName: nih-grants-lambda-textract-role
+        AssumeRolePolicyDocument:
+          Statement:
+            - Action:
+                - sts:AssumeRole
+              Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+          Version: 2012-10-17
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/AWSLambdaExecute
+        Path: /
+
+  lambdatextractexecutionpolicy:
+    Type: "AWS::IAM::Policy"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W12
+            reason: "StartDocumentAnalysis API action does not support resource-level permissions, meaning it cannot be restricted to specific resources like individual documents or buckets."
+    DependsOn: 
+      - S3ContextBucket
+      - S3KMSKey
+      - LambdaTextractRole
+    Properties:
+      PolicyName: lambda-loader-execution-policy
+      Roles:
+        - !Ref LambdaTextractRole
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/TextTractPDF2TextAsync:log-stream:*'
+          - Effect: Allow
+            Action:
+              - 's3:GetObject'
+              - 's3:ListBucket'
+            Resource:
+              - !Sub 'arn:aws:s3:::${S3ContextBucket}'
+              - !Sub 'arn:aws:s3:::${S3ContextBucket}/*'
+          - Effect: Allow
+            Action:
+              - "execute-api:Invoke"
+              - "execute-api:ManageConnections"
+            Resource: !Join
+              - ""
+              - - !Ref WebSocketApiArn
+                - "/Dev/POST/@connections/*"
+          - Effect: Allow
+            Action:
+              - "textract:StartDocumentAnalysis"
+              - "textract:GetDocumentAnalysis"
+            Resource: 
+              - "*"  
+          - Effect: Allow
+            Action:
+              - "kms:Decrypt"
+            Resource: 
+              - !GetAtt S3KMSKey.Arn
+              - !Ref DDBKMSKEY
+                
+          - Effect: Allow
+            Action:
+              - "dynamodb:Scan"
+            Resource: 
+              - Fn::Sub:
+                - 'arn:aws:dynamodb:${region}:${account}:table/nih-ws-table'
+                - region: !Ref "AWS::Region"
+                  account: !Ref "AWS::AccountId"        
+
+  lambdaloaderexecutionpolicy:
+    Type: "AWS::IAM::Policy"
+    DependsOn: 
+      - S3ContextBucket
+      - S3KMSKey
+      - LambdaLoaderRole
+    Properties:
+      PolicyName: lambda-loader-execution-policy
+      Roles:
+        - !Ref LambdaLoaderRole
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'NIHGrantLoader'
+          - Effect: Allow
+            Action:
+              - 's3:GetObject'
+              - 's3:ListBucket'
+            Resource:
+              - !Sub 'arn:aws:s3:::${S3ContextBucket}'
+              - !Sub 'arn:aws:s3:::${S3ContextBucket}/*'
+          - Effect: Allow
+            Action:
+              - "aoss:BatchGetCollection"
+              - "aoss:APIAccessAll"
+              - "aoss:CreateIndex"
+              - "aoss:DefineType"
+              - "aoss:DeleteIndex"
+              - "aoss:UpdateCollection"
+              - "aoss:DescribeIndex"
+              - "aoss:DeleteCollection"
+              - "aoss:UpdateAccessPolicy"
+              - "iam:ListRoles"
+              - "aoss:CreateAccessPolicy"
+              - "iam:ListUsers"
+              - "aoss:CreateSecurityPolicy"
+              - "aoss:ListCollections"
+              - "aoss:ListAccessPolicies"
+              - "aoss:CreateCollection"
+            Resource: 
+              - Fn::Sub:
+                - 'arn:aws:iam::${account}:user/edu-research'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - '${collectionarn}'
+                - collectionarn: !Ref COLLECTIONARN
+          - Effect: Allow
+            Action:
+              - "kms:Decrypt"
+            Resource: 
+              - !GetAtt S3KMSKey.Arn
+               
+
+  S3ToLambdaInvokePermissionLoader:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref lambdaNIHGrantLoader
+      Action: lambda:InvokeFunction
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+
+  S3ToLambdaInvokePermissionTextTract:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref lambdaTextTractPDF2TextAsync
+      Action: lambda:InvokeFunction
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+
+
+Outputs:
+  S3KMSKeyArn:
+    Description: ARN of KMS key for S3 encryption
+    Value: !GetAtt S3KMSKey.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-S3KMSKeyArn"
+  ContextBucketName:
+    Description: S3 Context Bucket Name
+    Value: !Ref S3ContextBucket
+  LambdaTextTractPDF2TextAsyncName:
+    Description: The name of the Lambda function that performs asynchronous PDF to text conversion using Textract
+    Value: !Ref lambdaTextTractPDF2TextAsync
+    Export:
+      Name: !Sub "${AWS::StackName}-LambdaTextTractPDF2TextAsyncName"

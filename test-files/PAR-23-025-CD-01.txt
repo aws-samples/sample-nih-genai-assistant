@@ -1,0 +1,33 @@
+Project Summary/Abstract
+
+A large number of sports injury in minors (potentially over 1.75 million annually) are due to falls and collisions.
+In soccer, injuries from player collisions are most common, accounting for 57% of all injuries. Female soccer
+athletes are twice as likely as males to suffer serious musculoskeletal injury due to collisions, increasing their
+risk of debilitating long-term negative outcomes (i.e., osteoarthritis). Our pilot data indicate 59% of collisions in
+girls' soccer are unanticipated, that is, the athlete does not see it coming. Unanticipated collisions would,
+therefore, be preventable if specific training protocols can be designed to enhance mechanisms that support
+timely detection of upcoming collisions and drive appropriate motor responses. However, little is known about
+what these mechanisms might be and how they relate to collision risk. To fill this gap in knowledge, we
+propose a highly innovative approach that capitalizes on the biological concept of Phenotypic Plasticity (PP) to
+quantify an athlete's responsiveness to high risk collision scenarios. Here PP is computed based on measures
+of oculomotor dynamics and biomechanical responses and, therefore, reflect faulty perceptual-motor and
+neuromechanical mechanisms underlying increased collision risk. The overall objectives of this ancillary
+proposal are, therefore, to determine (a) how measures of PP related to unanticipated collision frequency and
+impact magnitude, and (b) how our augmented neuromuscular training (aNMT) intervention-the focus of the
+parent grant, U01 AR067997-01A1, to this application-affects such measures. Our central hypothesis,
+supported by our pilot data, is that lower PP relates to more unanticipated collisions and greater impact forces.
+We also hypothesize, based on published and pilot data, that aNMT is effective in promoting collision
+anticipation and the reduction of impact forces, through refinement of multimodal mechanisms that underlie
+PP. The proposed research will provide insight into mechanisms supporting adaptive sport behavior, and
+enhances the value of the parent project via the following expected outcomes: (1) identification of a highly
+sensitive PP-based risk profile for injuries related to unanticipated collisions, (2) identification of modifiable
+aspects of collision risk, and (3) expansion of the aNMT application to the prevention of contact injuries with
+identified mechanistic targets for eventual protocol enhancement. We will leverage the most applicable cohort
+from the parent grant (i.e., female soccer athletes) for the achievement of these outcomes: the critical first
+steps for improving detection of, and responses to, previously unanticipated collisions and the development
+of
+complete training protocols to optimize injury prevention efforts for contact sport athletes. This contribution will
+be significant for the prevention of collision-based musculoskeletal injury and associated long-term sequelae in
+young females.
+
+

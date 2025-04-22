@@ -1,0 +1,793 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  NIHCONTEXTBUCKET:
+    Type: String
+  COLLECTIONENDPOINT:
+    Type: String
+  NIHCFBUCKET:
+    Type: String
+  WSENDPOINT:
+    Type: String
+    Default: "XXXXXXXXXXXXXXXXXX"
+  COLLECTIONARN:
+    Type: String
+    Default: "XXXXXXXXXXXXXXXXXX"
+  
+  
+Resources:
+  LambdaExecutionRoleScraper:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: 'lambda-role-scraper-${AWS::Region}-${AWS::AccountId}'
+
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      #Policies: [testpolicy]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+
+  LambdaExecutionRoleTemplateStatus:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: 'lambda-role-template-status-${AWS::Region}-${AWS::AccountId}'
+
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      #Policies: [testpolicy]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+
+  LambdaExecutionRoleQueryGrants:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: 'lambda-role-query-grants-${AWS::Region}-${AWS::AccountId}'
+
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      #Policies: [testpolicy]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+
+  LambdaExecutionRolePrompts:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: 'lambda-role-prompts-${AWS::Region}-${AWS::AccountId}'
+
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      #Policies: [testpolicy]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+
+  LambdaExecutionRoleArtifacts:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: 'lambda-role-artifacts-${AWS::Region}-${AWS::AccountId}'
+
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      #Policies: [testpolicy]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+
+  LambdaExecutionRoleInvoke:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: "Used for consistent referencing in the stack."
+    Properties:
+      RoleName:
+        Fn::Sub: 'lambda-role-invoke-${AWS::Region}-${AWS::AccountId}'
+
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+        Version: 2012-10-17
+      #Policies: [testpolicy]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Path: /
+
+  lambdaexecutionpolicyscraper:
+    DependsOn:
+      - LambdaExecutionRoleScraper
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-execution-policy-scraper
+      Roles:
+        - !Ref LambdaExecutionRoleScraper
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:%YYYY/%MM/%DD%
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'ContextHTMLScraper'
+
+  lambdaexecutionpolicyquerygrants:
+    DependsOn:
+      - LambdaExecutionRoleQueryGrants
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-execution-policy-query-grants
+      Roles:
+        - !Ref LambdaExecutionRoleQueryGrants
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:%YYYY/%MM/%DD%
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'NIHQueryGrants'
+
+  lambdaexecutionpolicyprompts:
+    DependsOn:
+      - LambdaExecutionRolePrompts
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-execution-policy-prompts
+      Roles:
+        - !Ref LambdaExecutionRolePrompts
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:%YYYY/%MM/%DD%
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'NIHModelPrompts'
+          - Effect: Allow
+            Action:
+              - "dynamodb:GetItem"
+              - "dynamodb:PutItem"
+              - "dynamodb:UpdateItem"
+              - "dynamodb:DeleteItem"
+              - "dynamodb:Query"
+              - "dynamodb:Scan"
+            Resource: !Sub
+              - "arn:aws:dynamodb:${region}:${account}:table/nih-grants-table"
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+
+  lambdaexecutionpolicyartifacts:
+    DependsOn:
+      - LambdaExecutionRoleArtifacts
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-execution-policy-artifacts
+      Roles:
+        - !Ref LambdaExecutionRoleArtifacts
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:%YYYY/%MM/%DD%
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'NIHGrantListS3Artifacts'
+
+  lambdaexecutionpolicytemplatestatus:
+    DependsOn:
+      - LambdaExecutionRoleTemplateStatus
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-execution-policy-template-status
+      Roles:
+        - !Ref LambdaExecutionRoleTemplateStatus
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:%YYYY/%MM/%DD%
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'NIHGrantCheckTemplateStatus'
+
+  lambdaexecutionpolicyinvoke:
+    DependsOn:
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-execution-policy-invoke
+      Roles:
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "logs:CreateLogGroup"
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource: !Sub
+              - >-
+                arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:%YYYY/%MM/%DD%
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+                lambda: 'NIHTemplateGen'
+             
+
+  lambdacontextbucketpolicy:
+    DependsOn:
+      - LambdaExecutionRoleScraper
+      - LambdaExecutionRoleTemplateStatus
+      - LambdaExecutionRoleQueryGrants
+      - LambdaExecutionRolePrompts
+      - LambdaExecutionRoleArtifacts
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-context-bucket-policy
+      Roles:
+        - !Ref LambdaExecutionRoleScraper
+        - !Ref LambdaExecutionRoleTemplateStatus
+        - !Ref LambdaExecutionRoleQueryGrants
+        - !Ref LambdaExecutionRolePrompts
+        - !Ref LambdaExecutionRoleArtifacts
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: "s3:ListBucket"
+            Resource:
+              - !Join
+                - ""
+                - - "arn:aws:s3:::"
+                  - !Ref NIHCONTEXTBUCKET
+          - Effect: Allow
+            Action:
+              - "s3:GetObject"
+              - "s3:GetObjectAcl"
+              - "s3:PutObject"
+            Resource:
+              - !Join
+                - ""
+                - - "arn:aws:s3:::"
+                  - !Ref NIHCONTEXTBUCKET
+                  - /*
+
+  # TODO: reduce the scope (CreateCollection, DeleteCollection, ...)
+  lambdaopensearchpolicy:
+    DependsOn:
+      - LambdaExecutionRoleQueryGrants
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-opensearch-policy
+      Roles:
+        - !Ref LambdaExecutionRoleQueryGrants
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "aoss:BatchGetCollection"
+              - "aoss:ListLifecyclePolicies"
+              - "aoss:BatchGetLifecyclePolicy"
+              - "aoss:ListSecurityConfigs"
+              - "aoss:GetAccessPolicy"
+              - "aoss:APIAccessAll"
+              - "aoss:TagResource"
+              - "aoss:ListAccessPolicies"
+              - "aoss:ListSecurityPolicies"
+              - "aoss:BatchGetVpcEndpoint"
+              - "aoss:GetPoliciesStats"
+              - "aoss:ListVpcEndpoints"
+              - "aoss:UpdateCollection"
+              - "aoss:DashboardsAccessAll"
+              - "aoss:GetAccountSettings"
+              - "aoss:UpdateAccessPolicy"
+              - "aoss:GetSecurityConfig"
+              - "aoss:BatchGetEffectiveLifecyclePolicy"
+              - "aoss:ListCollections"
+              - "aoss:GetSecurityPolicy"
+              - "aoss:CreateCollection"
+              - "aoss:ListTagsForResource"
+              - "aoss:CreateAccessPolicy"
+              - "aoss:CreateSecurityPolicy"
+              - "iam:ListRoles"
+              - "iam:ListUsers"
+              
+             
+            Resource: 
+              - !Ref COLLECTIONARN
+
+  lambdanihgrantsdynamodbpolicy:
+    DependsOn:
+      - LambdaExecutionRoleTemplateStatus
+      - LambdaExecutionRoleQueryGrants
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-dynamodb-policy
+      Roles:
+      - !Ref LambdaExecutionRoleTemplateStatus
+      - !Ref LambdaExecutionRoleQueryGrants
+      - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "dynamodb:BatchGetItem"
+              - "dynamodb:BatchWriteItem"
+              - "dynamodb:PutItem"
+              - "dynamodb:GetItem"
+              - "dynamodb:Scan"
+              - "dynamodb:DeleteItem"
+              - "dynamodb:Query"
+              - "dynamodb:UpdateItem"
+              - "dynamodb:GetRecords"
+            Resource: 
+              - !Sub 
+                - 'arn:aws:dynamodb:${region}:${account}:table/nih-grants-table'
+                - region: !Ref "AWS::Region"
+                  account: !Ref "AWS::AccountId"
+              - !Sub 
+                - 'arn:aws:dynamodb:${region}:${account}:table/nih-ws-table'
+                - region: !Ref "AWS::Region"
+                  account: !Ref "AWS::AccountId"
+
+  lambdaapiexecpolicy:
+    DependsOn:
+      - LambdaExecutionRoleScraper
+      - LambdaExecutionRoleTemplateStatus
+      - LambdaExecutionRoleQueryGrants
+      - LambdaExecutionRolePrompts
+      - LambdaExecutionRoleArtifacts
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-apiexec-policy
+      Roles:
+        - !Ref LambdaExecutionRoleScraper
+        - !Ref LambdaExecutionRoleTemplateStatus
+        - !Ref LambdaExecutionRoleQueryGrants
+        - !Ref LambdaExecutionRolePrompts
+        - !Ref LambdaExecutionRoleArtifacts
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "execute-api:Invoke"
+              - "execute-api:ManageConnections"
+            Resource: !Sub
+              - >-
+                arn:aws:execute-api:${region}:${account}:*
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+
+  lambdaapiecrpolicy:
+    DependsOn:
+        - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-ecr-policy
+      Roles:
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "ecr:BatchGetImage"
+              - "ecr:PutImage"
+            Resource: !Sub
+              - >-
+                arn:aws:ecr:${region}:${account}:nih-grants-repository-${region}-${account}
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+
+  lambdabedrockpolicy:
+    DependsOn:
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-bedrock-policy
+      Roles:
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "s3:ListStorageLensConfigurations"
+              - "s3:ListAccessPointsForObjectLambda"
+              - "s3:GetAccessPoint"
+              - "s3:GetAccountPublicAccessBlock"
+              - "s3:ListAllMyBuckets"
+              - "s3:ListAccessPoints"
+              - "s3:ListMultiRegionAccessPoints"
+              - "s3:ListMultiRegionAccessPoints"
+              - "bedrock:ListFoundationModels"
+              - "bedrock:InvokeModel"
+            Resource:
+              - Fn::Sub:
+                - 'arn:aws:bedrock:*:${AWS::AccountId}:foundation-model/anthropic.claude-3-haiku-20240307-v1:0'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - 'arn:aws:bedrock:*:${AWS::AccountId}:foundation-model/amazon.nova-pro-v1:0'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - 'arn:aws:bedrock:*:${AWS::AccountId}:foundation-model/nova-lite-v1:0'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - 'arn:aws:bedrock:*::*'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - 'arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - 'arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0'
+                - account: !Ref "AWS::AccountId"
+              - Fn::Sub:
+                - 'arn:aws:s3:::{contextbucket}'
+                - contextbucket: !Ref NIHCONTEXTBUCKET
+
+  
+  lambdakmspolicy:
+    DependsOn:
+      - LambdaExecutionRoleScraper
+      - LambdaExecutionRoleTemplateStatus
+      - LambdaExecutionRoleQueryGrants
+      - LambdaExecutionRolePrompts
+      - LambdaExecutionRoleArtifacts
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-kms-policy
+      Roles:
+        - !Ref LambdaExecutionRoleScraper
+        - !Ref LambdaExecutionRoleTemplateStatus
+        - !Ref LambdaExecutionRoleQueryGrants
+        - !Ref LambdaExecutionRolePrompts
+        - !Ref LambdaExecutionRoleArtifacts
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "kms:Decrypt"
+              - "kms:Encrypt"
+              - "kms:GenerateDataKey"
+            Resource: !Sub
+              - >-
+                arn:aws:kms:${region}:${account}:*
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+
+  lambdasqspolicy:
+    DependsOn:
+      - LambdaExecutionRoleInvoke
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: lambda-nih-grants-sqs-policy
+      Roles:
+        - !Ref LambdaExecutionRoleInvoke
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "sqs:DeleteMessage"
+              - "sqs:ReceiveMessage"
+              - "sqs:GetQueueAttributes"
+            Resource: !Sub
+              - >-
+                arn:aws:sqs:${region}:${account}:*
+              - region: !Ref "AWS::Region"
+                account: !Ref "AWS::AccountId"
+  
+
+  lambdaNIHQueryGrants:
+    DependsOn:
+      - LambdaExecutionRoleQueryGrants
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: NIHQueryGrants
+      Description: Lambda NIHQueryGrants
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaExecutionRoleQueryGrants.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: NIHQueryGrants.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          OS_HOST: !Join ["", !Split ["https://", !Ref COLLECTIONENDPOINT]]
+          INDEX: "grant-opportunities-index"
+          S3_OUTPUT_BUCKET: !Ref NIHCONTEXTBUCKET 
+
+          
+  lambdaContextHTMLScraper:
+    DependsOn:
+      - LambdaExecutionRoleScraper
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: ContextHTMLScraper
+      Description: Lambda ContextHTMLScraper
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaExecutionRoleScraper.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: ContextHTMLScraper.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          baseurl: "https://grants.nih.gov/grants/guide/rfa-files/RFA-CA-23-043.html"
+          contextFile: "NIH_Grant_Description"
+          htmlObject: "div"
+          htmlObjectAttribute: "data-section-code"
+          htmlObjectAttributeValue: "FOD"
+          runUUID: "ba67bc0e-9def-4c28-9345-897d8f2610c6"
+          s3Folder: "artifacts/grant-description/"
+          S3_OUTPUT_BUCKET: !Ref NIHCONTEXTBUCKET
+        
+
+  lambdaCheckTemplateStatus:
+    DependsOn:
+      - LambdaExecutionRoleTemplateStatus
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: NIHGrantCheckTemplateStatus
+      Description: Lambda CheckTemplateStatus
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaExecutionRoleTemplateStatus.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: NIHGrantCheckTemplateStatus.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          S3_OUTPUT_BUCKET: !Ref NIHCONTEXTBUCKET
+
+
+  lambdaModelPrompts:
+    DependsOn:
+      - LambdaExecutionRolePrompts
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: NIHModelPrompts
+      Description: Lambda NIHModelPrompts
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaExecutionRolePrompts.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: NIHModelPrompts.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          S3_OUTPUT_BUCKET: !Ref NIHCONTEXTBUCKET
+
+  lambdaListS3Artifacts:
+    DependsOn:
+      - LambdaExecutionRoleArtifacts
+    Type: "AWS::Lambda::Function"
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: "Only needs to interact with services that are accessible on the public internet"
+          - id: W92
+            reason: "Lambdas utilizes the unreserved account concurrency"
+    Properties:
+      FunctionName: NIHGrantListS3Artifacts
+      Description: Lambda NIHGrantListS3Artifacts
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaExecutionRoleArtifacts.Arn
+      Timeout: 900
+      MemorySize: 3008
+      Code:
+        S3Bucket: !Ref NIHCFBUCKET
+        S3Key: NIHGrantListS3Artifacts.zip
+      Environment:
+        Variables:
+          REGION: !Ref "AWS::Region"
+          S3_OUTPUT_BUCKET: !Ref NIHCONTEXTBUCKET
+  
+  ConfigNIHQueryGrantsLambdaPermission:
+      Type: "AWS::Lambda::Permission"
+      DependsOn: lambdaNIHQueryGrants
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: NIHQueryGrants
+        Principal: apigateway.amazonaws.com
+
+  ConfigContextHTMLScraperLambdaPermission:
+      Type: "AWS::Lambda::Permission"
+      DependsOn: lambdaContextHTMLScraper
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: ContextHTMLScraper
+        Principal: apigateway.amazonaws.com
+   
+  ConfigNIHGrantListS3ArtifactsLambdaPermission:
+      Type: "AWS::Lambda::Permission"
+      DependsOn: lambdaListS3Artifacts
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: NIHGrantListS3Artifacts
+        Principal: apigateway.amazonaws.com
+
+  ConfigNIHGrantCheckTemplateStatusLambdaPermission:
+      Type: "AWS::Lambda::Permission"
+      DependsOn: lambdaCheckTemplateStatus
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: NIHGrantCheckTemplateStatus
+        Principal: apigateway.amazonaws.com
+
+  ConfigNIHModelPromptsLambdaPermission:
+      Type: "AWS::Lambda::Permission"
+      DependsOn: lambdaModelPrompts
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: NIHModelPrompts
+        Principal: apigateway.amazonaws.com
+
+Outputs:
+  LambdaExecutionRole:
+    Value: !GetAtt LambdaExecutionRoleInvoke.Arn
+  LambdaNIHQueryGrants:
+    Value: !GetAtt lambdaNIHQueryGrants.Arn
+  LambdaContextHTMLScraper:
+    Value: !GetAtt lambdaContextHTMLScraper.Arn
+  LambdaCheckTemplateStatus:
+    Value: !GetAtt lambdaCheckTemplateStatus.Arn
+  LambdaListS3Artifacts:
+    Value: !GetAtt lambdaListS3Artifacts.Arn
+  LambdaModelPrompts:
+    Value: !GetAtt lambdaModelPrompts.Arn
