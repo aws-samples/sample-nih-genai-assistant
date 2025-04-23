@@ -10,6 +10,8 @@
 - The Stack will create resources that will incur costs
 - The latest Firefox browser is recommended for optimal experience
 - We use GitHub Issues to track ideas, feedback, tasks, or bugs
+- It is recommended you get help from your account SA to deploy and delete the nested stacks
+- Review the LICENSE file, all files in this repo fall under those terms
 
 # Contents
 - [Architecture](#architecture)
@@ -28,12 +30,12 @@
 ![Architecture Diagram](./documentation/Arch-01.png)
 
 # Account Setup
-Either an IAM user with AdministratorAccess and console access or an Identity Center user with the AdministratorAccess permission set should be created.
+The preferred set up is to create a new account in your Organization and add an Identity Center user to that account with the AdministratorAccess permission set.
 
 # Enable Bedrock in a Region
 1. Login to your AWS account that has the AdministratorAccess policy
-2. From AWS Console, navigate to Bedrock
-3. Select "Enable Selected Models" and enable only the Anthropic models
+2. From AWS Console, navigate to Bedrock in us-east-1 or us-west-2
+3. Select "Enable Selected Models" and enable the Anthropic models
    
    ![Bedrock Access](./documentation/BedrockAccess-1.png)
 
@@ -71,8 +73,8 @@ Give the stack a name (e.g. genai-stack) and enter the bucket name you created e
 
 # Post CloudFormation Steps 
 
-## Check CodeBuild Status
-It MUST complete before you can deploy the app to Amplify.
+## After the entire stack completes successfully, check CodeBuild Status
+Both codebuild projects MUST complete successfully before you can deploy the app to Amplify.
 
 1. From AWS Console, navigate to CodeBuild
 2. Select Build Projects in left Navigation bar
@@ -82,7 +84,7 @@ It MUST complete before you can deploy the app to Amplify.
    ![CodeBuild Success](./documentation/CodeBuildSuccess.png)
 
 ## Modify WAF IP Address or Delete the Rule
-The default setup comes with a WAF IP Set and Rule that only allows a default IPv4 and IPv6 to access Amplify. You must add your IPs to the Set or you can delete the WAF Rule and allow all IPs if your security team approves.
+For security reasons, the default setup comes with a WAF IP Set and Rule that only allows a default IPv4 and IPv6 to access Amplify. You must add your IPs to the Set or you can delete the WAF Rule and allow all IPs if your security team approves.
 
 ### To Delete the Rule:
 1. Go to Web ACLs, click on rule and disassociate from the service, then you can delete the rule
@@ -91,6 +93,7 @@ The default setup comes with a WAF IP Set and Rule that only allows a default IP
    ![Remove WAF ACL 1](./documentation/RemoveWAFACL-1.png)
    ![Remove WAF ACL 2](./documentation/RemoveWAFACL-2.png)
    ![Remove WAF ACL 3](./documentation/RemoveWAFACL-3.png)
+3. Delete the rule
 
 ### To Modify the IP Set:
 > **Important**: Some ISPs use IPv4 and some use IPv6, so you might want to change both. Also, being on a VPN can obfuscate your public IP.
@@ -169,6 +172,7 @@ The UI defaults to the **NIH Research** path described above, but there is also 
 This path allows for simple Retrieval Augmented Generation (RAG) capability:
 - You can upload one or more files and have the content of those files included in a prompt that you create yourself
 - This is meant to help you with sections of the NIH Grant proposal or AIMs document but can be used more generically as well
+- Some examples of generic prompts are in the test-files directory in the file GenericPrompts.txt
 - To use the uploaded content, you must include this sentence in your prompt: **Start this task by carefully reviewing the content between the \<docs\> tags that follow \<docs\> {docs} \</docs\>.**
 
 ![Generic 01](./documentation/Generic-01.png)
@@ -195,7 +199,7 @@ The current grants csv file came from the below search filter:
 ![Default Grants Filter](./documentation/DefaultGrantsFilter.png)
 
 # Deleting the Stack
-Before deleting the root stack, some resources need to be removed. You can do this from the console or from a provided script.
+Before deleting the root stack, some resources need to be removed. You can do this from the console or from a provided script. ** IMPORTANT ** The preferred way is with the script as it makes sure that right services are deleted before you delete the stack.
 
 ## From the console, perform the following:
 
@@ -321,3 +325,6 @@ fUQYcF3YR+2k3K9Tpfv+AA+YRYzQpqmBlyD9wqb3erZ3jIUYL0SZuXqKZL/dcE/CbNPEUhOCuoQ=
 </Error>
 ```
 - Download links only last 15 minutes
+
+## When you run into other errors
+Create a github issue and we will look into it

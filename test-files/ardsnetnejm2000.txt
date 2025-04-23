@@ -1,0 +1,1261 @@
+The New England
+Journal of Medicine
+
+Copyright, 2000, by the Massachusetts Medical Society
+
+VOLUME 342
+
+MAY 4, 2000
+
+NUMBER 18
+
+
+
+VENTILATION WITH LOWER TIDAL VOLUMES AS COMPARED WITH TRADITIONAL TIDAL VOLUMES FOR ACUTE LUNG INJURY AND THE ACUTE RESPIRATORY DISTRESS SYNDROME
+
+THE ACUTE RESPIRATORY DISTRESS SYNDROME NETWORK*
+
+ABSTRACT
+
+Background Traditional approaches to mechanical
+ventilation use tidal volumes of 10 to 15 ml per kilo-
+gram of body weight and may cause stretch-induced
+lung injury in patients with acute lung injury and the
+acute respiratory distress syndrome. We therefore
+conducted a trial to determine whether ventilation
+with lower tidal volumes would improve the clinical
+outcomes in these patients.
+
+Methods Patients with acute lung injury and the
+acute respiratory distress syndrome were enrolled in
+a multicenter, randomized trial. The trial compared
+traditional ventilation treatment, which involved an
+initial tidal volume of 12 ml per kilogram of predicted
+body weight and an airway pressure measured after
+a 0.5-second pause at the end of inspiration (plateau
+pressure) of 50 cm of water or less, with ventilation
+with a lower tidal volume, which involved an initial
+tidal volume of 6 ml per kilogram of predicted body
+weight and a plateau pressure of 30 cm of water or
+less. The first primary outcome was death before a
+patient was discharged home and was breathing
+without assistance. The second primary outcome
+was the number of days without ventilator use from
+day 1 to day 28.
+
+Results The trial was stopped after the enrollment
+of 861 patients because mortality was lower in the
+group treated with lower tidal volumes than in the
+group treated with traditional tidal volumes (31.0 per-
+cent vs. 39.8 percent, P=0.007), and the number of
+days without ventilator use during the first 28 days
+after randomization was greater in this group (mean
+[SS], 12 11 vs. 10+11; P=0.007). The mean tidal
+volumes on days 1 to 3 were 6.2+0.8 and 11.8+0.8 ml
+per kilogram of predicted body weight (P<0.001), re-
+spectively, and the mean plateau pressures were
+25 6 and 33+8 cm of water (P<0.001), respectively.
+Conclusions In patients with acute lung injury and
+the acute respiratory distress syndrome, mechanical
+ventilation with a lower tidal volume than is tradition-
+ally used results in decreased mortality and increas-
+es the number of days without ventilator use. (N Engli
+J Med 2000;342:1301-8.)
+
+©2000, Massachusetts Medical Society.
+
+T
+HE mortality rate from acute lung injury
+and the acute respiratory distress syndrome¹
+is approximately 40 to 50 percent. 2-4 Al-
+though substantial progress has been made
+in elucidating the mechanisms of acute lung injury,5
+there has been little progress in developing effective
+treatments.
+
+Traditional approaches to mechanical ventilation
+use tidal volumes of 10 to 15 ml per kilogram of body
+weight. These volumes are larger than those in nor-
+mal subjects at rest (range, 7 to 8 ml per kilogram),
+but they are frequently necessary to achieve normal
+values for the partial pressure of arterial carbon diox-
+ide and pH. Since atelectasis and edema reduce aer-
+ated lung volumes in patients with acute lung injury
+and the acute respiratory distress syndrome, 7,8 inspir-
+atory airway pressures are often high, suggesting the
+presence of excessive distention, or "stretch," of the
+aerated lung. In animals, ventilation with the use of
+large tidal volumes caused the disruption of pulmo-
+nary epithelium and endothelium, lung inflammation,
+atelectasis, hypoxemia, and the release of inflamma-
+tory mediators.9-14 The release of inflammatory me-
+diators could increase lung inflammation and cause in-
+jury to other organs. 10,15 Thus, the traditional approach
+to mechanical ventilation may exacerbate or perpet-
+uate lung injury in patients with acute lung injury and
+the acute respiratory distress syndrome and increase
+the risk of nonpulmonary organ or system failure.
+
+The writing committee (Roy G. Brower, M.D., Johns Hopkins Univer-
+sity, Baltimore; Michael A. Matthay, M.D., University of California, San
+Francisco; Alan Morris, M.D., LDS Hospital, Salt Lake City; David
+Schoenfeld, Ph.D., and B. Taylor Thompson, M.D., Massachusetts General
+Hospital, Boston; and Arthur Wheeler, M.D., Vanderbilt University, Nash-
+ville) assumes responsibility for the overall content and integrity of the
+manuscript. Address reprint requests to Dr. Brower at the Division of
+Pulmonary and Critical Care Medicine, Johns Hopkins University, 600
+N. Wolfe St., Baltimore, MD 21287.
+
+*Members of the Acute Respiratory Distress Syndrome (ARDS) Net-
+work are listed in the Appendix.
+
+Volume 342 Number 18
+
+1301
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
+The New England Journal of Medicine
+
+The use of lower tidal volumes during ventilation
+in patients with acute lung injury and the acute res-
+piratory distress syndrome may reduce injurious lung
+stretch and the release of inflammatory mediators. 16-18
+However, this approach may cause respiratory aci-
+dosis16,17 and decrease arterial oxygenation and
+may therefore require changes in the priority of some
+objectives in the care of these patients. With the tra-
+ditional approach, the attainment of normal partial
+pressure of arterial carbon dioxide and pH is given
+a higher priority than is protection of the lung from
+excessive stretch. With an approach that involves low-
+er tidal volumes, the reverse is true. Uncontrolled
+studies suggested that the use of a lower tidal volume
+would reduce mortality in patients with acute lung
+injury and the acute respiratory distress syndrome,
+but the results of four randomized trials of lung-
+protecting ventilation strategies have been conflict-
+ing.21-24 The present trial was conducted to deter-
+mine whether the use of a lower tidal volume with
+mechanical ventilation would improve important clin-
+ical outcomes in such patients.
+
+METHODS
+
+Patients
+
+Patients were recruited from March 1996 through March 1999
+at the 10 university centers of the Acute Respiratory Distress Syn-
+drome Network of the National Heart, Lung, and Blood Institute
+(the centers are listed in the Appendix). The protocol was approved
+by the institutional review board at each hospital, and informed
+consent was obtained from the patients or surrogates at all but
+one hospital, where this requirement was waived. A complete de-
+scription of the methods is available on the World Wide Web (at
+www.ardsnet.org) or from the National Auxiliary Publications
+Service (NAPS).*
+
+Patients who were intubated and receiving mechanical ventila-
+tion were eligible for the study if they had an acute decrease in
+the ratio of partial pressure of arterial oxygen to fraction of in-
+spired oxygen to 300 or less (indicating the onset of hypoxemia;
+values were adjusted for altitude in Denver and Salt Lake City),
+bilateral pulmonary infiltrates on a chest radiograph consistent with
+the presence of edema, and no clinical evidence of left atrial hy-
+pertension or (if measured) a pulmonary-capillary wedge pressure
+of 18 mm Hg or less.1 Patients were excluded if 36 hours had
+elapsed since they met the first three criteria; they were younger
+than 18 years of age; they had participated in other trials within
+30 days before the first three criteria were met; they were preg-
+nant; they had increased intracranial pressure, neuromuscular dis-
+ease that could impair spontaneous breathing, sickle cell disease,
+or severe chronic respiratory disease; they weighed more than 1 kg
+per centimeter of height; they had burns over more than 30
+percent of their body-surface area; they had other conditions with
+an estimated 6-month mortality rate of more than 50 percent; they
+had undergone bone marrow or lung transplantation; they had
+chronic liver disease (as defined by Child-Pugh class C)25 or their
+attending physician refused or was unwilling to agree to the use
+of full life support.
+
+A centralized interactive voice system was used for randomiza-
+tion. Patients were randomly assigned to receive mechanical ven-
+tilation involving either traditional tidal volumes or lower tidal
+volumes.
+
+*See NAPS document no. 05542 for 15 pages of supplementary materi-
+al. To order, contact NAPS, c/o Microfiche Publications, 248 Hempstead
+Tpk., West Hempstead, NY 11552.
+
+Ventilator Procedures
+
+The volume-assist-control mode was used for the ventilator un-
+til the patient was weaned from the device or for 28 days after
+randomization on day 0. Because normal lung volumes are predict-
+ed on the basis of sex and height,20 a predicted body weight
+was calculated for each patient from these data. The predicted
+body weight of male patients was calculated as equal to 50+
+(centimeters of --152.4) that of female patients was
+calculated as equal to 45.5 + 0.91 (centimeters of height 152.4).
+In the group treated with traditional tidal volumes, the initial tid-
+al volume was 12 ml per kilogram of predicted body weight. This
+was subsequently reduced stepwise by 1 ml per kilogram of pre-
+dicted body weight if necessary to maintain the airway pressure
+measured after a 0.5-second pause at the end of inspiration (plateau
+pressure) at a level of 50 cm of water or less. The minimal tidal vol-
+ume was 4 ml per kilogram of predicted body weight. If the pla-
+teau pressure dropped below 45 cm of water, the tidal volume was
+increased in steps of 1 ml per kilogram of predicted body weight
+until the plateau pressure was at least 45 cm of water or the tidal
+volume was 12 ml per kilogram of predicted body weight.
+
+In the group treated with lower tidal volumes, the tidal volume
+was reduced to 6 ml per kilogram of predicted body weight within
+four hours after randomization and was subsequently reduced
+stepwise by 1 ml per kilogram of predicted body weight if neces-
+sary to maintain plateau pressure at a level of no more than 30 cm
+of water. The minimal tidal volume was 4 ml per kilogram of pre-
+dicted body weight. If plateau pressure dropped below 25 cm of
+water, tidal volume was increased in steps of 1 ml per kilogram of
+predicted body weight until the plateau pressure was at least 25 cm
+of water or the tidal volume was 6 ml per kilogram of predicted
+body weight. For patients with severe dyspnea, the tidal volume
+could be increased to 7 to 8 ml per kilogram of predicted body
+weight if the plateau pressure remained 30 cm of water or less.
+
+Plateau pressures were measured with a half-second inspiratory
+pause at four-hour intervals and after changes in the tidal volume
+or positive end-expiratory pressure. Plateau pressures of more than
+50 cm of water in the patients in the group treated with tradi-
+tional tidal volumes and of more than 30 cm of water in patients
+in the group treated with lower tidal volumes were allowed if the
+tidal volume was 4 ml per kilogram of predicted body weight or
+if arterial pH was less than 7.15.
+
+All other objectives and ventilation procedures, including wean-
+ing, were identical in the two study groups (Table If a patient
+became able to breathe without assistance but subsequently re-
+quired additional mechanical ventilation within a period of 28 days,
+the same tidal-volume protocol was resumed.
+
+Organ or System Failure
+
+Patients were monitored daily for 28 days for signs of the fail-
+ure of nonpulmonary organs and systems. 29 Circulatory failure
+was defined as a systolic blood pressure of 90 mm Hg or less or
+the need for treatment with any vasopressor; coagulation failure as
+a platelet count of 80,000 per cubic millimeter or less; hepatic fail-
+ure as a serum bilirubin concentration of at least 2 mg per deciliter
+(34 umol per liter); and renal failure as a serum creatinine concen-
+tration of at least 2 mg per deciliter (177 umol per liter). We cal-
+culated the number of days without organ or system failure by sub-
+tracting the number of days with organ failure from the lesser of 28
+days or the number of days to death. Organs and systems were con-
+sidered failure-free after patients were discharged from the hospital.
+
+Plasma Interleukin-6 Concentrations
+
+Blood samples were obtained from 204 of the first 234 patients
+on day 0 and on day 3 for measurement of plasma interleukin-6
+by immunoassay (R & D Systems, Minneapolis). Blood samples
+were stored in sterile EDTA-treated glass tubes.
+
+Data Collection
+
+Data on demographic, physiologic, and radiographic character-
+istics, coexisting conditions, and medications were recorded with-
+
+1302
+May 4, 2000
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright 2000 Massachusetts Medical Society. All rights reserved.
+
+
+VENTILATION WITH LOWER TIDAL VOLUMES IN PATIENTS WITH THE ACUTE RESPIRATORY DISTRESS SYNDROME
+
+TABLE 1. SUMMARY OF VENTILATOR PROCEDURES.*
+
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| VARIABLE                                                                         | GROUP RECEIVING TRADITIONAL TIDAL VOLUMES                  | GROUP RECEIVING LOWER TIDAL VOLUMES                        |
++==================================================================================+============================================================+============================================================+
+| Ventilator mode                                                                  | Volume assist-control                                      | Volume assist-control                                      |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Initial tidal volume (ml/kg of predicted body weight)t                           | 12                                                         | 6                                                          |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Plateau pressure (cm of water)                                                   | <50                                                        | <30                                                        |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Ventilator rate setting needed to achieve a pH goal of 7.3 to 7.45 (breaths/min) | 6-35                                                       | 6-35                                                       |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Ratio of the duration of inspiration to the duration of expiration               | 1:1-1:3                                                    | 1:1-1:3                                                    |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Oxygenation goal                                                                 | PaO, 55-80 mm Hg, or SpO2, 88-95%                          | PaO, 55-80 mm Hg, or SpO2, 88-95%                          |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Allowable combinations of FiO2 and PEEP                                          | 0.3 and 5                                                  | 0.3 and 5                                                  |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| (cm of water)                                                                    | 0.4 and 5                                                  | 0.4 and 5                                                  |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.4 and 8                                                  | 0.4 and 8                                                  |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.5 and 8                                                  | 0.5 and 8                                                  |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.5 and 10                                                 | 0.5 and 10                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.6 and 10                                                 | 0.6 and 10                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.7 and 10                                                 | 0.7 and 10                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.7 and 12                                                 | 0.7 and 12                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.7 and 14                                                 | 0.7 and 14                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.8 and 14                                                 | 0.8 and 14                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.9 and 14                                                 | 0.9 and 14                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.9 and 16                                                 | 0.9 and 16                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 0.9 and 18                                                 | 0.9 and 18                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 1.0 and 18                                                 | 1.0 and 18                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 1.0 and 20                                                 | 1.0 and 20                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 1.0 and 22                                                 | 1.0 and 22                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+|                                                                                  | 1.0 and 24                                                 | 1.0 and 24                                                 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+| Weaning                                                                          | By pressure support; re- quired by protocol when FiO2 <0.4 | By pressure support; re- quired by protocol when FiO2 <0.4 |
++----------------------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------+
+
+*PaO2 denotes partial pressure of arterial oxygen, SpO2 oxyhemoglobin saturation measured by
+pulse oximetry, FiO2 fraction of inspired oxygen, and PEEP positive end-expiratory pressure.
+
+Subsequent adjustments in tidal volume were made to maintain a plateau pressure of <50 cm of
+water in the group receiving traditional tidal volumes and <30 cm of water in the group receiving
+lower tidal volumes.
+
+Further increases in PEEP, to 34 cm of water, were allowed but were not required.
+
+in four hours before the ventilator settings were changed on day 0.
+Physiologic and radiographic data, medication use, and use of oth-
+er investigational treatments were recorded between 6 and 10 a.m.
+on days 1, 2, 3, 4, 7, 14, 21, and 28. Data were transmitted weekly
+to the network coordinating center. Patients were followed until
+day 180 or until they were breathing on their own at home.
+
+Assessment of Compliance
+
+Randomly selected ventilator and blood gas variables were an-
+alyzed for compatibility with the protocol. Quarterly reports of
+these data from each of the 10 centers were used by investigators
+to assess compliance.
+
+Statistical Analysis
+
+The first primary outcome was death before a patient was dis-
+charged home and was breathing without assistance. Patients who
+were in other types of health care facilities at 180 days were con-
+sidered to have been discharged from the hospital and to be breath-
+ing without assistance. The second primary outcome was ventila-
+tor-free days, defined as the number of days from day 1 to day 28
+on which a patient breathed without assistance, if the period of
+unassisted breathing lasted at least 48 consecutive hours. A differ-
+
+ence in ventilator-free days could reflect a difference in mortality,
+ventilator days among survivors, or both. Other outcomes were
+the number of days without organ or system failure and the OC-
+currence of barotrauma, defined as any new pneumothorax, pneu-
+momediastinum, or subcutaneous emphysema, or a pneumatocele
+that was more than 2 cm in diameter. Interim analyses were con-
+ducted by an independent data and safety monitoring board after
+the enrollment of each successive group of approximately 200 pa-
+tients. Stopping boundaries (with a two-sided a level of 0.05) were
+designed to allow early termination of the study if the use of lower
+tidal volumes was found to be either efficacious³ or ineffective.32
+
+The comparison of traditional with lower tidal volumes was
+one of two trials conducted simultaneously in the same patients
+in a factorial experimental design. Ketoconazole was compared with
+placebo in the first 234 patients, and lisofylline was compared with
+placebo in the last 194 patients; no drugs were assessed in the
+middle 433 patients.
+
+We used Student's t-test or Fisher's exact test to compare base-
+line variables. We used analysis of covariance to compare log-trans-
+formed plasma interleukin-6 values. We used Wilcoxon's test to
+compare the day 0 and day 3 plasma interleukin-6 concentrations,
+ventilator-free days, and organ-failure-free days, which had skewed
+distributions. We used the 180-day cumulative incidence of mor-
+
+Volume 342 Number 18
+
+1303
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
+The New England Journal of Medicine
+
+tality to compare the proportion of patients in each group who
+died before being discharged home and breathing without assist-
+ance,3 33 after stratification for other experimental interventions:
+treatment with ketoconazole, the ketoconazole placebo, lisofylline,
+the lisofylline placebo, or no other agent. We used a chi-square
+test to determine whether there was an interaction between the
+study group and the other experimental interventions with re-
+spect to the mean (+SE) mortality rates at 180 days. All P values
+are two-sided.
+
+RESULTS
+
+The trial was stopped after the fourth interim analy-
+sis because the use of lower tidal volumes was found
+to be efficacious (P=0.005 for the difference in mor-
+tality between groups; P value for the stopping bound-
+ary, 0.023). The base-line characteristics of the 861
+patients who were enrolled were similar, except that
+minute ventilation was slightly but significantly high-
+er (P=0.01) in the group treated with lower tidal
+volumes (Table 2).
+
+The tidal volumes and plateau pressures were sig-
+
+TABLE 2. BASE-LINE CHARACTERISTICS OF THE PATIENTS.
+
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| CHARACTERISTIC                               | GROUP RECEIVING LOWER TIDAL VOLUMES (N=432)   | GROUP RECEIVING TRADITIONAL TIDAL VOLUMES (N=429)   |
++==============================================+===============================================+=====================================================+
+| Age (yr)                                     | 51+17                                         | 52+18                                               |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Female sex (%)                               | 40                                            | 41                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Race or ethnic group (%)                     |                                               |                                                     |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| White                                        | 75                                            | 71                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Black                                        | 16                                            | 19                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Hispanic                                     | 5                                             | 7                                                   |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Other or unknown                             | 4                                             | 3                                                   |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| APACHE III score                             | 81 2 8                                        | 84+28                                               |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| PaO:FiO2                                     | 138+64                                        | 134+58                                              |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| PaO:FiO 2 <200 (%)                           | 82                                            | 85                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Tidal volume (ml)                            | 676+119                                       | 665 125                                             |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Minute ventilation (liters/min)              | 13.4+4.3°                                     | 12.7+4.3                                            |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| No. of nonpulmonary organ or system failures | 1.8+1.1                                       | 1.8+1.0                                             |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Lung injury (%)                              |                                               |                                                     |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Pneumonia                                    | 33                                            | 36                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Sepsis                                       | 27                                            | 26                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Aspiration                                   | 15                                            | 14                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Trauma                                       | 13                                            | 9                                                   |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Other causes                                 | 10                                            | 11                                                  |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+| Multiple transfusions                        | 2                                             | 3                                                   |
++----------------------------------------------+-----------------------------------------------+-----------------------------------------------------+
+
+*Plus-minus values are means SSD. Because of rounding, not all per-
+centages total 100. PaO denotes partial pressure of arterial oxygen, and
+FiO2 fraction of inspired oxygen.
+
+APACHE III denotes Acute Physiology, Age, and Chronic Health Eval-
+uation. Scores can range from 0 to 299, with higher scores indicating more
+severe illness.34
+
+Data were missing for one patient.
+
+Data were available for 300 patients in the group treated with lower tid-
+al volumes and for 290 patients in the group treated with traditional tidal
+volumes.
+
+[P=0.01.
+
+Organ and system failures were defined as described in the Methods
+section.
+
+nificantly lower on days 1, 3, and 7 in the group
+treated with lower tidal volumes than in the group
+treated with traditional tidal volumes (Table 3). The
+mean (+SD) tidal volumes on days 1 to 3 were 6.2+
+0.8 and 11.8+0.8 ml per kilogram of predicted body
+weight (P<0.001), respectively, and the mean pla-
+teau pressures were 25 +6 and 33+8 cm of water
+(P<0.001), respectively. The partial pressure of ar-
+terial oxygen was similar in the two groups at all three
+times, but the positive end-expiratory pressure and
+fraction of inspired oxygen were significantly higher
+and the ratio of partial pressure of arterial oxygen to
+fraction of inspired oxygen was significantly lower in
+the group treated with lower tidal volumes on days
+1 and 3. On day 7, positive end-expiratory pressure
+and the fraction of inspired oxygen were significantly
+higher in the group treated with traditional tidal vol-
+umes. The respiratory rate was significantly higher in
+the group treated with lower tidal volumes on days
+1 and 3, but minute ventilation was similar in the two
+groups on these days. The partial pressure of arterial
+carbon dioxide was significantly higher on days 1, 3,
+and 7 and arterial pH was significantly lower on days
+1 and 3 in the group treated with lower tidal volumes.
+
+The probability of survival and of being discharged
+home and breathing without assistance during the
+first 180 days after randomization is shown in Figure
+1. The mortality rate was 39.8 percent in the group
+treated with traditional tidal volumes and 31.0 per-
+cent in the group treated with lower tidal volumes
+P=0.007; 95 percent confidence interval for the
+difference between groups, 2.4 to 15.3 percent). The
+interaction between the study group and stratifica-
+tion for other experimental interventions was not sig-
+nificant P=0.16).
+
+Data were available to calculate the static compli-
+ance of the respiratory system at base line in 517 pa-
+tients (Fig. 2). The interaction between the quartile
+of static compliance at base line and the study group
+with respect to the risk of death was not significant
+(P=0.49).
+
+The number of ventilator-free days was significantly
+higher in the group treated with lower tidal volumes
+than in the group treated with traditional tidal vol-
+umes (Table 4). The median duration of ventilation
+was 8 days among patients in both groups who were
+discharged from the hospital after weaning and 10.5
+and 10 days, respectively, among those who died in
+the group treated with lower tidal volumes and the
+group treated with traditional tidal volumes. The num-
+ber of days without nonpulmonary organ or system
+failure was significantly higher in the group treated
+with lower tidal volumes (P=0.006). This group had
+more days without circulatory failure (mean [+SD],
+19+10 VS. 17 = 11 days; P=0.004), coagulation fail-
+ure (21+10 VS. 19+11 days, P=0.004), and renal
+failure (20+11 VS. 18+11 days, P=0.005) than did
+the group treated with traditional tidal volumes. The
+
+1304
+
+May 4, 2000
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
+VENTILATION WITH LOWER TIDAL VOLUMES IN PATIENTS WITH THE ACUTE RESPIRATORY DISTRESS SYNDROME
+
+TABLE 3. RESPIRATORY VALUES DURING THE FIRST SEVEN DAYS OF TREATMENT IN PATIENTS WITH ACUTE LUNG INJURY
+AND THE ACUTE RESPIRATORY DISTRESS SYNDROME.*
+
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| VARIABLE                                      | GROUP RECEIVING LOWER TIDAL VOLUMES   | GROUP RECEIVING TRADITIONAL TIDAL VOLUMES   | GROUP RECEIVING LOWER TIDAL VOLUMES   | GROUP RECEIVING TRADITIONAL TIDAL VOLUMES   | GROUP RECEIVING LOWER TIDAL VOLUMES   | GROUP RECEIVING TRADITIONAL TIDAL VOLUMES   |
++===============================================+=======================================+=============================================+=======================================+=============================================+=======================================+=============================================+
+|                                               |                                       |                                             |                                       |                                             |                                       |                                             |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Tidal volume (ml/kg of predicted body weight) | 6.2+0.9                               | 11.8+0.8                                    | 6.2+1.1                               | 11.8+0.8                                    | 6.5+1.4                               | 11.4+1.4                                    |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 387                                   | 405                                         | 294                                   | 307                                         | 181                                   | 179                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Plateau pressure (cm of water)                | 25+7                                  | 33+9                                        | 26+7                                  | 34+9                                        | 26+7                                  | 37+9                                        |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 384                                   | 399                                         | 294                                   | 307                                         | 168                                   | 173                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Peak inspiratory pressure (cm of water)       | 32+8                                  | 39+10                                       | 33+9                                  | 40+10                                       | 33+9                                  | 44+10                                       |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 382                                   | 401                                         | 295                                   | 308                                         | 178                                   | 177                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Mean airway pressure (cm of water)            | 17+13                                 | 17 12                                       | 17 1 4                                | 19+17                                       | 17 1 4                                | 20+10                                       |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 369                                   | 385                                         | 288                                   | 301                                         | 176                                   | 173                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Respiratory rate (breaths/min)                | 29+7                                  | 16+6                                        | 30+7                                  | 17 + 7                                      | 30+7                                  | 20+7                                        |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 389                                   | 406                                         | 296                                   | 308                                         | 185                                   | 181                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Minute ventilation (liters/min)               | 12.9+3.6                              | 12.6+4.5                                    | 13.4+3.5                              | 13.4+4.8                                    | 13.7.3.8                              | 14.9+5.3                                    |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 387                                   | 401                                         | 296                                   | 307                                         | 182                                   | 177                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| FiO                                           | 0.56+0.19                             | 0.51+0.17                                   | 0.54+0.18                             | 0.51+0.18                                   | 0.50+0.17                             | 0.54+0.20                                   |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 390                                   | 406                                         | 296                                   | 308                                         | 185                                   | 181                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| PEEP (cm of water)                            | 9.4+3.6                               | 8.6+3.6                                     | 9.2+3.6                               | 8.6+4.2                                     | 8.1.3.4                               | 9.1+4.2                                     |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 390                                   | 406                                         | 296                                   | 308                                         | 185                                   | 181                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| PaO :FiO                                      | 158+73                                | 176+76                                      | 160+68                                | 177+81                                      | 165+71                                | 164+88                                      |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 350                                   | 369                                         | 284                                   | 297                                         | 148                                   | 160                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| PaO (mm Hg)                                   | 76+23                                 | 77 1 9                                      | 74+22                                 | 76+23                                       | 73+17                                 | 75+21                                       |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 350                                   | 369                                         | 284                                   | 297                                         | 148                                   | 160                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| PaCO (mm Hg)                                  | 40+10                                 | 35 + 8                                      | 43 1 2                                | 36+9                                        | 44 1 2                                | 40+10                                       |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 351                                   | 369                                         | 285                                   | 297                                         | 147                                   | 160                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| Arterial pH                                   | 7.38+0.08                             | 7.41+0.07                                   | 7.38+0.08                             | 7.41+0.07                                   | 7.40+0.07                             | 7.41+0.08                                   |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+| No. of patients                               | 351                                   | 369                                         | 285                                   | 297                                         | 148                                   | 160                                         |
++-----------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+---------------------------------------+---------------------------------------------+
+
+incidence of barotrauma after randomization was sim-
+ilar in the two groups.
+
+There were no significant differences between
+groups in the percentages of days on which neuro-
+muscular-blocking drugs were used among patients
+who were discharged home and breathing without
+assistance (6+14 percent in the group treated with
+lower tidal volumes and 6+15 percent in the group
+treated with traditional tidal volumes) or among those
+who died (20+32 percent and 16+28 percent, respec-
+tively), or in the percentages of days on which seda-
+tives were used among patients who were discharged
+home and breathing without assistance (65+26 per-
+cent and percent, respectively) or those who
+died (73+24 percent and 71+28 percent, respec-
+tively). Investigational treatments for acute lung in-
+jury and the acute respiratory distress syndrome that
+were not included in the factorial design of the ex-
+perimental interventions were given to 15 patients
+in the group treated with lower tidal volumes and 12
+
+patients in the group treated with traditional tidal
+volumes. These included prone positioning in 14 and
+9 patients, respectively.
+
+The mean log-transformed plasma interleukin-6
+values decreased from 2.5+0.7 pg per milliliter on
+day 0 to 2.3+0.7 pg per milliliter on day 3 in the
+group treated with traditional tidal volumes and from
+2.5+0.7 pg per milliliter to 2.0+0.5 pg per milliliter
+in the group treated with lower tidal volumes. The
+decrease was greater in the group treated with lower
+tidal volumes (P<0.001), and the day 3 plasma in-
+terleukin-6 concentrations were also lower in this
+group (P=0.002).
+
+DISCUSSION
+
+In this large study of patients with acute lung in-
+jury and the acute respiratory distress syndrome, mor-
+tality was reduced by 22 percent and the number of
+ventilator-free days was greater in the group treated
+with lower tidal volumes than in the group treated
+
+Volume 342 Number 18
+
+1305
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
+The New England Journal of Medicine
+
+
+
+Figure 1. Probability of Survival and of Being Discharged Home
+and Breathing without Assistance during the First 180 Days af-
+ter Randomization in Patients with Acute Lung Injury and the
+Acute Respiratory Distress Syndrome.
+
+The status at 180 days or at the end of the study was known for
+all but nine patients. Data on these 9 patients and on 22 addi-
+tional patients who were hospitalized at the time of the fourth
+interim analysis were censored.
+
+
+
+Figure 2. Mean (+SE) Mortality Rate among 257 Patients with
+Acute Lung Injury and the Acute Respiratory Distress Syndrome
+Who Were Assigned to Receive Traditional Tidal Volumes and
+260 Such Patients Who Were Assigned to Receive Lower Tidal
+Volumes, According to the Quartile of Static Compliance of the
+Respiratory System before Randomization.
+
+The interaction between the study group and the quartile of
+static compliance at base line was not significant (P=0.49).
+
+with traditional tidal volumes. These results are con-
+sistent with the results of experiments in animals9
+and observational studies in humans. 16,17
+
+These benefits occurred despite the higher require-
+ments for positive end-expiratory pressure and frac-
+tion of inspired oxygen and the lower ratio of partial
+pressure of arterial oxygen to fraction of inspired ox-
+ygen in the group treated with lower tidal volumes
+
+TABLE 4. MAIN OUTCOME VARIABLES.*
+
++-----------------------------------------------------------------------------+---------------------------------------+---------------------------------------------+-----------+
+| VARIABLE                                                                    | GROUP RECEIVING LOWER TIDAL VOLUMES   | GROUP RECEIVING TRADITIONAL TIDAL VOLUMES   | P VALUE   |
++=============================================================================+=======================================+=============================================+===========+
+| Death before discharge home and breathing without assistance (%)            | 31.0                                  | 39.8                                        | 0.007     |
++-----------------------------------------------------------------------------+---------------------------------------+---------------------------------------------+-----------+
+| Breathing without assistance by day 28 (%)                                  | 65.7                                  | 55.0                                        | <0.001    |
++-----------------------------------------------------------------------------+---------------------------------------+---------------------------------------------+-----------+
+| No. of ventilator-free days, days 1 to 28                                   | 12+11                                 | 10+11                                       | 0.007     |
++-----------------------------------------------------------------------------+---------------------------------------+---------------------------------------------+-----------+
+| Barotrauma, days 1 to 28 (%)                                                | 10                                    | 11                                          | 0.43      |
++-----------------------------------------------------------------------------+---------------------------------------+---------------------------------------------+-----------+
+| No. of days without failure of nonpulmonary organs or systems, days 1 to 28 | 15+11                                 | 12+11                                       | 0.006     |
++-----------------------------------------------------------------------------+---------------------------------------+---------------------------------------------+-----------+
+
+*Plus-minus values are means SSD. The number of ventilator-free days
+is the mean number of days from day 1 to day 28 on which the patient had
+been breathing without assistance for at least 48 consecutive hours. Baro-
+trauma was defined as any new pneumothorax, pneumomediastinum, or
+subcutaneous emphysema, or a pneumatocele that was more than 2 cm in
+diameter. Organ and system failures were defined as described in the Meth-
+ods section.
+
+on days 1 and 3. These results, coupled with the great-
+er reductions in plasma interleukin-6 concentrations,
+suggest that the group treated with lower tidal vol-
+umes had less lung inflammation. 35 The greater
+re-
+ductions in plasma interleukin-6 concentrations may
+also reflect a reduced systemic inflammatory response
+to lung injury, which could contribute to the higher
+number of days without organ or system failure and
+the lower mortality in the group treated with lower
+tidal volumes. 15
+
+Several factors could explain the difference in re-
+sults between our trial and other trials of ventilation
+using lower tidal volumes in patients with acute lung
+injury and the acute respiratory distress syndrome. 22-24
+First, our study had a greater difference in tidal vol-
+umes between groups. In one earlier trial, the tradi-
+tional tidal volume was equivalent to approximately
+12.2 ml per kilogram of predicted body weight and
+the lower tidal volume was equivalent to approximate-
+ly 8.1 ml per kilogram of predicted body weight. 23
+In a second study, the traditional and lower tidal vol-
+umes were approximately 10.3 and 7.1 ml per kilo-
+gram of dry body weight (calculated as the measured
+weight minus the estimated weight gain from fluid
+retention), respectively. 22 In the present trial, meas-
+ured weight exceeded predicted body weight by ap-
+proximately 20 percent. Assuming a similar difference,
+and assuming that half the difference was dry weight
+in excess of predicted body weight, tidal volumes in
+the second trial would have been approximately 11.3
+and 7.8 ml per kilogram of predicted body weight.
+Therefore, the traditional tidal volume of 11.8 ml
+per kilogram of predicted body weight in our study
+was similar to the values in the previous two trials.
+
+1306
+
+May 4, 2000
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
+VENTILATION WITH LOWER TIDAL VOLUMES IN PATIENTS WITH THE ACUTE RESPIRATORY DISTRESS SYNDROME
+
+However, the tidal volume of 6.2 ml per kilogram of
+predicted body weight in the group receiving lower
+tidal volumes was lower than the values in the pre-
+vious two trials.
+
+If one assumes that measured weights also exceed-
+ed predicted body weights by 20 percent in the ear-
+lier trials, the tidal volumes in the traditional groups
+were approximately 10.2 and 9.4 ml per kilogram of
+measured weight, respectively, as compared with 9.9
+ml per kilogram of measured weight in our study.
+Therefore, the tidal volumes in the traditional groups
+in each of the three trials were consistent with tradi-
+tional recommendations.
+
+A second possible explanation for the different re-
+sults is that the previous trials were designed to detect
+larger differences in mortality between groups.
+Hence, they lacked the statistical power to demon-
+strate the moderate effects of lower tidal volumes that
+we found.
+
+A third difference in the trials was in the treat-
+ment of acidosis. Increases in the ventilator rate were
+required and bicarbonate infusions were allowed to
+correct mild-to-moderate acidosis in our study, which
+resulted in smaller differences in the partial pressure
+of arterial carbon dioxide and pH between the study
+groups than in the previous trials. 22-24 The deleteri-
+ous effects of acidosis in the previous studies may
+have counteracted a protective effect of the lower
+tidal volumes.
+
+In addition to being caused by excessive stretch,
+lung injury may also result from repeated opening
+and closing of small airways or from excessive stress
+at margins between aerated and atelectatic regions of
+the lungs. 37 These types of lung injury may be pre-
+vented by the use of a higher positive end-expiratory
+pressure. 10,13,37,38 A slightly higher positive end-expir-
+atory pressure was necessary in the group treated with
+lower tidal volumes during the first few days to main-
+tain arterial oxygenation at a level similar to that in
+the group treated with traditional tidal volumes, but
+positive end-expiratory pressure was not increased as
+a means of protecting the lungs.
+
+In a recent trial in 53 patients with acute respira-
+tory distress syndrome, 28-day mortality was signif-
+icantly lower with a ventilation strategy that used
+a higher positive end-expiratory pressure combined
+with limited peak inspiratory pressure than with a
+strategy of traditional ventilation. 21 These results sug-
+gest that both increased positive end-expiratory pres-
+sure and reduced inspiratory stretch could have ben-
+eficial effects.
+
+Stretch-induced lung injury may not occur if lung
+compliance is not greatly reduced. However, the ben-
+efit of ventilation with a lower tidal volume was in-
+dependent of the static compliance of the respiratory
+system at base line, suggesting that the lower tidal vol-
+ume was advantageous regardless of lung compliance.
+Variations in chest-wall compliance, which contrib-
+
+utes to compliance of the respiratory system and is
+reduced in many patients with acute lung injury and
+the acute respiratory distress syndrome,39 may have
+obscured a true interaction between tidal volume and
+base-line lung compliance.
+
+Barotrauma occurred with similar frequency in
+the two study groups, a finding consistent with the
+results of other studies in which the incidence of baro-
+trauma was independent of airway pressures. 22-24,40,41
+The most common manifestation of barotrauma was
+pneumothorax, which could have been the result of
+invasive procedures. Pneumothorax is not a sensitive
+or specific marker of stretch-induced injury with the
+tidal volumes used in this study.
+
+The similarity in the number of days of ventilator
+use among the survivors in both groups suggests that
+the higher number of ventilator-free days in the group
+treated with lower tidal volumes resulted from re-
+duced mortality rather than from a reduced number
+of days of ventilation among the survivors. However,
+the comparison of the number of days of ventilator
+use among the survivors could be misleading. 42 Some
+patients who would have survived in the group treat-
+ed with traditional tidal volumes might have needed
+the ventilator on fewer days had they been in the
+group treated with lower tidal volumes. This bene-
+ficial effect would have been obscured if prolonged
+ventilation was required before recovery among pa-
+tients who otherwise would have died in the group
+treated with traditional tidal volumes. For similar
+reasons, it is also difficult to compare the number of
+days with organ or system failure among the survi-
+vors in the two study groups.
+
+We found that treatment with a ventilation ap-
+proach designed to protect the lungs from excessive
+stretch resulted in improvements in several impor-
+tant clinical outcomes in patients with acute lung in-
+jury and the acute respiratory distress syndrome. On
+the basis of these results, high priority should be
+given to preventing excessive lung stretch during ad-
+justments to mechanical ventilation, and this lower-
+tidal-volume protocol should be used in patients with
+acute lung injury and the acute respiratory distress
+syndrome.
+
+Supported by contracts (NO1-HR 46054, 46055, 46056, 46057,
+46058, 46059, 46060, 46061, 46062, 46063, and 46064) with the Na-
+tional Heart, Lung, and Blood Institute.
+
+Presented in part at the International Conference of the American Lung
+Association and the American Thoracic Society, San Diego, Calif., April
+26, 1999.
+
+We are indebted to the intensive care unit nurses, respiratory ther-
+apists, and physicians, as well as our patients and their families, who
+supported this trial.
+
+APPENDIX
+
+In addition to the members of the Writing Committee, the members of
+the National Heart, Lung, and Blood Institute ARDS Network were as fol-
+lows: Network Participants: Cleveland Clinic Foundation H.P. Wiede-
+mann, A.C. Arroliga, C.J. Fisher, Jr., J.J. Komara, Jr., P. Perez-Trepichio;
+
+Volume 342 Number 18
+
+1307
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
+The New England Journal of Medicine
+
+Denver Health Medical Center - P.E. Parsons, R. Wolkin; Denver Veterans
+Affairs Medical Center - C. Welsh; Duke University Medical Center-
+Fulkerson, Jr., N. MacIntyre, L. Mallatratt, M. Sebastian, R. McConnell,
+C. Wilcox, J. Govert; Johns Hopkins University D. Thompson; LDS Hos-
+pital - T. Clemmer, R. Davis, J. Orme, Jr., L. Weaver, C. Grissom, M.
+Eskelson; McKay-Dee Hospital M. Young, V. Gooder, K. McBride, C.
+Lawton, J. d'Hulst; MetroHealth Medical Center of Cleveland J.R. Peer-
+less, C. Smith, J. Brownlee; Rose Medical Center W. Pluss; San Francisco
+General Hospital Medical Center - R. Kallet, J.M. Luce; Jefferson Medical
+College - J. Gottlieb, M. Elmer, A. Girod, P. Park; University of California,
+San Francisco - B. Daniel, M. Gropper; University of Colorado Health Sci-
+ences Center - E. Abraham, F. Piedalue, J. Glodowski, J. Lockrem, R.
+McIntyre, K. Reid, C. Stevens, D. Kalous; University of Maryland - H.J.
+Silverman, C. Shanholtz, W. Corral; University of Michigan G.B. Toews,
+D. Arnoldi, R.H. Bartlett, R. Dechert, C. Watts; University of Pennsylvania
+- P.N. Lanken, H. Anderson III, B. Finkel, C.W. Hanson; University of
+Utah Hospital - R. Barton, M. Mone; University of Washington-Harbor-
+view Medical Center - L.D. Hudson, C. Lee, G. Carter, R.V. Maier, K.P.
+Steinberg; Vanderbilt University G. Bernard, M. Stroud, B. Swindell, L.
+Stone, L. Collins, S. Mogan; Clinical Coordinating Center: Massachusetts
+General Hospital and Harvard Medical School M. Ancukiewicz, D. Hay-
+den, F. Molay, N. Ringwood, G. Wenzlow, A.S. Kazeroonian; National
+Heart, Lung, and Blood Institute Staff: D.B. Gail, C.H. Bosken, P.
+Randall, M. Waclawiw; Data and Safety Monitoring Board: R.G.
+Spragg, J. Boyett, J. Kelley, K. Leeper, M. Gray Secundy, A. Slutsky; Pro-
+tocol Review Committee: T.M. Hyers, S.S. Emerson, J.G.N. Garcia, J.J.
+Marini, S.K. Pingleton, M.D. Shasby, W.J. Sibbald.
+
+REFERENCES
+
+1. Bernard GR, Artigas A, Brigham KL, et al. The American-European
+Consensus Conference on ARDS: definitions, mechanism, relevant out-
+comes, and clinical trial coordination. Am J Respir Crit Care Med 1994;
+149:818-24.
+2. Sloane PJ, Gee MH, Gottlieb JE, et al. A multicenter registry of pa-
+tients with acute respiratory distress syndrome: physiology and outcome.
+Am Rev Respir Dis 1992;146:419-26.
+3. Doyle RL, Szaflarski N, Modin GW, Wiener-Kronish JP, Matthay MA.
+Identification of patients with acute lung injury: predictors of mortality.
+Am J Respir Crit Care Med 1995;152:1818-24.
+4. Zilberberg MD, Epstein SK. Acute lung injury in the medical ICU: co-
+morbid conditions, age, etiology, and hospital outcome. Am J Respir Crit
+Care Med 1998;157:1159-64.
+5. Pittet JF, Mackersie RC, Martin TR, Matthay MA. Biological markers
+of acute lung injury: prognostic and pathogenic significance. Am J Respir
+Crit Care Med 1997;155:1187-205.
+6. Marini JJ. Evolving concepts in the ventilatory management of acute
+respiratory distress syndrome. Clin Chest Med 1996;17:555-75.
+7. Gattinoni L, Presenti A, Torresin A, et al. Adult respiratory distress
+syndrome profiles by computed tomography. J Thorac Imaging 1986;
+1:25-30.
+8. Maunder RJ, Shuman WP, McHugh JW, Marglin SI, Butler J. Preser-
+vation of normal lung regions in the adult respiratory distress syndrome:
+analysis by computed tomography. JAMA 1986;255:2463-5.
+9. Tsuno K, Miura K, Takeya M, Kolobow T, Morioka T. Histopathologic
+pulmonary changes from mechanical ventilation at high peak airway pres-
+sures. Am Rev Respir Dis 1991;143:1115-20.
+10. Tremblay L, Valenza F, Ribeiro SP, Li J, Slutsky AS. Injurious ventila-
+tory strategies increase cytokines and c-fos m-RNA expression in an isolat-
+ed rat lung model. J Clin Invest 1997;99:944-52.
+11. Parker JC, Hernandez LA, Peevy KJ. Mechanisms of ventilator-induced
+lung injury. Crit Care Med 1993;21:131-43.
+12. Dreyfuss D, Basset G, Soler P, Saumon G. Intermittent positive-pres-
+sure hyperventilation with high inflation pressures produces pulmonary mi-
+crovascular injury in rats. Am Rev Respir Dis 1985;132:880-4.
+13. Webb HH, Tierney DF. Experimental pulmonary edema due to inter-
+mittent positive pressure ventilation with high inflation pressures: protec-
+tion by positive end-expiratory pressure. Am Rev Respir Dis 1974;110:
+556-65.
+14. Kolobow T, Moretti MP, Fumagalli R, et al. Severe impairment in lung
+function induced by high peak airway pressure during mechanical ventila-
+tion: an experimental study. Am Rev Respir Dis 1987;135:312-5.
+15. Slutsky AS, Tremblay LN. Multiple system organ failure: is mechanical
+ventilation a contributing factor? Am J Respir Crit Care Med 1998;157:
+1721-5.
+16. Hickling KG, Walsh J, Henderson S, Jackson R. Low mortality rate in
+adult respiratory distress syndrome using low-volume, pressure-limited ven-
+
+1. Bernard GR, Artigas A, Brigham KL, et al. The American-European
+Consensus Conference on ARDS: definitions, mechanism, relevant out-
+comes, and clinical trial coordination. Am J Respir Crit Care Med 1994;
+149:818-24.
+
+2. Sloane PJ, Gee MH, Gottlieb JE, et al. A multicenter registry of pa-
+tients with acute respiratory distress syndrome: physiology and outcome.
+Am Rev Respir Dis 1992;146:419-26.
+
+3. Doyle RL, Szaflarski N, Modin GW, Wiener-Kronish JP, Matthay MA.
+Identification of patients with acute lung injury: predictors of mortality.
+Am J Respir Crit Care Med 1995;152:1818-24.
+
+4. Zilberberg MD, Epstein SK. Acute lung injury in the medical ICU: co-
+morbid conditions, age, etiology, and hospital outcome. Am J Respir Crit
+Care Med 1998;157:1159-64.
+
+5. Pittet JF, Mackersie RC, Martin TR, Matthay MA. Biological markers
+of acute lung injury: prognostic and pathogenic significance. Am J Respir
+Crit Care Med 1997;155:1187-205.
+
+6. Marini JJ. Evolving concepts in the ventilatory management of acute
+respiratory distress syndrome. Clin Chest Med 1996;17:555-75.
+
+7. Gattinoni L, Presenti A, Torresin A, et al. Adult respiratory distress
+syndrome profiles by computed tomography. J Thorac Imaging 1986;
+1:25-30.
+
+8. Maunder RJ, Shuman WP, McHugh JW, Marglin SI, Butler J. Preser-
+vation of normal lung regions in the adult respiratory distress syndrome:
+analysis by computed tomography. JAMA 1986;255:2463-5.
+
+9. Tsuno K, Miura K, Takeya M, Kolobow T, Morioka T. Histopathologic
+pulmonary changes from mechanical ventilation at high peak airway pres-
+sures. Am Rev Respir Dis 1991;143:1115-20.
+
+10. Tremblay L, Valenza F, Ribeiro SP, Li J, Slutsky AS. Injurious ventila-
+tory strategies increase cytokines and c-fos m-RNA expression in an isolat-
+ed rat lung model. J Clin Invest 1997;99:944-52.
+
+11. Parker JC, Hernandez LA, Peevy KJ. Mechanisms of ventilator-induced
+lung injury. Crit Care Med 1993;21:131-43.
+
+12. Dreyfuss D, Basset G, Soler P, Saumon G. Intermittent positive-pres-
+sure hyperventilation with high inflation pressures produces pulmonary mi-
+crovascular injury in rats. Am Rev Respir Dis 1985;132:880-4.
+
+13. Webb HH, Tierney DF. Experimental pulmonary edema due to inter-
+mittent positive pressure ventilation with high inflation pressures: protec-
+tion by positive end-expiratory pressure. Am Rev Respir Dis 1974;110:
+556-65.
+
+14. Kolobow T, Moretti MP, Fumagalli R, et al. Severe impairment in lung
+function induced by high peak airway pressure during mechanical ventila-
+tion: an experimental study. Am Rev Respir Dis 1987;135:312-5.
+
+15. Slutsky AS, Tremblay LN. Multiple system organ failure: is mechanical
+ventilation a contributing factor? Am J Respir Crit Care Med 1998;157:
+1721-5.
+
+16. Hickling KG, Walsh J, Henderson S, Jackson R. Low mortality rate in
+adult respiratory distress syndrome using low-volume, pressure-limited ven-
+
+tilation with permissive hypercapnia: a prospective study. Crit Care Med
+1994;22:1568-78.
+17. Hickling KG, Henderson SJ, Jackson R. Low mortality associated with
+low volume pressure limited ventilation with permissive hypercapnia in se-
+vere adult respiratory distress syndrome. Intensive Care Med 1990;16:372-
+7.
+18. Slutsky AS. Mechanical ventilation: American College of Chest Physi-
+cians' Consensus Conference. Chest 1993;104:1833-59. [Erratum, Chest
+1994;106:656.]
+19. Blanch L, Fernandez R, Valles J, Sole J, Roussos C, Artigas A. Effect
+of two tidal volumes on oxygenation and respiratory system mechanics dur-
+ing the early stage of adult respiratory distress syndrome. J Crit Care 1994;
+9:151-8.
+20. Hedley-Whyte J, Pontoppidan H, Morris MJ. The response of patients
+with respiratory failure and cardiopulmonary disease to different levels of
+constant volume ventilation. J Clin Invest 1966;45:1543-54.
+21. Amato MBP, Barbas CSV, Medeiros DM, et al. Effect of a protective-
+ventilation strategy on mortality in the acute respiratory distress syndrome.
+N Engl J Med 1998;338:347-54.
+22. Brochard L, Roudot-Thorava F, Roupie E, et al. Tidal volume reduc-
+tion for prevention of ventilator-induced lung injury in acute respiratory
+distress syndrome. Am J Respir Crit Care Med 1998;158:1831-8.
+23. Stewart TE, Meade MO, Cook DJ, et al. Evaluation of a ventilation
+strategy to prevent barotrauma in patients at high risk for acute respiratory
+distress syndrome. N Engl J Med 1998;338:355-61.
+24. Brower RG, Shanholtz CB, Fessler HE, et al. Prospective, random-
+ized, controlled clinical trial comparing traditional versus reduced tidal vol-
+ume ventilation in acute respiratory distress syndrome patients. Crit Care
+Med 1999;27:1492-8.
+25. Pugh RN, Murray-Lyon IM, Dawson JL, Pietroni MC, Williams R.
+Transection of the oesophagus for bleeding oesophageal varices. Br J Surg
+1973;60:646-9.
+26. Crapo RO, Morris AH, Gardner RM. Reference spirometric values us-
+ing techniques and equipment that meet ATS recommendations. Am Rev
+Respir Dis 1981;123:659-64.
+27. Crapo RO, Morris AH, Clayton PD, Nixon CR. Lung volumes in
+healthy nonsmoking adults. Bull Eur Physiopathol Respir 1982;18:419-25.
+28. Knoben JE, Anderson PO, eds. Handbook of clinical drug data. 7th
+ed. Hamilton, Ill.: Drug Intelligence, 1993.
+29. Bernard GR, Wheeler AP, Arons MM, et al. A trial of antioxidants
+N-acetylcysteine and procysteine in ARDS. Chest 1997;112:164-72.
+30. Arons MM, Wheeler AP, Bernard GR, et al. Effects of ibuprofen on
+the physiology and survival of hypothermic sepsis. Crit Care Med 1999;27:
+699-707.
+31. O'Brien PC, Fleming TR. A multiple testing procedure for clinical tri-
+als. Biometrics 1979;35:549-56.
+32. DeMets DL, Ware JH. Group sequential methods for clinical trials
+with a one-sided hypothesis. Biometrika 1980;67:651-60.
+33. Kalbfleisch JD, Prentice RL. The statistical analysis of failure time
+data. New York: Wiley, 1980.
+34. Knaus WA, Wagner DP, Draper EA, et al. The APACHE III prognos-
+tic system: risk prediction of hospital mortality for critically ill hospitalized
+adults. Chest 1991;100:1619-36.
+35. Ranieri VM, Suter PM, Tortorella C, et al. Effect of mechanical ven-
+tilation on inflammatory mediators in patients with acute respiratory dis-
+tress syndrome: a randomized controlled trial. JAMA 1999;282:54-61.
+36. Carmichael LC, Dorinsky PM, Higgins SB, et al. Diagnosis and ther-
+apy of acute respiratory distress syndrome in adults: an international survey.
+J Crit Care 1996;11:9-18.
+37. Muscedere JG, Mullen JB, Gan K, Slutsky AS. Tidal ventilation at low
+airway pressures can augment lung injury. Am J Respir Crit Care Med
+1994;149:1327-34.
+38. Corbridge TC, Wood LD, Crawford GP, Chudoba MJ, Yanos J, Sznaj-
+der JI. Adverse effects of large tidal volume and low PEEP in canine acid
+aspiration. Am Rev Respir Dis 1990;142:311-5.
+39. Mergoni M, Martelli A, Volpi A, Primavera S, Zuccoli P, Rossi A. Im-
+pact of positive end-expiratory pressure on chest wall and lung pressure-
+volume curve in acute respiratory failure. Am J Respir Crit Care Med 1997;
+156:846-54.
+40. Schnapp LM, Chin DP, Szaflarski N, Matthay MA. Frequency and im-
+portance of barotrauma in 100 patients with acute lung injury. Crit Care
+Med 1995;23:272-8.
+41. Weg JG, Anzueto A, Balk RA, et al. The relation of pneumothorax
+and other air leaks to mortality in the acute respiratory distress syndrome.
+N Engl J Med 1998;338:341-6.
+42. Heitjan DF. Causal inference in a clinical trial: a comparative example.
+Control Clin Trials 1999;20:309-18.
+
+tilation with permissive hypercapnia: a prospective study. Crit Care Med
+1994;22:1568-78.
+
+17. Hickling KG, Henderson SJ, Jackson R. Low mortality associated with
+low volume pressure limited ventilation with permissive hypercapnia in se-
+vere adult respiratory distress syndrome. Intensive Care Med 1990;16:372-
+7.
+
+18. Slutsky AS. Mechanical ventilation: American College of Chest Physi-
+cians' Consensus Conference. Chest 1993;104:1833-59. [Erratum, Chest
+1994;106:656.]
+
+19. Blanch L, Fernandez R, Valles J, Sole J, Roussos C, Artigas A. Effect
+of two tidal volumes on oxygenation and respiratory system mechanics dur-
+ing the early stage of adult respiratory distress syndrome. J Crit Care 1994;
+9:151-8.
+
+20. Hedley-Whyte J, Pontoppidan H, Morris MJ. The response of patients
+with respiratory failure and cardiopulmonary disease to different levels of
+constant volume ventilation. J Clin Invest 1966;45:1543-54.
+
+21. Amato MBP, Barbas CSV, Medeiros DM, et al. Effect of a protective-
+ventilation strategy on mortality in the acute respiratory distress syndrome.
+N Engl J Med 1998;338:347-54.
+
+22. Brochard L, Roudot-Thorava F, Roupie E, et al. Tidal volume reduc-
+tion for prevention of ventilator-induced lung injury in acute respiratory
+distress syndrome. Am J Respir Crit Care Med 1998;158:1831-8.
+
+23. Stewart TE, Meade MO, Cook DJ, et al. Evaluation of a ventilation
+strategy to prevent barotrauma in patients at high risk for acute respiratory
+distress syndrome. N Engl J Med 1998;338:355-61.
+
+24. Brower RG, Shanholtz CB, Fessler HE, et al. Prospective, random-
+ized, controlled clinical trial comparing traditional versus reduced tidal vol-
+ume ventilation in acute respiratory distress syndrome patients. Crit Care
+Med 1999;27:1492-8.
+
+25. Pugh RN, Murray-Lyon IM, Dawson JL, Pietroni MC, Williams R.
+Transection of the oesophagus for bleeding oesophageal varices. Br J Surg
+1973;60:646-9.
+
+26. Crapo RO, Morris AH, Gardner RM. Reference spirometric values us-
+ing techniques and equipment that meet ATS recommendations. Am Rev
+Respir Dis 1981;123:659-64.
+
+27. Crapo RO, Morris AH, Clayton PD, Nixon CR. Lung volumes in
+healthy nonsmoking adults. Bull Eur Physiopathol Respir 1982;18:419-25.
+
+28. Knoben JE, Anderson PO, eds. Handbook of clinical drug data. 7th
+ed. Hamilton, Ill.: Drug Intelligence, 1993.
+
+29. Bernard GR, Wheeler AP, Arons MM, et al. A trial of antioxidants
+N-acetylcysteine and procysteine in ARDS. Chest 1997;112:164-72.
+
+30. Arons MM, Wheeler AP, Bernard GR, et al. Effects of ibuprofen on
+the physiology and survival of hypothermic sepsis. Crit Care Med 1999;27:
+699-707.
+
+31. O'Brien PC, Fleming TR. A multiple testing procedure for clinical tri-
+als. Biometrics 1979;35:549-56.
+
+32. DeMets DL, Ware JH. Group sequential methods for clinical trials
+with a one-sided hypothesis. Biometrika 1980;67:651-60.
+
+33. Kalbfleisch JD, Prentice RL. The statistical analysis of failure time
+data. New York: Wiley, 1980.
+
+34. Knaus WA, Wagner DP, Draper EA, et al. The APACHE III prognos-
+tic system: risk prediction of hospital mortality for critically ill hospitalized
+adults. Chest 1991;100:1619-36.
+
+35. Ranieri VM, Suter PM, Tortorella C, et al. Effect of mechanical ven-
+tilation on inflammatory mediators in patients with acute respiratory dis-
+tress syndrome: a randomized controlled trial. JAMA 1999;282:54-61.
+
+36. Carmichael LC, Dorinsky PM, Higgins SB, et al. Diagnosis and ther-
+apy of acute respiratory distress syndrome in adults: an international survey.
+J Crit Care 1996;11:9-18.
+
+37. Muscedere JG, Mullen JB, Gan K, Slutsky AS. Tidal ventilation at low
+airway pressures can augment lung injury. Am J Respir Crit Care Med
+1994;149:1327-34.
+
+38. Corbridge TC, Wood LD, Crawford GP, Chudoba MJ, Yanos J, Sznaj-
+der JI. Adverse effects of large tidal volume and low PEEP in canine acid
+aspiration. Am Rev Respir Dis 1990;142:311-5.
+
+39. Mergoni M, Martelli A, Volpi A, Primavera S, Zuccoli P, Rossi A. Im-
+pact of positive end-expiratory pressure on chest wall and lung pressure-
+volume curve in acute respiratory failure. Am J Respir Crit Care Med 1997;
+156:846-54.
+
+40. Schnapp LM, Chin DP, Szaflarski N, Matthay MA. Frequency and im-
+portance of barotrauma in 100 patients with acute lung injury. Crit Care
+Med 1995;23:272-8.
+
+41. Weg JG, Anzueto A, Balk RA, et al. The relation of pneumothorax
+and other air leaks to mortality in the acute respiratory distress syndrome.
+N Engl J Med 1998;338:341-6.
+
+42. Heitjan DF. Causal inference in a clinical trial: a comparative example.
+Control Clin Trials 1999;20:309-18.
+
+1308
+
+May 4, 2000
+
+The New England Journal of Medicine
+Downloaded from nejm.org at Univ of Florida Health Science Lib on July 30, 2024. For personal use only.
+No other uses without permission. Copyright © 2000 Massachusetts Medical Society. All rights reserved.
+
+
