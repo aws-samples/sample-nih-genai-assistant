@@ -4,7 +4,7 @@
 
 ## Important Disclaimers
 - The stack that these templates create are for demonstration purposes only
-- It should be deployed in a non-production account
+- It should be deployed in a non-production account with no other resources
 - The delete-script associated with the root stack will remove AWS services associated with it
 - The Stack is restricted to a single region in each AWS account
 - The Stack will create resources that will incur costs
@@ -41,11 +41,10 @@ The preferred set up is to create a new account in your Organization and add an 
 
 # Deployment
 1. Login to your AWS account that has the AdministratorAccess policy
-2. Enable access to all Anthropic models in Bedrock in the region you will be deploying in. The CloudFormation templates only allow for deployment in us-east-1 and us-west-2.
-3. Create an S3 bucket in the REGION you will deploy the stack to (us-east-1 or us-west-2). An example bucket name would be `[AWS Account #]-researcher-cloudformation-bucket-[AWS REGION]`. Remember bucket names must be unique; adding your AWS account number and deployment region to the bucket name will help make it unique.
-4. Upload all files from the `bucketfiles` directory in the git repo into the root of the bucket you created above.
-5. From the CloudFormation console, deploy the `root.yaml` - see screenshots below.
-6. Verify you are in the correct region!
+2. Create an S3 bucket in the REGION you will deploy the stack to (us-east-1 or us-west-2). An example bucket name would be `[AWS Account #]-researcher-cloudformation-bucket-[AWS REGION]`. Remember bucket names must be unique; adding your AWS account number and deployment region to the bucket name will help make it unique.
+3. Upload all files from the `bucketfiles` directory in the git repo into the root of the bucket you created above.
+4. From the CloudFormation console, deploy the `root.yaml` - see screenshots below.
+5. Verify you are in the correct region!
 
 > **Note**: Average time to deploy all stacks and for CodeBuild to finish is about 25 minutes.
 
@@ -78,7 +77,7 @@ Both codebuild projects MUST complete successfully before you can deploy the app
 
 1. From AWS Console, navigate to CodeBuild
 2. Select Build Projects in left Navigation bar
-3. Click on the build project name
+3. Choose build project name
 4. You must see the following in order to proceed - both projects need to be successful
 
    ![CodeBuild Success](./documentation/CodeBuildSuccess.png)
@@ -87,7 +86,7 @@ Both codebuild projects MUST complete successfully before you can deploy the app
 For security reasons, the default setup comes with a WAF IP Set and Rule that only allows a default IPv4 and IPv6 to access Amplify. You must add your IPs to the Set or you can delete the WAF Rule and allow all IPs if your security team approves.
 
 ### To Delete the Rule:
-1. Go to Web ACLs, click on rule and disassociate from the service, then you can delete the rule
+1. Go to Web ACLs, Select rule and disassociate from the service, then you can delete the rule
 2. From AWS Console, navigate to WAF & Shield
 
    ![Remove WAF ACL 1](./documentation/RemoveWAFACL-1.png)
@@ -100,11 +99,11 @@ For security reasons, the default setup comes with a WAF IP Set and Rule that on
 
 1. From AWS Console, navigate to WAF & Shield
 2. Select IP Sets in left Navigation bar
-3. Click on BlockIPSet
+3. Choose BlockIPSet
 
    ![WAF 01](./documentation/WAF-01.png)
    
-4. Find your public IP address and add it using correct format like `99.234.54.13/32`
+4. Find your public IP address and add it using correct format like `99.234.54.13/32` - You can use https://checkip.amazonaws.com/
 
    ![WAF 02](./documentation/WAF-02.png)
 
@@ -124,7 +123,7 @@ For security reasons, the default setup comes with a WAF IP Set and Rule that on
    ![Deploy App 03](./documentation/DeployApp-03.png)
    ![Deploy App 04](./documentation/DeployApp-04.png)
    
-6. Once it is uploaded, deployment will begin. When you see the green Deployed, click on the link under Domain.
+6. Once it is uploaded, deployment will begin. When you see the green Deployed, Select the link under Domain.
 
    ![Deploy App 05](./documentation/DeployApp-05.png)
 
@@ -140,8 +139,8 @@ Cognito is used for Authentication of the Amplify App.
 
 The Admin should:
 1. Go to Cognito
-2. Click on the User pool created
-3. On the left side, click "Users"
+2. Select the User pool created
+3. On the left side, Select "Users"
 4. Confirm the recently created user
 
    ![Admin Confirm](./documentation/AdminConfirm.png)
@@ -157,7 +156,7 @@ The GitHub repo has a test-files directory with files related to NIH-Grant PAR-2
 
 1. Start by searching on PAR-23-025 and follow the screenshots below to generate a grant template
 2. **Note**: Generation can take up to 10 minutes
-3. Once it is complete, click the Template Download link and review the generated grant
+3. Once it is complete, Select the Template Download link and review the generated grant
    
    > **IMPORTANT**: The presigned URL link will only last 15 minutes
 
@@ -250,10 +249,10 @@ Models that can be used include (replace the MODEL_ID Environment Variable in NI
 - `anthropic.claude-3-haiku-20240307-v1:0`
 - `amazon.nova-pro-v1:0`
 - `nova-lite-v1:0`
-- `arn:aws:bedrock:us-east-1:376129841173:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0`
-- `arn:aws:bedrock:us-west-2:376129841173:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0`
-- `arn:aws:bedrock:us-east-1:376129841173:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0`
-- `arn:aws:bedrock:us-west-2:376129841173:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0`
+- `arn:aws:bedrock:us-east-1:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0`
+- `arn:aws:bedrock:us-west-2:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0`
+- `arn:aws:bedrock:us-east-1:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0`
+- `arn:aws:bedrock:us-west-2:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0`
 
 # Costs
 A rough estimate for running the AI and associated services in AWS is $20-25 per day.
@@ -325,6 +324,16 @@ fUQYcF3YR+2k3K9Tpfv+AA+YRYzQpqmBlyD9wqb3erZ3jIUYL0SZuXqKZL/dcE/CbNPEUhOCuoQ=
 </Error>
 ```
 - Download links only last 15 minutes
+
+## Error: CodeBuild project nih-grants-codebuild fails
+When this codebuild projects fails with below error, run it again in codebuild. There may have been a network error during install.
+
+```
+An error occurred (AccessDeniedException) when calling the CreateFunction operation: Lambda does not have permission to access the ECR image. Check the ECR permissions.
+566
+567[Container] 2025/05/01 15:37:42.246171 Command did not exit successfully aws lambda create-function --function-name NIHTemplateGen --code ImageUri=$AWS_ECR_REPOSITORY_URI:$IMAGE_TAG --package-type Image --role $LAMBDAROLEARN --timeout 900 --memory-size 3008 --environment Variables="{DDB_TABLE=nih-grants-table, MODEL_ID=arn:aws:bedrock:$AWS_REGION:$AWS_ACCOUNT_ID:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0, REGION=$AWS_REGION, S3_OUTPUT_BUCKET=$NIHCONTEXTBUCKET, MODEL_OUTOUT_TOKENS=16000, MODEL_REGION=$AWS_REGION, WS_DDB_TABLE=nih-ws-table, WS_ENDPOINT=$WSENDPOINT, AK=$AK}" exit status 254
+568[Container] 2025/05/01 15:37:42.250816 Phase complete: POST_BUILD State: FAILED
+```
 
 ## When you run into other errors
 Create a github issue and we will look into it
