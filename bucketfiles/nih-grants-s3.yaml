@@ -129,10 +129,19 @@ Resources:
               KMSMasterKeyID: !GetAtt S3KMSKey.Arn
             BucketKeyEnabled: true
       CorsConfiguration:
-        CorsRules: 
-          - AllowedHeaders: ["*"]
-            AllowedMethods: ["GET", "PUT", "POST", "DELETE", "HEAD"]
-            AllowedOrigins: ["*"]
+        CorsRules:
+          - AllowedHeaders: 
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedOrigins:
+              - '*'
+            ExposedHeaders:
+              - ETag
             MaxAge: 3000
       NotificationConfiguration:
         LambdaConfigurations:

@@ -73,7 +73,7 @@ Resources :
                       arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${group}
                     - region: !Ref "AWS::Region"
                       account: !Ref "AWS::AccountId"
-                      group: !Ref ApiGatewayAccessLogGroup
+                      group: !Join ['', ['/aws/apigateway-', !Ref RestApi, '-access-logs']]
                 - Effect: Allow
                   Action: 
                     - kms:Decrypt
@@ -803,15 +803,6 @@ Resources :
       AliasName: alias/nih-grants-apigateway-logs-key
       TargetKeyId: !Ref ApiGatewayLogsKMSKey
 
-  ApiGatewayAccessLogGroup:
-    Type: 'AWS::Logs::LogGroup'
-    Properties:
-      LogGroupName: !Join
-        - '-'
-        - ['/aws/apigateway', !Ref RestApi, 'access-logs']
-      RetentionInDays: 7  
-      KmsKeyId: !GetAtt ApiGatewayLogsKMSKey.Arn
-
   ApiGatewayCloudWatchLogsRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -832,11 +823,7 @@ Resources :
         RestApiId: !Ref RestApi
         Description: NIH Grants API deployment
         StageName: Dev
-        StageDescription:
-          AccessLogSetting:
-            DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
-            Format: '$context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.responseLength $context.requestId'
-      
+        
   ApiKey:
     Type: 'AWS::ApiGateway::ApiKey'
     Metadata:

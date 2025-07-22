@@ -244,7 +244,7 @@ The memory size for all Lambda Functions is set to 3008 MB. You should increase 
 To access OpenSearch Dashboard, edit "Data access policies" for the "Access policy name" called quickstart-access-policy. For the "Selected Principals" add the role `role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AWSAdministratorAccess_xxxxxxx` where this matches your Identity Center user.
 
 # Model Access
-Models that can be used include (replace the MODEL_ID Environment Variable in NIHTemplateGen):
+The default model is Sonnet 3.7 which from our testing provides the best results. Other models that can be used include the following. Your mileage may vary. Replace the MODEL_ID Environment Variable in NIHTemplateGen:
 
 - `anthropic.claude-3-haiku-20240307-v1:0`
 - `amazon.nova-pro-v1:0`
@@ -253,6 +253,22 @@ Models that can be used include (replace the MODEL_ID Environment Variable in NI
 - `arn:aws:bedrock:us-west-2:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0`
 - `arn:aws:bedrock:us-east-1:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0`
 - `arn:aws:bedrock:us-west-2:xxxxxxxxxxxx:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0`
+
+# Changing the Navigation colors and image.
+### 1. Download the nih-bot-amplify-build.zip to your local machine and unzip. You should see files similar to the following.
+![AU-files](./documentation/AmplifyUpdate-00.png)
+### 2. Modify the file called index-xxxxxxx.css. Globally replace #f47321 with the primary HTML color of your choice and #005030 with the secondary HTML color of your choice.
+### 3. Replace the image file aws-samples-img.png with a high resolution png file of your choice. Make sure you use the file name aws-samples-img.png.
+### 4. From within the directory where these files live, zip up the contents up one level. 
+``` zip -r ../nih-bot-amplify-build.zip . ```
+### 5. Deploy the new zip file to Amplify
+
+![AU-deploy1](./documentation/AmplifyUpdate-01.png)
+
+![AU-deploy2](./documentation/AmplifyUpdate-02.png)
+
+![AU-deploy3](./documentation/AmplifyUpdate-03.png)
+
 
 # Costs
 A rough estimate for running the AI and associated services in AWS is $20-25 per day.
@@ -307,7 +323,10 @@ This can happen for various reasons, usually due to a bad network connection on 
 - The model is responsible for HTML formatting. Sometimes this doesn't happen cleanly even though the content is there. Run again if this happens.
 
 ## Error: Input Tokens Exceeded
-- If you submit too many documents to the model for any of the prompts, or if the size of all the documents exceeds the input tokens allowed by the model, you will receive this error. Reduce your documents and try again.
+- If you submit too many documents to the model for any of the prompts, or if the size of all the documents exceeds the input tokens allowed by the model, you will receive this error. Reduce your documents and "Start Over".
+
+## Error: n error occurred (ValidationException) when calling the InvokeModel operation: Input is too long for requested model.
+- Same as above. If you submit too many documents to the model for any of the prompts, or if the size of all the documents exceeds the input tokens allowed by the model, you will receive this error. Reduce your documents and "Start Over".
 
 ## Error: Download Link Has Expired
 ```xml
@@ -325,7 +344,7 @@ fUQYcF3YR+2k3K9Tpfv+AA+YRYzQpqmBlyD9wqb3erZ3jIUYL0SZuXqKZL/dcE/CbNPEUhOCuoQ=
 ```
 - Download links only last 15 minutes
 
-## Error: CodeBuild project nih-grants-codebuild fails
+## Error: CodeBuild project nih-grants-codebuild fails / Unable to find nih-bot-amplify-build.zip
 When this codebuild projects fails with below error, run it again in codebuild. There may have been a network error during install.
 
 ```

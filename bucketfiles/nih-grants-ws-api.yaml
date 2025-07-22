@@ -288,14 +288,6 @@ Resources:
       AliasName: alias/nih-grants-apigateway-ws-logs-key
       TargetKeyId: !Ref ApiGatewayLogsKMSKey
 
-  ApiGatewayAccessLogGroup:
-    Type: "AWS::Logs::LogGroup"
-    Properties:
-      LogGroupName: !Join
-        - "-"
-        - ["/aws/apigateway", !Ref nihGrantsApiWS, "access-logs"]
-      RetentionInDays: 7
-      KmsKeyId: !GetAtt ApiGatewayLogsKMSKey.Arn
 
   ApiGatewayCloudWatchLogsRole:
     Type: "AWS::IAM::Role"
@@ -333,10 +325,7 @@ Resources:
       Description: Dev Stage
       DeploymentId: !Ref Deployment
       ApiId: !Ref nihGrantsApiWS
-      AccessLogSettings:
-        DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
-        Format: '{ "requestId":"$context.requestId", "ip": "$context.identity.sourceIp", "requestTime":"$context.requestTime", "httpMethod":"$context.httpMethod", "routeKey":"$context.routeKey", "status":"$context.status","protocol":"$context.protocol", "responseLength":"$context.responseLength", "integrationError":"$context.integrationErrorMessage" }'
-
+      
   OnConnectPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
