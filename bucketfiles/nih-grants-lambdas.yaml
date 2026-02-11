@@ -745,6 +745,7 @@ Resources:
         Action: lambda:InvokeFunction
         FunctionName: NIHQueryGrants
         Principal: apigateway.amazonaws.com
+        SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/search'
 
   ConfigContextHTMLScraperLambdaPermission:
       Type: "AWS::Lambda::Permission"
@@ -753,6 +754,7 @@ Resources:
         Action: lambda:InvokeFunction
         FunctionName: ContextHTMLScraper
         Principal: apigateway.amazonaws.com
+        SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/scrapeURLContext'
    
   ConfigNIHGrantListS3ArtifactsLambdaPermission:
       Type: "AWS::Lambda::Permission"
@@ -761,6 +763,7 @@ Resources:
         Action: lambda:InvokeFunction
         FunctionName: NIHGrantListS3Artifacts
         Principal: apigateway.amazonaws.com
+        SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/listS3Artifacts'
 
   ConfigNIHGrantCheckTemplateStatusLambdaPermission:
       Type: "AWS::Lambda::Permission"
@@ -769,6 +772,7 @@ Resources:
         Action: lambda:InvokeFunction
         FunctionName: NIHGrantCheckTemplateStatus
         Principal: apigateway.amazonaws.com
+        SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/checkTemplateStatus'
 
   ConfigNIHModelPromptsLambdaPermission:
       Type: "AWS::Lambda::Permission"
@@ -777,6 +781,7 @@ Resources:
         Action: lambda:InvokeFunction
         FunctionName: NIHModelPrompts
         Principal: apigateway.amazonaws.com
+        SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/modelPrompts'
 
 Outputs:
   LambdaExecutionRole:
