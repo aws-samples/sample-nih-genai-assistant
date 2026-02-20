@@ -296,7 +296,7 @@ Resources:
                 - DELETE_FUNCTION=$(aws lambda delete-function --function-name NIHTemplateGen 2>&1 >/dev/null) || true
                 - echo $DELETE_FUNCTION
                 - echo "Create  TemplateGen Lambda function"
-                - aws lambda create-function --function-name NIHTemplateGen --code ImageUri=$AWS_ECR_REPOSITORY_URI:$IMAGE_TAG --package-type Image --role $LAMBDAROLEARN --timeout 900 --memory-size 3008 --environment Variables="{DDB_TABLE=nih-grants-table, MODEL_ID=arn:aws:bedrock:$AWS_REGION:$AWS_ACCOUNT_ID:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0, REGION=$AWS_REGION, S3_OUTPUT_BUCKET=$NIHCONTEXTBUCKET, MODEL_OUTOUT_TOKENS=16000, MODEL_REGION=$AWS_REGION, WS_DDB_TABLE=nih-ws-table, WS_ENDPOINT=$WSENDPOINT, AK=$AK}"
+                - aws lambda create-function --function-name NIHTemplateGen --code ImageUri=$AWS_ECR_REPOSITORY_URI:$IMAGE_TAG --package-type Image --role $LAMBDAROLEARN --timeout 900 --memory-size 3008 --environment Variables="{DDB_TABLE=nih-grants-table, MODEL_ID=arn:aws:bedrock:$AWS_REGION:$AWS_ACCOUNT_ID:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0, REGION=$AWS_REGION, S3_OUTPUT_BUCKET=$NIHCONTEXTBUCKET, MODEL_OUTOUT_TOKENS=16000, MODEL_REGION=$AWS_REGION, WS_DDB_TABLE=nih-ws-table, WS_ENDPOINT=$WSENDPOINT, AK=$AK}"
                 - ADD_TRIGGER=$(aws lambda create-event-source-mapping --event-source-arn arn:aws:sqs:$AWS_REGION:$AWS_ACCOUNT_ID:NIHGrantsQueue --function-name NIHTemplateGen --enabled 2>&1 >/dev/null) || true
                 - echo $ADD_TRIGGER
                 - cd

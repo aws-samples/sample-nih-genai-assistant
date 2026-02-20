@@ -502,6 +502,11 @@ Resources:
         Statement:
           - Effect: Allow
             Action:
+              - "aws-marketplace:ViewSubscriptions"
+              - "aws-marketplace:Subscribe"
+            Resource: "*"
+          - Effect: Allow
+            Action:
               - "s3:ListStorageLensConfigurations"
               - "s3:ListAccessPointsForObjectLambda"
               - "s3:GetAccessPoint"
@@ -526,7 +531,7 @@ Resources:
                 - 'arn:aws:bedrock:*::*'
                 - account: !Ref "AWS::AccountId"
               - Fn::Sub:
-                - 'arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0'
+                - 'arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.anthropic.claude-sonnet-4-5-20250929-v1:0'
                 - account: !Ref "AWS::AccountId"
               - Fn::Sub:
                 - 'arn:aws:bedrock:*:${AWS::AccountId}:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0'
